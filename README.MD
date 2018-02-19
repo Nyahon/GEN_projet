@@ -10,14 +10,19 @@ Projette
 * Other Versions
 
 ## Usage
-```$ git clone https://github.com/username/software-project.git
-...```
+```
+$ git clone https://github.com/username/software-project.git
+...
+```
 
 ## Contributors
 
 ### Contributors on GitHub
-* [Contributors](https://github.com/username/sw-name/graphs/contributors)
-
+* Loic   Fruh
+* Yann   Lederrey
+* Yohann Meyer
+* Joel   Schar
+ 
 ### Translations
 * [Transifex](https://www.transifex.com/projects/p/sw-name/)
 

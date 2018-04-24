@@ -132,7 +132,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Créé un compte",
+											"text": "Créer un compte",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1071,13 +1071,13 @@
 											"showShadow": true,
 											"containerChangeable": false,
 											"containerExtending": false,
-											"left": 705,
+											"left": 705.5,
 											"top": 211.5,
-											"width": 161,
+											"width": 165,
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "combatre un autre joueur",
+											"text": "combattre un autre joueur",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -1143,9 +1143,9 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 700,
+									"left": 700.5,
 									"top": 204.5,
-									"width": 172,
+									"width": 176,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -1293,7 +1293,7 @@
 							"containerExtending": false,
 							"left": 664,
 							"top": 200,
-							"width": 243,
+							"width": 248,
 							"height": 35,
 							"autoResize": false,
 							"stereotypeDisplay": "label",
@@ -2308,7 +2308,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "récupère questions si gagne",
+											"text": "récupère question si gagne",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3397,7 +3397,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "utiliser un Jocker",
+											"text": "utiliser un objet",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -3465,7 +3465,7 @@
 									"containerExtending": false,
 									"left": 1017,
 									"top": 468.5,
-									"width": 119,
+									"width": 118,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -3962,7 +3962,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 938,
+									"left": 939,
 									"top": 248,
 									"width": 56,
 									"height": 13,
@@ -3997,7 +3997,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 970,
+									"left": 971,
 									"top": 234,
 									"width": 0,
 									"height": 13,
@@ -4031,7 +4031,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 957,
+									"left": 958,
 									"top": 277,
 									"width": 0,
 									"height": 13,
@@ -4064,7 +4064,7 @@
 								"$ref": "AAAAAAFiSP7gg0QpFF8="
 							},
 							"lineStyle": 1,
-							"points": "846:235;1078:303",
+							"points": "848:235;1078:303",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -4106,7 +4106,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 779,
+									"left": 780,
 									"top": 297,
 									"width": 56,
 									"height": 13,
@@ -4141,7 +4141,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 822,
+									"left": 823,
 									"top": 296,
 									"width": 0,
 									"height": 13,
@@ -4175,7 +4175,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 778,
+									"left": 779,
 									"top": 300,
 									"width": 0,
 									"height": 13,
@@ -4208,7 +4208,7 @@
 								"$ref": "AAAAAAFiSP7gg0QpFF8="
 							},
 							"lineStyle": 1,
-							"points": "787:235;800:375",
+							"points": "789:235;800:375",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -6209,7 +6209,7 @@
 								"$ref": "AAAAAAFitW1R0CJlgbE="
 							},
 							"lineStyle": 1,
-							"points": "735:147;772:199"
+							"points": "735:147;774:199"
 						},
 						{
 							"_type": "UMLUseCaseView",
@@ -6277,7 +6277,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "gagne expérience si gange",
+											"text": "gagne expérience si gagne",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7312,7 +7312,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "gagne jocker si gange",
+											"text": "gagne objet si gange",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -7380,7 +7380,7 @@
 									"containerExtending": false,
 									"left": 839.5,
 									"top": 92.5,
-									"width": 151,
+									"width": 150,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -7589,7 +7589,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 858,
+									"left": 859,
 									"top": 166,
 									"width": 0,
 									"height": 13,
@@ -7623,7 +7623,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 859,
+									"left": 860,
 									"top": 148,
 									"width": 53,
 									"height": 13,
@@ -7658,7 +7658,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 839,
+									"left": 840,
 									"top": 143,
 									"width": 0,
 									"height": 13,
@@ -7691,7 +7691,7 @@
 								"$ref": "AAAAAAFi2TOmL6Qs5a8="
 							},
 							"lineStyle": 1,
-							"points": "893:123;806:199",
+							"points": "894:123;807:199",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -7771,7 +7771,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "gagne points de classement si gange",
+											"text": "gagne points de classement si gagne",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -8465,7 +8465,7 @@
 								"$ref": "AAAAAAFiSP7gg0QpFF8="
 							},
 							"lineStyle": 1,
-							"points": "863:199;928:184;1010:171",
+							"points": "864:199;928:184;1010:171",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -8507,7 +8507,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 964,
+									"left": 966,
 									"top": 192,
 									"width": 0,
 									"height": 13,
@@ -8541,7 +8541,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 931,
+									"left": 933,
 									"top": 192,
 									"width": 55,
 									"height": 13,
@@ -8576,7 +8576,7 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 965,
+									"left": 967,
 									"top": 221,
 									"width": 0,
 									"height": 13,
@@ -8609,7 +8609,7 @@
 								"$ref": "AAAAAAFiSP7gg0QpFF8="
 							},
 							"lineStyle": 1,
-							"points": "907:215;1023:212",
+							"points": "912:214;1023:212",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -9275,7 +9275,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "Créé un compte",
+					"name": "Créer un compte",
 					"ownedElements": [
 						{
 							"_type": "UMLExtend",
@@ -9522,7 +9522,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "combatre un autre joueur",
+					"name": "combattre un autre joueur",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -10068,7 +10068,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "récupère questions si gagne",
+					"name": "récupère question si gagne",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociation",
@@ -10389,7 +10389,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "utiliser un Jocker",
+					"name": "utiliser un objet",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
@@ -10632,7 +10632,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "gagne expérience si gange",
+					"name": "gagne expérience si gagne",
 					"ownedElements": [
 						{
 							"_type": "UMLExtend",
@@ -10674,7 +10674,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "gagne jocker si gange",
+					"name": "gagne objet si gange",
 					"ownedElements": [
 						{
 							"_type": "UMLExtend",
@@ -10702,7 +10702,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFiSPp8cUBbncw="
 					},
-					"name": "gagne points de classement si gange",
+					"name": "gagne points de classement si gagne",
 					"visibility": "public",
 					"isAbstract": false,
 					"isFinalSpecialization": false,

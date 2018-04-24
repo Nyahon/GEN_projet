@@ -1,0 +1,9 @@
+{"payload":
+    {"question":"..",
+    "ans_right":"..",
+    "ans_false":["1":"..","2":"..","3":".."],
+    "opponentHP":45,
+    "playerHP":80
+  }
+ "state":"WIN|LOSE|FIGHTING"
+}

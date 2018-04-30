@@ -12,14 +12,16 @@ public class Etudiant {
     // TODO: Implement real question asking
     public boolean askQuestion(){
         // TODO: give to the player a list of question to choice.
-        // TODO: send to the server the choice question.
+        // TODO: send to the server the choice question, then the question will be send to the other player.
+        // TODO: Then we receive from the server is the response of the adversery is true or false.
         boolean adversaryResponse = false;
     }
 
     // TODO: Implement real question respond
     public void respondQuestion(){
-        // TODO: give to the player a list of 4 response.
+        // TODO: give to the player a list of 4 responses to ask the question of the adversary.
         // TODO: send to the server his response.
+        // TODO: Then the server respond if the response is true or false;
         boolean respondIsRight = false;
         if(respondIsRight){
             nbXP += 10;

@@ -38,7 +38,7 @@ public class Fight {
 
     public void start() {
         inFight = true;
-
+        String command;
         try {
             // get oppenents infos
             opponentName = in.readLine();
@@ -46,7 +46,7 @@ public class Fight {
 
             // start loop for the fight until server tels one of the player is dead
             while (inFight) {
-                switch (in.readLine().toLowerCase()) {
+                switch (command = in.readLine().toUpperCase()) {
                     case "ASK":
                         System.out.print("Ask a question for your opponent : ");
                         out.println(scanner.nextLine());

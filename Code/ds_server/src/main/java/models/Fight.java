@@ -50,6 +50,7 @@ public class Fight {
         outPlayer1.println(player2.getName());
         outPlayer1.println(player2.getNbPV());
         outPlayer1.flush();
+
         outPlayer2.println(player1.getName());
         outPlayer2.println(player1.getNbPV());
         outPlayer2.flush();

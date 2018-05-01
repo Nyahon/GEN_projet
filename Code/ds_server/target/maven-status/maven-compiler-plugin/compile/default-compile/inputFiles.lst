@@ -1,5 +1,6 @@
-/home/ludwig/Documents/HEIG_VD/GEN/ds_server/src/main/java/models/Fight.java
-/home/ludwig/Documents/HEIG_VD/GEN/ds_server/src/main/java/models/Versus.java
-/home/ludwig/Documents/HEIG_VD/GEN/ds_server/src/main/java/models/Connexions.java
-/home/ludwig/Documents/HEIG_VD/GEN/ds_server/src/main/java/models/Player.java
-/home/ludwig/Documents/HEIG_VD/GEN/ds_server/src/main/java/Server.java
+/home/joel/Switchdrive/HEIG/S-4/GEN/Labos/Projet/Code/ds_server/src/main/java/Server.java
+/home/joel/Switchdrive/HEIG/S-4/GEN/Labos/Projet/Code/ds_server/src/main/java/models/Fight.java
+/home/joel/Switchdrive/HEIG/S-4/GEN/Labos/Projet/Code/ds_server/src/main/java/models/Connexions.java
+/home/joel/Switchdrive/HEIG/S-4/GEN/Labos/Projet/Code/ds_server/src/main/java/models/Challenge.java
+/home/joel/Switchdrive/HEIG/S-4/GEN/Labos/Projet/Code/ds_server/src/main/java/models/WaitChallenge.java
+/home/joel/Switchdrive/HEIG/S-4/GEN/Labos/Projet/Code/ds_server/src/main/java/models/Player.java

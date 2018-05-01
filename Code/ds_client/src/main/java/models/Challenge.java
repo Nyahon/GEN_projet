@@ -58,7 +58,7 @@ public class Challenge {
                 else {
                     System.out.println("You Challenge a dude !");
                     Fight fight = new Fight(player);
-                    fight.startFight();
+                    fight.start();
                     isInChallengeMode = false;
                 }
                 break;

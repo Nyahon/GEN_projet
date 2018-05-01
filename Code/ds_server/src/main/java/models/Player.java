@@ -53,6 +53,8 @@ public class Player {
         this.nbPV = nbPV;
     }
 
+    public void loosePV(int nbPV){ this.nbPV = nbPV;}
+
     public int getNbXP() {
         return nbXP;
     }

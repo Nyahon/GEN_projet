@@ -101,10 +101,6 @@ public class Server {
                     receiveCMD(in.readLine());
                 }
 
-
-
-
-
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
                 return;

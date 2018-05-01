@@ -4,54 +4,106 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.Scanner;
 
 public class Fight {
-    private Player player1;
-    private Player player2;
+    private Player player;
 
-    private BufferedReader inPlayer1;
-    private PrintWriter outPlayer1;
+    // TODO will be changed to an Object to manage opponent information
+    private int opponentLife;
+    private String opponentName;
 
-    private BufferedReader inPlayer2;
-    private PrintWriter outPlayer2;
+    private BufferedReader in;
+    private PrintWriter out;
+    private Scanner scanner;
+
+    private boolean inFight;
 
 
 
-    public Fight(Player player1, Player player2) {
-        this.player1 = player1;
-        this.player2 = player2;
+
+    public Fight(Player player) {
+        this.player = player;
 
         try {
-            inPlayer1 = new BufferedReader(new InputStreamReader(player1.getSocket().getInputStream()));
-            inPlayer2 = new BufferedReader(new InputStreamReader(player2.getSocket().getInputStream()));
-            outPlayer1 = new PrintWriter(player1.getSocket().getOutputStream());
-            outPlayer2 = new PrintWriter(player2.getSocket().getOutputStream());
+            in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
+            out = new PrintWriter(player.getSocket().getOutputStream());
+            scanner = new Scanner(System.in);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void nextAction() {
+    public void start() {
+        inFight = true;
 
-    }
+        try {
+            // get oppenents infos
+            opponentName = in.readLine();
+            opponentLife = Integer.parseInt(in.readLine());
 
-    public void getState() {
+            // start loop for the fight until server tels one of the player is dead
+            while (inFight) {
+                switch(in.readLine().toLowerCase()){
+                    case "ASK":
+                        System.out.print("Ask a question for your opponent : ");
+                        out.println(scanner.nextLine());
+                        out.flush();
+                        System.out.println("Wait your opponent to answer your question.");
 
-    }
+                        // result of opponent
+                        switch(in.readLine().toUpperCase()){
+                            case "RIGHT":
+                                player.setNbPV(Integer.parseInt(in.readLine()));
+                                break;
+                            case "FALSE":
+                                opponentLife -= Integer.parseInt(in.readLine());
+                                break;
+                        }
 
-    private int getPlayer1HP() {
-        return 0;
-    }
+                        break;
+                    case "ANSWER":
+                        System.out.println("Wait for your oppent to ask you a quesiton.");
+                        System.out.println(in.readLine());
+                        System.out.print("Type your answer : ");
+                        out.println(scanner.nextLine());
+                        out.flush();
 
-    private int getPlayer2HP() {
-        return 0;
-    }
+                        // result
+                        switch(in.readLine().toLowerCase()){
+                            case "RIGHT":
+                                opponentLife -= Integer.parseInt(in.readLine());
+                                break;
+                            case "FALSE":
+                                player.setNbPV(Integer.parseInt(in.readLine()));
+                                break;
+                        }
 
-    public void startFight() {
-        outPlayer1.println(player2.getName() + " is challenging you !");
-        outPlayer1.flush();
-        outPlayer2.println( player1.getName() + " is challenging you !");
-        outPlayer2.flush();
+                        break;
+
+                    case "END":
+                        switch(in.readLine().toLowerCase()){
+                            case "WON":
+                                System.out.println("You won the fight !");
+                                break;
+                            case "LOST":
+                                System.out.println("You lost the fight !");
+                                break;
+                        }
+                        inFight = false;
+                        break;
+
+                    default:
+                        break;
+
+                }
+            }
+
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+
+
     }
 }

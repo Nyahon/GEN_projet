@@ -61,7 +61,7 @@ public class Versus {
         }
 
         Fight fight = new Fight(player, opponent);
-        fight.startFight();
+        fight.start();
 
     }
 }

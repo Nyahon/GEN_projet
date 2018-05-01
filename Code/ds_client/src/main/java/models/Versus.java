@@ -8,13 +8,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Versus {
-    private Player player;
+    private Player player;              // joueur local
     private BufferedReader in = null;
     private PrintWriter out = null;
     private static final Logger LOG = Logger.getLogger(Versus.class.getName());
 
 
-    public Versus (Player player) {
+    public Versus(Player player) {
         this.player = player;
         try {
             in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
@@ -38,10 +38,13 @@ public class Versus {
         switch (cmd) {
             case "QUIT":
                 break;
+            case "FIGHT":
+                    Fight fight = new Fight(player);
+                    fight.start();
+                break;
 
-
-            default :
-                LOG.log(Level.INFO,"UNKNOW COMMAND");
+            default:
+                LOG.log(Level.INFO, "UNKNOW COMMAND");
                 return;
         }
     }

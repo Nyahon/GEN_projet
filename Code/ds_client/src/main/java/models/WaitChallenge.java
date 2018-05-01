@@ -7,14 +7,16 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Versus {
-    private Player player;              // joueur local
+
+public class WaitChallenge {
+    private Player player;
     private BufferedReader in = null;
     private PrintWriter out = null;
-    private static final Logger LOG = Logger.getLogger(Versus.class.getName());
+    private static final Logger LOG = Logger.getLogger(WaitChallenge.class.getName());
 
 
-    public Versus(Player player) {
+
+    public WaitChallenge(Player player) {
         this.player = player;
         try {
             in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
@@ -28,7 +30,7 @@ public class Versus {
         LOG.log(Level.INFO, "Enter in the VERSUS Mode");
         // Attend commande du serveur
         System.out.println(in.readLine());
-        recieveCMD(in.readLine());
+        recieveCMD( in.readLine());
 
         LOG.log(Level.INFO, "Player " + player.getName() + " exit VERSUS Mode");
 
@@ -39,17 +41,13 @@ public class Versus {
             case "QUIT":
                 break;
             case "FIGHT":
-                    Fight fight = new Fight(player);
-                    fight.start();
+                Fight fight = new Fight(player);
+                fight.start();
                 break;
 
-            default:
-                LOG.log(Level.INFO, "UNKNOW COMMAND");
+            default :
+                LOG.log(Level.INFO,"UNKNOW COMMAND");
                 return;
         }
-    }
-
-    public void challenge(Player opponent) {
-
     }
 }

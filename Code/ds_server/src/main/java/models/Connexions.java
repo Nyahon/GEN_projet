@@ -28,6 +28,12 @@ public class Connexions {
         return connectedPlayers.remove((Player) player);
     }
 
+    public void removePlayers (Player... players) {
+        for (Player p : players) {
+            removePlayer(p);
+        }
+    }
+
     public Player getPlayer(String name) {
         List<Player> players = getConnectedPlayers();
         for (Player p : players) {

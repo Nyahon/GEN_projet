@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.logging.Logger;
 import java.util.Scanner;
 
 public class Fight {
@@ -16,10 +17,9 @@ public class Fight {
     private BufferedReader in;
     private PrintWriter out;
     private Scanner scanner;
+    private static final Logger LOG = Logger.getLogger(Fight.class.getName());
 
     private boolean inFight;
-
-
 
 
     public Fight(Player player) {
@@ -29,6 +29,7 @@ public class Fight {
             in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
             out = new PrintWriter(player.getSocket().getOutputStream());
             scanner = new Scanner(System.in);
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,7 +46,7 @@ public class Fight {
 
             // start loop for the fight until server tels one of the player is dead
             while (inFight) {
-                switch(in.readLine().toLowerCase()){
+                switch (in.readLine().toLowerCase()) {
                     case "ASK":
                         System.out.print("Ask a question for your opponent : ");
                         out.println(scanner.nextLine());
@@ -53,7 +54,7 @@ public class Fight {
                         System.out.println("Wait your opponent to answer your question.");
 
                         // result of opponent
-                        switch(in.readLine().toUpperCase()){
+                        switch (in.readLine().toUpperCase()) {
                             case "RIGHT":
                                 player.setNbPV(Integer.parseInt(in.readLine()));
                                 break;
@@ -71,7 +72,7 @@ public class Fight {
                         out.flush();
 
                         // result
-                        switch(in.readLine().toLowerCase()){
+                        switch (in.readLine().toLowerCase()) {
                             case "RIGHT":
                                 opponentLife -= Integer.parseInt(in.readLine());
                                 break;
@@ -83,7 +84,7 @@ public class Fight {
                         break;
 
                     case "END":
-                        switch(in.readLine().toLowerCase()){
+                        switch (in.readLine().toLowerCase()) {
                             case "WON":
                                 System.out.println("You won the fight !");
                                 break;
@@ -100,10 +101,9 @@ public class Fight {
                 }
             }
 
-        } catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 }
+

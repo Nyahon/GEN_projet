@@ -9,6 +9,7 @@ public class Player {
     private String name;
     private int level;
     private Socket clientSocket = null;
+    private boolean inFight = false;
 
     public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
 
@@ -87,4 +88,11 @@ public class Player {
         this.clientSocket = clientSocket;
     }
 
+    public boolean getInFight() {
+        return inFight;
+    }
+
+    public void setInFight(boolean bool) {
+        inFight = bool;
+    }
 }

@@ -135,6 +135,5 @@ public class Fight {
             e.printStackTrace();
         }
 
-
     }
 }

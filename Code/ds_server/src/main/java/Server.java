@@ -1,6 +1,7 @@
+import models.Challenge;
 import models.Connexions;
 import models.Player;
-import models.Versus;
+import models.WaitChallenge;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -135,28 +136,19 @@ public class Server {
                     break;
 
                 case "VERSUS":
-                    Versus mode = new Versus(player);
+                    WaitChallenge mode = new WaitChallenge(player);
                     mode.start();
                     break;
 
 
-                default :
-                    String[] otherCMD = cmd.split(" +");
-                    if(otherCMD.length > 0 && otherCMD[0].equalsIgnoreCase("VERSUS")) {
-                        LOG.log(Level.INFO, player.getName() + " Challenge " + otherCMD[1] + " !");
-                        Player p = clientsConnected.getPlayer(otherCMD[1]);
-                        if (p == null) {
-                            LOG.log(Level.INFO, "Player not connected");
-                            break;
-                        }
+                case "CHALLENGE":
+                    Challenge challenge = new Challenge(player);
+                    challenge.launch();
+                    break;
 
-                        Versus versus = new Versus(player);
-                        versus.challenge(p);
-                    }
-                    else {
-                        LOG.log(Level.INFO, "UNKNOW COMMAND");
-                        return;
-                    }
+                default :
+                    LOG.log(Level.INFO, "UNKNOW COMMAND");
+                    return;
             }
         }
     }

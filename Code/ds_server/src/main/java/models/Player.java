@@ -1,13 +1,16 @@
 package models;
 
-public class Etudiant {
+import java.net.Socket;
+
+public class Player {
 
     private int nbPV;
     private int nbXP;
     private String name;
     private int level;
+    private Socket clientSocket = null;
 
-    public Etudiant(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
+    public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
 
     // TODO: Implement real question asking
     public boolean askQuestion(){
@@ -15,6 +18,8 @@ public class Etudiant {
         // TODO: send to the server the choice question, then the question will be send to the other player.
         // TODO: Then we receive from the server is the response of the adversery is true or false.
         boolean adversaryResponse = false;
+
+        return adversaryResponse;
     }
 
     // TODO: Implement real question respond
@@ -70,6 +75,14 @@ public class Etudiant {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Socket getClientSocket() {
+        return clientSocket;
+    }
+
+    public void setClientSocket(Socket clientSocket) {
+        this.clientSocket = clientSocket;
     }
 
 }

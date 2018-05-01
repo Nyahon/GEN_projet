@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>GEN</groupId>
-    <artifactId>ds_server</artifactId>
+    <artifactId>ds_client</artifactId>
     <version>1.0-SNAPSHOT</version>
     <build>
         <plugins>
@@ -34,7 +34,7 @@
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!-- nom de la classe ou se situe le main (ATTENTION nom complet avec les packages) -->
-                                    <mainClass>Server</mainClass>
+                                    <mainClass>Client</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

@@ -1,0 +1,5 @@
+models/Fight.class
+models/Player.class
+models/Versus.class
+Client.class
+models/Connexions.class

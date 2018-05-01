@@ -1,5 +1,6 @@
+import models.Challenge;
 import models.Player;
-import models.Versus;
+import models.WaitChallenge;
 
 import java.io.*;
 import java.net.Socket;
@@ -28,7 +29,7 @@ public class Client {
         this.serverListenPort = serverListenPort;
     }
 
-    public void connect() throws IOException {
+    public void connect() throws IOException, InterruptedException {
         LOG.log(Level.INFO, "Connection with the server...");
         socket = new Socket(serverAddress, serverListenPort);
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -57,7 +58,7 @@ public class Client {
 
     }
 
-    public void sendCMD(String cmd) throws IOException {
+    public void sendCMD(String cmd) throws IOException, InterruptedException {
         output.println(cmd);
         output.flush();
         switch (cmd) {
@@ -74,15 +75,17 @@ public class Client {
                 break;
 
             case "VERSUS":
-                Versus mode = new Versus(player);
+                WaitChallenge mode = new WaitChallenge(player);
                 mode.start();
                 break;
 
+            case "CHALLENGE":
+                Challenge challenge = new Challenge(player);
+                challenge.launch();
+                break;
+
             default :
-                String[] otherCMD = cmd.split(" +");
-                if(otherCMD.length > 0 && otherCMD[0].equalsIgnoreCase("VERSUS")) {
-                    LOG.log(Level.INFO, "Challenge " + otherCMD[1] + " !");
-                }
+
         }
     }
 
@@ -92,7 +95,7 @@ public class Client {
 
         try {
             client.connect();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
 

@@ -49,6 +49,8 @@ public class Fight {
     }
 
     public void startFight() {
+        player1.setInFight(true);
+        player2.setInFight(true);
         outPlayer1.println(player2.getName() + " is challenging you !");
         outPlayer1.flush();
         outPlayer2.println( player1.getName() + " is challenging you !");

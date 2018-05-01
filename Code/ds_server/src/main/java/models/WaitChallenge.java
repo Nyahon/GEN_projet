@@ -8,15 +8,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Versus {
+public class WaitChallenge {
     private Player player;
     private BufferedReader in = null;
     private PrintWriter out = null;
-    private static Connexions challengers = new Connexions();
-    private static final Logger LOG = Logger.getLogger(Versus.class.getName());
+    static Connexions challengers = new Connexions();
+    private static final Logger LOG = Logger.getLogger(WaitChallenge.class.getName());
 
 
-    public Versus (Player player) {
+    public WaitChallenge(Player player) {
         this.player = player;
         try {
             in = new BufferedReader(new InputStreamReader(player.getClientSocket().getInputStream()));
@@ -26,14 +26,17 @@ public class Versus {
         }
     }
 
-    public void start() throws IOException, InterruptedException{
+    public synchronized void start() throws IOException, InterruptedException{
         LOG.log(Level.INFO, "Player " + player.getName() + " enter in VERSUS Mode");
         challengers.addPlayer(player);
         while (challengers.isPlayerConnected(player)) {
             out.println("VERSUS: Waiting for a Challenger...");
             out.flush();
-            Thread.sleep(10000);
-            out.println("QUIT");
+            Thread.sleep(30000); // TODO: Trouver une solution pour l'attente qui dure après un combat si trop court
+            if (!player.getInFight()) {
+                out.println("QUIT");
+                out.flush();
+            }
             challengers.removePlayer(player);
         }
 
@@ -41,27 +44,4 @@ public class Versus {
 
     }
 
-    public void recieveCMD(String cmd) throws IOException {
-        switch (cmd) {
-            case "QUIT":
-                challengers.removePlayer(player);
-                break;
-
-
-            default :
-                LOG.log(Level.INFO,"UNKNOW COMMAND");
-                return;
-        }
-    }
-
-    public void challenge(Player opponent) {
-        if(!challengers.isPlayerConnected(opponent)){
-            LOG.log(Level.INFO, "Player is not waiting for a challenge");
-            return;
-        }
-
-        Fight fight = new Fight(player, opponent);
-        fight.startFight();
-
-    }
 }

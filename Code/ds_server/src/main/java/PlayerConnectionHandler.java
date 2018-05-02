@@ -111,6 +111,9 @@ public class PlayerConnectionHandler implements Runnable {
             out.println("VERSUS: Waiting for a Challenger...");
             out.flush();
 
+            synchronized (player) {
+                player.wait();
+            }
 
 
             fight();
@@ -164,6 +167,10 @@ public class PlayerConnectionHandler implements Runnable {
                             PrintWriter signal = new PrintWriter(opponent.getClientSocket().getOutputStream());
                             signal.println("FIGHT");
                             signal.flush();
+                            synchronized (opponent) {
+                                opponent.notify();
+                            }
+
 
                             gameEngine.startFight(player, opponent);
 
@@ -191,6 +198,6 @@ public class PlayerConnectionHandler implements Runnable {
 
     private void fight(){
 
-
+    LOG.log(Level.INFO, player.getName() + " is in FIGHT Mode !");
     }
 }

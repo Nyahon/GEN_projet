@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Random;
 
-public class Fight{
+public class Fight implements Runnable {
     private Player player1;
     private Player player2;
 
@@ -18,8 +18,12 @@ public class Fight{
 
     private int round;
 
+    private Thread thread;
+
 
     public Fight(Player player1, Player player2) {
+
+
         // put randomely player in first position to define random beginner
         Random rand = new Random();
         switch (rand.nextInt(2) + 1) {
@@ -41,10 +45,13 @@ public class Fight{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        thread = new Thread(this);
+        thread.start();
     }
 
 
-    public void start() {
+    public void run() {
         outPlayer1.println(player2.getName());
         outPlayer1.println(player2.getNbPV());
         outPlayer1.flush();

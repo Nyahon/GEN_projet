@@ -62,6 +62,6 @@ public class GameEngine implements Runnable{
     }
 
     public void startFight(Player player, Player opponent){
-        opponent.notifyWaitingConnection();
+        Fight fight = new Fight(player, opponent);
     }
 }

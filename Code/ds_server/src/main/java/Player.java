@@ -1,4 +1,5 @@
 import java.net.Socket;
+import java.util.Queue;
 
 public class Player {
 
@@ -9,6 +10,7 @@ public class Player {
     private Socket clientSocket = null;
     private PlayerConnectionHandler connectionHandler;
     private boolean inFight = false;
+
 
     public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
 

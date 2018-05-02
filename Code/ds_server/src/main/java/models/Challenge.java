@@ -1,4 +1,6 @@
+/*
 package models;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -79,6 +81,7 @@ public class Challenge {
                     signal.println("FIGHT");
                     signal.flush();
 
+                    p.notify();
                     challengersWaiting.removePlayer(p);
                     Fight fight = new Fight(player, p);
                     fight.start();
@@ -100,4 +103,4 @@ public class Challenge {
     }
 
 }
-
+*/

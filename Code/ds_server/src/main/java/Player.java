@@ -1,5 +1,3 @@
-package models;
-
 import java.net.Socket;
 
 public class Player {
@@ -9,6 +7,7 @@ public class Player {
     private String name;
     private int level;
     private Socket clientSocket = null;
+    private PlayerConnectionHandler connectionHandler;
     private boolean inFight = false;
 
     public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
@@ -86,6 +85,14 @@ public class Player {
 
     public void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
+    }
+
+    public void setConnectionHandler(PlayerConnectionHandler handler){
+        this.connectionHandler = handler;
+    }
+
+    public void notifyWaitingConnection(){
+        connectionHandler.notify();
     }
 
     public boolean getInFight() {

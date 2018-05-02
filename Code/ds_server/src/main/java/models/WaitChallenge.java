@@ -1,3 +1,5 @@
+/*
+
 package models;
 
 import java.io.BufferedReader;
@@ -32,11 +34,16 @@ public class WaitChallenge {
         while (challengers.isPlayerConnected(player)) {
             out.println("VERSUS: Waiting for a Challenger...");
             out.flush();
+
+
+
+
             Thread.sleep(30000); // TODO: Trouver une solution pour l'attente qui dure après un combat si trop court
             if (!player.getInFight()) {
                 out.println("QUIT");
                 out.flush();
             }
+
             challengers.removePlayer(player);
         }
 
@@ -45,3 +52,4 @@ public class WaitChallenge {
     }
 
 }
+*/

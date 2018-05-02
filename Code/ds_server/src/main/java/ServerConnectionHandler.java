@@ -3,13 +3,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
-public class NewConnectionHandler implements Runnable {
+public class ServerConnectionHandler implements Runnable {
 
     private static final Logger LOG = Logger.getLogger(Server.class.getName());
     private int port;
 
-    public NewConnectionHandler(int port){
+    private GameEngine gameEngine;
+
+    private Thread thread;
+
+    public ServerConnectionHandler(int port, GameEngine gameEngine){
+
+        this.gameEngine = gameEngine;
+
         this.port = port;
+        thread = new Thread(this);
+        thread.start();
     }
     public void run() {
 
@@ -20,7 +29,7 @@ public class NewConnectionHandler implements Runnable {
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                new Thread(new PlayerConnectionHandler(clientSocket)).start();
+                new Thread(new PlayerConnectionHandler(clientSocket, gameEngine)).start();
             }
 
         }

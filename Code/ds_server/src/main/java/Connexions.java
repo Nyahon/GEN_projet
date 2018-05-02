@@ -1,5 +1,3 @@
-package models;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,13 +22,13 @@ public class Connexions {
         connectedPlayers.addAll(players);
     }
 
-    public boolean removePlayer(Player player) {
+    public boolean remove(Player player) {
         return connectedPlayers.remove((Player) player);
     }
 
-    public void removePlayers (Player... players) {
+    public void remove(Player... players) {
         for (Player p : players) {
-            removePlayer(p);
+            remove(p);
         }
     }
 
@@ -49,13 +47,11 @@ public class Connexions {
         connectedPlayers.clear();
     }
 
-    public boolean isPlayerConnected(Player player) {
+    public boolean isConnected(Player player) {
         return connectedPlayers.contains(player);
     }
 
     public List<Player> getConnectedPlayers() {
-        List<Player> players = new ArrayList<>();
-        players.addAll(connectedPlayers);
-        return players;
+        return new ArrayList<>(connectedPlayers);
     }
 }

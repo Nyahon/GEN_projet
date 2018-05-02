@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Random;
 
-public class Fight {
+public class Fight{
     private Player player1;
     private Player player2;
 
@@ -56,6 +56,8 @@ public class Fight {
         outPlayer2.flush();
 
         inFight = true;
+        player1.setInFight(true);
+        player2.setInFight(true);
         round = 0;
         try {
             while (inFight) {
@@ -130,11 +132,13 @@ public class Fight {
                 }
 
                 round++;
-            }
+            } // end while inFight
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        player1.setInFight(false);
+        player2.setInFight(false);
     }
 }

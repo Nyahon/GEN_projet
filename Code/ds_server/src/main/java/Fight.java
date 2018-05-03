@@ -8,12 +8,6 @@ public class Fight implements Runnable {
     private Player player1;
     private Player player2;
 
-    private BufferedReader inPlayer1;
-    private PrintWriter outPlayer1;
-
-    private BufferedReader inPlayer2;
-    private PrintWriter outPlayer2;
-
     private boolean inFight;
 
     private int round;
@@ -37,109 +31,90 @@ public class Fight implements Runnable {
                 break;
         }
 
-        try {
-            inPlayer1 = new BufferedReader(new InputStreamReader(player1.getClientSocket().getInputStream()));
-            inPlayer2 = new BufferedReader(new InputStreamReader(player2.getClientSocket().getInputStream()));
-            outPlayer1 = new PrintWriter(player1.getClientSocket().getOutputStream());
-            outPlayer2 = new PrintWriter(player2.getClientSocket().getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         thread = new Thread(this);
         thread.start();
     }
 
 
-    public void run() {
-        outPlayer1.println(player2.getName());
-        outPlayer1.println(player2.getNbPV());
-        outPlayer1.flush();
-
-        outPlayer2.println(player1.getName());
-        outPlayer2.println(player1.getNbPV());
-        outPlayer2.flush();
-
-        inFight = true;
-        player1.setInFight(true);
-        player2.setInFight(true);
-        round = 0;
+    public void run()  {
         try {
-            while (inFight) {
+            player1.setFightMessageIn(player2.getName());
+            player1.setFightMessageIn(String.valueOf(player2.getNbPV()));
 
-                // todo: function to avoid duplicated code
+            player2.setFightMessageIn(player1.getName());
+            player2.setFightMessageIn(String.valueOf(player1.getNbPV()));
 
-                if (round % 2 == 0) {
+            inFight = true;
+            player1.setInFight(true);
+            player2.setInFight(true);
+            round = 0;
 
-                    outPlayer1.println("ASK");
-                    outPlayer1.flush();
+                while (inFight) {
 
-                    outPlayer2.println("ANSWER");
-                    outPlayer2.flush();
+                    // todo: function to avoid duplicated code
 
-                    // transfer question to other player
-                    outPlayer2.println(inPlayer1.readLine());
-                    outPlayer2.flush();
+                    if (round % 2 == 0) {
 
-                    String response = inPlayer2.readLine();
+                        player1.setFightMessageIn("ASK");
 
-                } else {
+                        player2.setFightMessageIn("ANSWER");
 
-                    outPlayer2.println("ASK");
-                    outPlayer2.flush();
+                        player2.setFightMessageIn(player1.getFightMessageOut());
 
-                    outPlayer1.println("ANSWER");
-                    outPlayer1.flush();
-
-
-                    // transfer question to other player
-                    outPlayer1.println(inPlayer2.readLine());
-                    outPlayer1.flush();
-
-                    String response = inPlayer1.readLine();
-
-                }
-                // fixme: for the first sprint and for the demo answer is always defined as false;
-
-                outPlayer1.println("FALSE");
-                outPlayer1.println("40");
-                outPlayer1.flush();
-
-                outPlayer2.println("FALSE");
-                outPlayer2.println("40");
-                outPlayer2.flush();
-
-                player2.loosePV(40);
+                        String response = player2.getFightMessageOut();
 
 
+                    } else {
 
-                if(player1.getNbPV() <= 0){
-                    outPlayer1.println("END");
-                    outPlayer1.println("LOST");
-                    outPlayer1.flush();
+                        player2.setFightMessageIn("ASK");
 
-                    outPlayer2.println("END");
-                    outPlayer2.println("WON");
-                    outPlayer2.flush();
+                        player1.setFightMessageIn("ANSWER");
 
-                    inFight = false;
-                }
-                if(player2.getNbPV() <= 0){
-                    outPlayer1.println("END");
-                    outPlayer1.println("WON");
-                    outPlayer1.flush();
+                        player1.setFightMessageIn(player2.getFightMessageOut());
 
-                    outPlayer2.println("END");
-                    outPlayer2.println("LOST");
-                    outPlayer2.flush();
+                        String response = player1.getFightMessageOut();
 
-                    inFight = false;
-                }
+                    }
+                    // fixme: for the first sprint and for the demo answer is always defined as false;
 
-                round++;
-            } // end while inFight
+                    player1.setFightMessageIn("FALSE");
+                    player1.setFightMessageIn("40");
+                    player2.setFightMessageIn("FALSE");
+                    player2.setFightMessageIn("40");
 
-        } catch (IOException e) {
+                    player2.loosePV(40);
+
+                    round++;
+
+                    if(player1.getNbPV() <= 0 || player2.getNbPV() <= 0){
+                        inFight = false;
+                        player1.setInFight(false);
+                        player2.setInFight(false);
+                    }
+
+
+                    //player1.notifyWaitingConnection();
+                   // player2.notifyWaitingConnection();
+                } // end while inFight
+
+                    if (player1.getNbPV() <= 0) {
+                        player1.setFightMessageIn("END");
+                        player1.setFightMessageIn("LOST");
+
+                        player2.setFightMessageIn("END");
+                        player2.setFightMessageIn("WON");
+                    }
+                    if (player2.getNbPV() <= 0) {
+                        player1.setFightMessageIn("END");
+                        player1.setFightMessageIn("WON");
+
+                        player2.setFightMessageIn("END");
+                        player2.setFightMessageIn("LOST");
+                    }
+
+
+        }
+        catch (InterruptedException e) {
             e.printStackTrace();
         }
 

@@ -1,5 +1,6 @@
 import java.net.Socket;
-import java.util.Queue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Player {
 
@@ -8,9 +9,11 @@ public class Player {
     private String name;
     private int level;
     private Socket clientSocket = null;
-    private PlayerConnectionHandler connectionHandler;
+    private PlayerConnectionHandler playerConnectionHandler;
     private boolean inFight = false;
 
+    private BlockingQueue<String> fightMessageIn = new LinkedBlockingQueue<>();
+    private BlockingQueue<String> fightMessageOut = new LinkedBlockingQueue<>();
 
     public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
 
@@ -55,7 +58,7 @@ public class Player {
         this.nbPV = nbPV;
     }
 
-    public void loosePV(int nbPV){ this.nbPV = nbPV;}
+    public void loosePV(int nbPV){ this.nbPV -= nbPV;}
 
     public int getNbXP() {
         return nbXP;
@@ -81,6 +84,22 @@ public class Player {
         this.level = level;
     }
 
+    public String getFightMessageIn() throws InterruptedException {
+        return fightMessageIn.take();
+    }
+
+    public void setFightMessageIn(String message) throws InterruptedException {
+        fightMessageIn.put(message);
+    }
+
+    public String getFightMessageOut() throws InterruptedException {
+        return fightMessageOut.take();
+    }
+
+    public void setFightMessageOut(String message) throws InterruptedException {
+        fightMessageOut.put(message);
+    }
+
     public Socket getClientSocket() {
         return clientSocket;
     }
@@ -89,13 +108,16 @@ public class Player {
         this.clientSocket = clientSocket;
     }
 
-    public void setConnectionHandler(PlayerConnectionHandler handler){
-        this.connectionHandler = handler;
+    public void setPlayerConnectionHandler(PlayerConnectionHandler handler){
+        this.playerConnectionHandler = handler;
     }
-
+/*
     public void notifyWaitingConnection(){
-        connectionHandler.notify();
+        synchronized (playerConnectionHandler) {
+            playerConnectionHandler.notify();
+        }
     }
+    */
 
     public boolean getInFight() {
         return inFight;

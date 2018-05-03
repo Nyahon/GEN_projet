@@ -43,7 +43,7 @@ public class PlayerConnectionHandler implements Runnable {
             out.println("SERVER: Welcome to Drunk&Smart " + player.getName() + " !");
             out.flush();
             player.setClientSocket(clientSocket);
-            player.setConnectionHandler(this);
+            player.setPlayerConnectionHandler(this);
             gameEngine.register(player);
 
             LOG.log(Level.INFO, "Player " + player.getName() + " registered !");
@@ -103,7 +103,7 @@ public class PlayerConnectionHandler implements Runnable {
         }
     }
 
-    public void versusCMD() throws InterruptedException {
+    public void versusCMD() throws InterruptedException, IOException {
         LOG.log(Level.INFO, "Player " + player.getName() + " enter in VERSUS Mode");
         gameEngine.addChallenger(player);
 
@@ -124,7 +124,7 @@ public class PlayerConnectionHandler implements Runnable {
         LOG.log(Level.INFO, "Player " + player.getName() + " exit VERSUS Mode");
     }
 
-    public void challengeCMD() {
+    public void challengeCMD() throws InterruptedException {
         LOG.log(Level.INFO, player.getName() + " enter in CHALLENGE Mode");
         boolean isInChallengeMode = true;
         try {
@@ -196,8 +196,48 @@ public class PlayerConnectionHandler implements Runnable {
         LOG.log(Level.INFO, player.getName() + " EXIT Challenge mode");
     }
 
-    private void fight(){
+    private void fight() throws InterruptedException, IOException{
 
-    LOG.log(Level.INFO, player.getName() + " is in FIGHT Mode !");
+        LOG.log(Level.INFO, player.getName() + " is in FIGHT Mode !");
+
+        out.println(player.getFightMessageIn());
+        out.println(player.getFightMessageIn());
+        out.flush();
+
+        while (player.getInFight()) {
+            String variable = player.getFightMessageIn();
+            out.println(variable);
+            out.flush();
+
+            switch (variable) {
+                case "ASK":
+                    player.setFightMessageOut(in.readLine());
+                    break;
+                case "ANSWER":
+                    out.println(player.getFightMessageIn());
+                    out.flush();
+                    player.setFightMessageOut(in.readLine());
+                    break;
+            }
+
+            out.println(player.getFightMessageIn());
+            out.println(player.getFightMessageIn());
+            out.flush();
+            /*synchronized (this) {
+                wait();
+            }*/
+            sleep(3000);
+        }
+
+            out.println(player.getFightMessageIn());
+            out.println(player.getFightMessageIn());
+            out.flush();
+
+
+
+
+
+
+
     }
 }

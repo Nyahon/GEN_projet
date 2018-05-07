@@ -43,9 +43,10 @@ public class Fight {
             opponentName = in.readLine();
             opponentLife = Integer.parseInt(in.readLine());
 
-            System.out.println("Votre adversaire est :");
+            System.out.println("Votre adversaire: ---------------------------------------------------------------------");
             System.out.println(opponentName.toUpperCase());
             System.out.println("PV: " + opponentLife);
+            System.out.println("---------------------------------------------------------------------------------------");
 
 
             // start loop for the fight until server tels one of the player is dead
@@ -69,7 +70,7 @@ public class Fight {
 
                         break;
                     case "ANSWER":
-                        System.out.println("Wait for your oppent to ask you a quesiton.");
+                        System.out.println("Wait for your opponent to ask you a quesiton.");
                         System.out.println(in.readLine());
                         System.out.print("Type your answer : ");
                         out.println(scanner.nextLine());
@@ -103,6 +104,10 @@ public class Fight {
                         break;
 
                 }
+                System.out.println("PV: -------------------------------------------------------------------------------");
+                System.out.println(opponentName + ": " + opponentLife);
+                System.out.println("Vous: " + player.getNbPV());
+                System.out.println("-----------------------------------------------------------------------------------");
             }
 
         } catch (IOException e) {

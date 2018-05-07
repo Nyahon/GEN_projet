@@ -119,6 +119,10 @@ public class PlayerConnectionHandler implements Runnable {
                 challengeCMD();
                 break;
 
+            case "STORY":
+                storyCMD();
+                break;
+
             default:
                 LOG.log(Level.INFO, "UNKNOW COMMAND");
                 return;
@@ -216,6 +220,14 @@ public class PlayerConnectionHandler implements Runnable {
         }
 
         LOG.log(Level.INFO, player.getName() + " EXIT Challenge mode");
+    }
+
+    public void storyCMD() throws InterruptedException, IOException {
+        LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in STORY Mode");
+
+        gameEngine.startFightStory(player);
+
+        LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
     }
 
     private void fight() throws InterruptedException, IOException{

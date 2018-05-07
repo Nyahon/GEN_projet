@@ -70,4 +70,8 @@ public class GameEngine implements Runnable{
     public void startFight(Player player, Player opponent){
         Fight fight = new Fight(player, opponent);
     }
+
+    public void startFightStory(Player player){
+        FightStory fight = new FightStory(player);
+    }
 }

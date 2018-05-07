@@ -346,11 +346,11 @@ public class ConnectionDB {
         }
     }
 
-    public static LinkedList<db_Question> getQuestionByProfesseur(int idProf) {
+    public static LinkedList<Question> getQuestionByProfesseur(int idProf) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
-        LinkedList<db_Question> questions = new LinkedList<>();
+        LinkedList<Question> questions = new LinkedList<>();
         try {
             c = DriverManager.getConnection(DB_URL);
             stmt = c.createStatement();
@@ -368,7 +368,7 @@ public class ConnectionDB {
                 String reponseFausse3 = rs.getString("ReponseFausse3");
                 int id = rs.getInt("Id");
 
-                db_Question db_question = new db_Question(id,question, reponseCorrecte, reponseFausse1, reponseFausse2, reponseFausse3);
+                Question db_question = new Question(id,question, reponseCorrecte, reponseFausse1, reponseFausse2, reponseFausse3);
                 questions.add(db_question);
                 System.out.println(db_question);
                 System.out.println();

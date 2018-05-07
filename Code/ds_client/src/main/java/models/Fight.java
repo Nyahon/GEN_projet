@@ -72,7 +72,7 @@ public class Fight {
                         out.flush();
 
                         // result
-                        switch (in.readLine().toLowerCase()) {
+                        switch (in.readLine().toUpperCase()) {
                             case "RIGHT":
                                 opponentLife -= Integer.parseInt(in.readLine());
                                 break;
@@ -84,7 +84,7 @@ public class Fight {
                         break;
 
                     case "END":
-                        switch (in.readLine().toLowerCase()) {
+                        switch (in.readLine().toUpperCase()) {
                             case "WON":
                                 System.out.println("You won the fight !");
                                 break;

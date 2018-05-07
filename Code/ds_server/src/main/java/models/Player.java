@@ -1,6 +1,10 @@
 package models;
 
 import java.net.Socket;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
+import server.PlayerConnectionHandler;
 
 public class Player {
 
@@ -9,7 +13,11 @@ public class Player {
     private String name;
     private int level;
     private Socket clientSocket = null;
+    private PlayerConnectionHandler playerConnectionHandler;
     private boolean inFight = false;
+
+    private BlockingQueue<String> fightMessageIn = new LinkedBlockingQueue<>();
+    private BlockingQueue<String> fightMessageOut = new LinkedBlockingQueue<>();
 
     public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
 
@@ -54,7 +62,7 @@ public class Player {
         this.nbPV = nbPV;
     }
 
-    public void loosePV(int nbPV){ this.nbPV = nbPV;}
+    public void loosePV(int nbPV){ this.nbPV -= nbPV;}
 
     public int getNbXP() {
         return nbXP;
@@ -80,6 +88,22 @@ public class Player {
         this.level = level;
     }
 
+    public String getFightMessageIn() throws InterruptedException {
+        return fightMessageIn.take();
+    }
+
+    public void setFightMessageIn(String message) throws InterruptedException {
+        fightMessageIn.put(message);
+    }
+
+    public String getFightMessageOut() throws InterruptedException {
+        return fightMessageOut.take();
+    }
+
+    public void setFightMessageOut(String message) throws InterruptedException {
+        fightMessageOut.put(message);
+    }
+
     public Socket getClientSocket() {
         return clientSocket;
     }
@@ -87,6 +111,11 @@ public class Player {
     public void setClientSocket(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
+
+    public void setPlayerConnectionHandler(PlayerConnectionHandler handler){
+        this.playerConnectionHandler = handler;
+    }
+
 
     public boolean getInFight() {
         return inFight;

@@ -1,9 +1,7 @@
-Server$Boss.class
-models/Player.class
-models/Connexions.class
-models/Fight.class
-Server$1.class
+Connexions.class
+Player.class
+Fight.class
 Server.class
-models/Challenge.class
-models/WaitChallenge.class
-Server$Worker.class
+GameEngine.class
+PlayerConnectionHandler.class
+ServerConnectionHandler.class

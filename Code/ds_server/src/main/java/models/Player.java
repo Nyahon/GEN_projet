@@ -1,6 +1,7 @@
 package models;
 
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -8,6 +9,8 @@ import server.PlayerConnectionHandler;
 
 public class Player {
 
+    private int id;
+    private int annee;
     private int nbPV;
     private int nbXP;
     private String name;
@@ -15,11 +18,13 @@ public class Player {
     private Socket clientSocket = null;
     private PlayerConnectionHandler playerConnectionHandler;
     private boolean inFight = false;
+    private LinkedList<Question> questions;
 
     private BlockingQueue<String> fightMessageIn = new LinkedBlockingQueue<>();
     private BlockingQueue<String> fightMessageOut = new LinkedBlockingQueue<>();
 
-    public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
+    public Player(int id, String name, int annee, int pv, int niveau, int xp){
+        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; questions = new LinkedList<>();this.id = id;}
 
     // TODO: Implement real question asking
     public boolean askQuestion(){
@@ -88,6 +93,23 @@ public class Player {
         this.level = level;
     }
 
+    public void setQuestions(LinkedList<Question> questions){
+        this.questions = questions;
+    }
+
+    public void addQuestions(Question question){
+        this.questions.add(question);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public LinkedList<Question> getQuestions(){
+        return this.questions;
+
+    }
+
     public String getFightMessageIn() throws InterruptedException {
         return fightMessageIn.take();
     }
@@ -123,5 +145,17 @@ public class Player {
 
     public void setInFight(boolean bool) {
         inFight = bool;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", nbPV=" + nbPV +
+                ", nbXP=" + nbXP +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                '}';
     }
 }

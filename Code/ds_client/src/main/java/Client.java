@@ -16,6 +16,7 @@ public class Client {
     private Scanner scanner = new Scanner(System.in);
     private boolean isConnected;
     private Player player;
+    private String response;
 
     private BufferedReader input;
     private PrintWriter output;
@@ -36,27 +37,47 @@ public class Client {
         output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 
-        // Enter Player ID (Inscription)
-        System.out.println(input.readLine());
-        String identifier = scanner.nextLine();
+        // Enter Player ID (LOG IN) -----------------------------------------------------------------------------------
+        boolean isLoginOk = false;
+        String identifier = "";
+        while (!isLoginOk) {
+            System.out.println(input.readLine());
+            identifier = scanner.nextLine();
+            output.println(identifier);
+
+            response = input.readLine();
+
+            if (response.equals("FAILURE")) {
+                System.out.println("This user doesn't exist");
+            }
+            else {
+                isLoginOk = true;
+            }
+        }
+        // END OF LOG IN -----------------------------------------------------------------------------------------------
+
+
+        // Creation of the player object -------------------------------------------------------------------------------
         player = new Player(identifier);
         player.setSocket(socket);
-        output.println(identifier);
+        output.println(player.getName());
         output.flush();
         System.out.println(input.readLine());
+        // END OF CREATION ---------------------------------------------------------------------------------------------
 
 
+        // Send Commands to the server ---------------------------------------------------------------------------------
         LOG.log(Level.INFO, "Connected !");
         isConnected = true;
-
-        // Send Commands to the server
         while (isConnected) {
             System.out.println(input.readLine());
             sendCMD(scanner.nextLine().toUpperCase().trim());
         }
-
+        // END OF THE CLIENT PROGRAMME ---------------------------------------------------------------------------------
 
     }
+
+    
 
     public void sendCMD(String cmd) throws IOException, InterruptedException {
         output.println(cmd);

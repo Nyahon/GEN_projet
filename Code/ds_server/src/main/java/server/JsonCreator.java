@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Player;
+import models.Question;
 
 public class JsonCreator {
 
@@ -23,6 +24,16 @@ public class JsonCreator {
         playerNode.put("xp", player.getLevel());
         playerNode.put("annee", player.getAnnee());
 
+
+        ArrayNode questionsNode = mapper.createArrayNode();
+        for(Question question : player.getQuestions()){
+            ObjectNode questionNode = mapper.createObjectNode();
+            questionNode.put("question",question.getQuestion());
+            questionNode.put("idQuestion",question.getId());
+            questionsNode.add(questionNode);
+        }
+
+        playerNode.putPOJO("Questions",questionsNode);
         try {
             return mapper.writeValueAsString(playerNode);
         } catch (JsonProcessingException e) {

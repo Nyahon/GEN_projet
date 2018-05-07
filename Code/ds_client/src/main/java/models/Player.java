@@ -12,10 +12,12 @@ public class Player {
     private int level;
     private int id;
     private int annee;
+    private LinkedList<Question> questions;
     private Socket socket = null;
 
     public Player(int id, String name, int annee, int pv, int niveau, int xp){
-        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; this.id = id;}
+        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; this.id = id;
+        questions = new LinkedList<>();}
 
 
     // TODO: Implement real question asking
@@ -91,6 +93,22 @@ public class Player {
         this.socket = socket;
     }
 
+    public void setQuestions(LinkedList<Question> questions){
+        this.questions = questions;
+    }
+
+    public void addQuestions(Question question){
+        this.questions.add(question);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public LinkedList<Question> getQuestions(){
+        return this.questions;
+
+    }
 
     @Override
     public String toString() {

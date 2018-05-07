@@ -1,3 +1,9 @@
+package game;
+
+import models.Connexions;
+import models.Player;
+import server.ServerConnectionHandler;
+
 import java.util.List;
 
 public class GameEngine implements Runnable{

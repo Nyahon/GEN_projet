@@ -1,15 +1,20 @@
+package server;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import static java.lang.Thread.sleep;
 
-// Inner Class that receive the client socket from the Boss and serve the client then close the connexion with him
+import game.GameEngine;
+import models.Player;
+
+
+// Class that receive the client socket from the ConnectionHandler and serve the client then close the connexion with him
 public class PlayerConnectionHandler implements Runnable {
 
-    private static final Logger LOG = Logger.getLogger(Server.class.getName());
+    private static final Logger LOG = Logger.getLogger(PlayerConnectionHandler.class.getName());
 
     private GameEngine gameEngine;
 
@@ -36,7 +41,7 @@ public class PlayerConnectionHandler implements Runnable {
     public void run() {
 
         try {
-            // Create and add Player in Connexions to the game engine
+            // Create and add models.Player in models.Connexions to the game engine
             out.println("SERVER: Entrez votre identifiant: ");
             out.flush();
             player = new Player(in.readLine());
@@ -46,7 +51,7 @@ public class PlayerConnectionHandler implements Runnable {
             player.setPlayerConnectionHandler(this);
             gameEngine.register(player);
 
-            LOG.log(Level.INFO, "Player " + player.getName() + " registered !");
+            LOG.log(Level.INFO, "models.Player " + player.getName() + " registered !");
 
             // Receive and treat commands from the client
             while (gameEngine.isConnected(player)) {
@@ -69,7 +74,7 @@ public class PlayerConnectionHandler implements Runnable {
                 out.close();
                 gameEngine.remove(player);
                 clientSocket.close();
-                LOG.log(Level.INFO, "Player " + player.getName() + " disconnected");
+                LOG.log(Level.INFO, "models.Player " + player.getName() + " disconnected");
                 break;
 
             case "LIST_PLAYERS":
@@ -104,7 +109,7 @@ public class PlayerConnectionHandler implements Runnable {
     }
 
     public void versusCMD() throws InterruptedException, IOException {
-        LOG.log(Level.INFO, "Player " + player.getName() + " enter in VERSUS Mode");
+        LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in VERSUS Mode");
         gameEngine.addChallenger(player);
 
         while (gameEngine.isChallenger(player)) {
@@ -121,7 +126,7 @@ public class PlayerConnectionHandler implements Runnable {
             gameEngine.removeChallenger(player);
         }
 
-        LOG.log(Level.INFO, "Player " + player.getName() + " exit VERSUS Mode");
+        LOG.log(Level.INFO, "models.Player " + player.getName() + " exit VERSUS Mode");
     }
 
     public void challengeCMD() throws InterruptedException {
@@ -157,7 +162,7 @@ public class PlayerConnectionHandler implements Runnable {
                         String opponentName = in.readLine();
                         Player opponent = gameEngine.getOpponent(opponentName);
                         if (opponent == null) {
-                            LOG.log(Level.INFO, "Player not connected or not waiting for a challenge");
+                            LOG.log(Level.INFO, "models.Player not connected or not waiting for a challenge");
                             out.println("FAIL");
                             out.flush();
                         } else {

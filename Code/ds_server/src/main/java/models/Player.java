@@ -1,6 +1,10 @@
+package models;
+
 import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import server.PlayerConnectionHandler;
 
 public class Player {
 
@@ -111,13 +115,7 @@ public class Player {
     public void setPlayerConnectionHandler(PlayerConnectionHandler handler){
         this.playerConnectionHandler = handler;
     }
-/*
-    public void notifyWaitingConnection(){
-        synchronized (playerConnectionHandler) {
-            playerConnectionHandler.notify();
-        }
-    }
-    */
+
 
     public boolean getInFight() {
         return inFight;

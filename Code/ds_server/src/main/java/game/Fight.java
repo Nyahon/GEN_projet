@@ -1,8 +1,10 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+package game;
+
 import java.util.Random;
+
+import models.Player;
+
+
 
 public class Fight implements Runnable {
     private Player player1;
@@ -93,9 +95,9 @@ public class Fight implements Runnable {
                     }
 
 
-                    //player1.notifyWaitingConnection();
-                   // player2.notifyWaitingConnection();
-                } // end while inFight
+
+
+                }
 
                     if (player1.getNbPV() <= 0) {
                         player1.setFightMessageIn("END");

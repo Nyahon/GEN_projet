@@ -1,11 +1,15 @@
+package server;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Logger;
 
+import game.GameEngine;
+
 public class ServerConnectionHandler implements Runnable {
 
-    private static final Logger LOG = Logger.getLogger(Server.class.getName());
+    private static final Logger LOG = Logger.getLogger(ServerConnectionHandler.class.getName());
     private int port;
 
     private GameEngine gameEngine;

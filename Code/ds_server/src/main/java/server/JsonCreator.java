@@ -24,7 +24,7 @@ public class JsonCreator {
         playerNode.put("annee", player.getAnnee());
 
         try {
-            return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(playerNode);
+            return mapper.writeValueAsString(playerNode);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

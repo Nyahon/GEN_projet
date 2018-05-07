@@ -79,6 +79,7 @@ public class ConnectionDB {
             rs.close();
             stmt.close();
             c.close();
+            System.out.println("Base de données fermée");
         } catch (SQLException e) {
             e.printStackTrace();
         }

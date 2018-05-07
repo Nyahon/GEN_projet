@@ -62,8 +62,9 @@ public class Client {
         String playerPayloadJson = input.readLine();
         player = JsonCreator.readPlayer(playerPayloadJson);
         player.setSocket(socket);
-        output.println(player);
-        output.flush();
+
+        System.out.println(player);
+
         System.out.println(input.readLine());
         // END OF CREATION ---------------------------------------------------------------------------------------------
 

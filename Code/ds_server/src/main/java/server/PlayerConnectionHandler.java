@@ -51,7 +51,7 @@ public class PlayerConnectionHandler implements Runnable {
                 if(player != null) {
                     player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
                     loginIsOk = true;
-                    out.println("SUCESS");
+                    out.println("SUCCESS");
                     out.println(JsonCreator.SendPlayer(player));
                     out.flush();
                 }

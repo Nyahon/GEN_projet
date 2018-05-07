@@ -39,7 +39,11 @@ public class JsonCreator {
 
             while(elements.hasNext()){
                 JsonNode question = elements.next();
-                Question q = new Question(question.path("idQuestion").asInt(),question.path("question").asText());
+                Question q = new Question(question.path("idQuestion").asInt(),question.path("question").asText(),
+                        question.path("reponseA").asText(),
+                        question.path("reponseB").asText(),
+                        question.path("reponseC").asText(),
+                        question.path("reponseD").asText());
                 questions.add(q);
             }
 

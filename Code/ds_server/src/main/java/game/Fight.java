@@ -2,8 +2,9 @@ package game;
 
 import java.util.Random;
 
+import models.ConnectionDB;
 import models.Player;
-
+import models.Question;
 
 
 public class Fight implements Runnable {
@@ -61,9 +62,18 @@ public class Fight implements Runnable {
 
                         player2.setFightMessageIn("ANSWER");
 
-                        player2.setFightMessageIn(player1.getFightMessageOut());
+                        Question question = ConnectionDB.getQuestionById(Integer.parseInt(player1.getFightMessageOut()));
+                        player2.setFightMessageIn(question.getQuestion());
+
+                        // transmet les choix de réponses
+                        // TODO: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
+                        player2.setFightMessageIn(" A : " + question.getReponseFalse1());
+                        player2.setFightMessageIn(" B : " +question.getReponseFalse2());
+                        player2.setFightMessageIn(" C : " +question.getReponseFalse3());
+                        player2.setFightMessageIn(" D : " +question.getReponseOK());
 
                         String response = player2.getFightMessageOut();
+
 
 
                     } else {
@@ -72,7 +82,13 @@ public class Fight implements Runnable {
 
                         player1.setFightMessageIn("ANSWER");
 
-                        player1.setFightMessageIn(player2.getFightMessageOut());
+                        Question question = ConnectionDB.getQuestionById(Integer.parseInt(player2.getFightMessageOut()));
+                        player1.setFightMessageIn(question.getQuestion());
+
+                        //player1.setFightMessageIn(" A : " + question.getReponseFalse1());
+                        //player1.setFightMessageIn(" B : " +question.getReponseFalse2());
+                        //player1.setFightMessageIn(" C : " +question.getReponseFalse3());
+                        //player1.setFightMessageIn(" D : " +question.getReponseOK());
 
                         String response = player1.getFightMessageOut();
 

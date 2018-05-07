@@ -110,6 +110,12 @@ public class Player {
 
     }
 
+    public void afficheQuestions(){
+        for(Question q : questions){
+            System.out.println("id : " + q.getId() + " : " + q.getQuestion());
+        }
+    }
+
     @Override
     public String toString() {
         return "Player{" +

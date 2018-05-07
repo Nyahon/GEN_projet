@@ -251,6 +251,39 @@ public class ConnectionDB {
         }
     }
 
+    public static Question getQuestionById(int idQuestion) {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        Question quest = null;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT * FROM Question WHERE Id = " + idQuestion + ";");
+
+            while (rs.next()) {
+                String question = rs.getString("Question");
+                String reponseCorrecte = rs.getString("ReponseCorrecte");
+                String reponseFausse1 = rs.getString("ReponseFausse1");
+                String reponseFausse2 = rs.getString("ReponseFausse2");
+                String reponseFausse3 = rs.getString("ReponseFausse3");
+                int id = rs.getInt("Id");
+
+                quest = new Question(id,question, reponseCorrecte, reponseFausse1, reponseFausse2, reponseFausse3);
+                System.out.println(quest);
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return quest;
+        }
+    }
+
     public static db_Professeur getProfesseurById(int IdProf) {
         Connection c = null;
         Statement stmt = null;

@@ -54,6 +54,8 @@ public class Fight {
                 switch (in.readLine().toUpperCase()) {
                     case "ASK":
                         System.out.print("Ask a question for your opponent : ");
+                        System.out.println("select a question between these by his id : ");
+                        this.player.afficheQuestions();
                         out.println(scanner.nextLine());
                         out.flush();
                         System.out.println("Wait your opponent to answer your question.");
@@ -72,7 +74,14 @@ public class Fight {
                     case "ANSWER":
                         System.out.println("Wait for your opponent to ask you a quesiton.");
                         System.out.println(in.readLine());
-                        System.out.print("Type your answer : ");
+                        System.out.println("Type your answer select you answer between these : ");
+
+                        //Affiche les choix de réponses
+                        //System.out.println(in.readLine());
+                        //System.out.println(in.readLine());
+                        //System.out.println(in.readLine());
+                        //System.out.println(in.readLine());
+
                         out.println(scanner.nextLine());
                         out.flush();
 

@@ -30,6 +30,10 @@ public class JsonCreator {
             ObjectNode questionNode = mapper.createObjectNode();
             questionNode.put("question",question.getQuestion());
             questionNode.put("idQuestion",question.getId());
+            questionNode.put("reponseA",question.getReponseOK());
+            questionNode.put("reponseB",question.getReponseFalse1());
+            questionNode.put("reponseC",question.getReponseFalse2());
+            questionNode.put("reponseD",question.getReponseFalse3());
             questionsNode.add(questionNode);
         }
 

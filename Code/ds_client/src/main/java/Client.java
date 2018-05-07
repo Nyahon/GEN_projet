@@ -56,24 +56,28 @@ public class Client {
         }
         // END OF LOG IN -----------------------------------------------------------------------------------------------
 
+
+        // Creation of the player object -------------------------------------------------------------------------------
         player = new Player(identifier);
         player.setSocket(socket);
-        output.println(identifier);
+        output.println(player.getName());
         output.flush();
         System.out.println(input.readLine());
+        // END OF CREATION ---------------------------------------------------------------------------------------------
 
 
+        // Send Commands to the server ---------------------------------------------------------------------------------
         LOG.log(Level.INFO, "Connected !");
         isConnected = true;
-
-        // Send Commands to the server
         while (isConnected) {
             System.out.println(input.readLine());
             sendCMD(scanner.nextLine().toUpperCase().trim());
         }
-
+        // END OF THE CLIENT PROGRAMME ---------------------------------------------------------------------------------
 
     }
+
+    
 
     public void sendCMD(String cmd) throws IOException, InterruptedException {
         output.println(cmd);

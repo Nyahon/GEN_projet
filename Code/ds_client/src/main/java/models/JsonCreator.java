@@ -55,4 +55,25 @@ public class JsonCreator {
 
         return player;
     }
+
+    public static void AfficheReponses(String jsonPayload){
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        JsonNode rootNode = null;
+        try {
+
+            rootNode = objectMapper.readTree(jsonPayload);
+
+            JsonNode reponsesNode = rootNode.path("Reponses");
+            Iterator<JsonNode> elements = reponsesNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode reponse = elements.next();
+                System.out.println(reponse.path("idRep").asText() + " : " + reponse.path("rep").asText());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

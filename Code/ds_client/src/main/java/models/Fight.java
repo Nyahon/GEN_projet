@@ -74,13 +74,10 @@ public class Fight {
                     case "ANSWER":
                         System.out.println("Wait for your opponent to ask you a quesiton.");
                         System.out.println(in.readLine());
-                        System.out.println("Type your answer select you answer between these : ");
+                        System.out.println("Type your answer select you answer between these by the letter: ");
 
                         //Affiche les choix de réponses
-                        //System.out.println(in.readLine());
-                        //System.out.println(in.readLine());
-                        //System.out.println(in.readLine());
-                        //System.out.println(in.readLine());
+                        JsonCreator.AfficheReponses(in.readLine());
 
                         out.println(scanner.nextLine());
                         out.flush();

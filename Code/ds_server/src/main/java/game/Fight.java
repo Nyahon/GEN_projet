@@ -5,6 +5,7 @@ import java.util.Random;
 import models.ConnectionDB;
 import models.Player;
 import models.Question;
+import server.JsonCreator;
 
 
 public class Fight implements Runnable {
@@ -66,14 +67,16 @@ public class Fight implements Runnable {
                         player2.setFightMessageIn(question.getQuestion());
 
                         // transmet les choix de réponses
-                        // TODO: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
-                        player2.setFightMessageIn(" A : " + question.getReponseFalse1());
-                        player2.setFightMessageIn(" B : " +question.getReponseFalse2());
-                        player2.setFightMessageIn(" C : " +question.getReponseFalse3());
-                        player2.setFightMessageIn(" D : " +question.getReponseOK());
+                        // fixme: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
+                        String repPayloadJson = JsonCreator.sendReponses(question);
+                        System.out.println(repPayloadJson);
+                        player2.setFightMessageIn(repPayloadJson);
 
                         String response = player2.getFightMessageOut();
-
+                        String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
+                        if(question.getReponseOK().equals(choixReponse)){
+                            //repondu juste
+                        }
 
 
                     } else {
@@ -85,12 +88,17 @@ public class Fight implements Runnable {
                         Question question = ConnectionDB.getQuestionById(Integer.parseInt(player2.getFightMessageOut()));
                         player1.setFightMessageIn(question.getQuestion());
 
-                        //player1.setFightMessageIn(" A : " + question.getReponseFalse1());
-                        //player1.setFightMessageIn(" B : " +question.getReponseFalse2());
-                        //player1.setFightMessageIn(" C : " +question.getReponseFalse3());
-                        //player1.setFightMessageIn(" D : " +question.getReponseOK());
+                        // transmet les choix de réponses
+                        // fixme: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
+                        String repPayloadJson = JsonCreator.sendReponses(question);
+                        System.out.println(repPayloadJson);
+                        player1.setFightMessageIn(repPayloadJson);
 
                         String response = player1.getFightMessageOut();
+                        String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
+                        if(question.getReponseOK().equals(choixReponse)){
+                            //repondu juste
+                        }
 
                     }
                     // fixme: for the first sprint and for the demo answer is always defined as false;

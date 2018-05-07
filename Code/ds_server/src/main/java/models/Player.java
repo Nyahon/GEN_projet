@@ -8,6 +8,8 @@ import server.PlayerConnectionHandler;
 
 public class Player {
 
+    private int id;
+    private int annee;
     private int nbPV;
     private int nbXP;
     private String name;
@@ -19,7 +21,8 @@ public class Player {
     private BlockingQueue<String> fightMessageIn = new LinkedBlockingQueue<>();
     private BlockingQueue<String> fightMessageOut = new LinkedBlockingQueue<>();
 
-    public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
+    public Player(int id, String name, int annee, int pv, int niveau, int xp){
+        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee;}
 
     // TODO: Implement real question asking
     public boolean askQuestion(){
@@ -123,5 +126,17 @@ public class Player {
 
     public void setInFight(boolean bool) {
         inFight = bool;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", annee=" + annee +
+                ", nbPV=" + nbPV +
+                ", nbXP=" + nbXP +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                '}';
     }
 }

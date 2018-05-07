@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
 
 import game.GameEngine;
+import models.ConnectionDB;
 import models.Player;
 
 
@@ -42,9 +43,19 @@ public class PlayerConnectionHandler implements Runnable {
 
         try {
             // Create and add models.Player in models.Connexions to the game engine
-            out.println("SERVER: Entrez votre identifiant: ");
-            out.flush();
-            player = new Player(in.readLine());
+            boolean loginIsOk = false;
+            while (!loginIsOk) {
+                out.println("SERVER: Entrez votre identifiant: ");
+                out.flush();
+                String identifiant = in.readLine();
+                player = ConnectionDB.getJoueurByName(identifiant);
+                if(player != null)
+                    loginIsOk = true;
+                else{
+                    out.println("SERVER: Sorry but you need to be registred before login: ");
+                    out.flush();
+                }
+            }
             out.println("SERVER: Welcome to Drunk&Smart " + player.getName() + " !");
             out.flush();
             player.setClientSocket(clientSocket);
@@ -55,6 +66,7 @@ public class PlayerConnectionHandler implements Runnable {
 
             // Receive and treat commands from the client
             while (gameEngine.isConnected(player)) {
+
                 out.println("SERVER: Enter your command: ");
                 out.flush();
                 receiveCMD(in.readLine());

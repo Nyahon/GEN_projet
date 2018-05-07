@@ -117,17 +117,17 @@ public class ConnectionDB {
 
     }
 
-    public static db_Player getJoueurByName(String nom) {
+    public static Player getJoueurByName(String nom) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
-        db_Player player = null;
+        Player player = null;
         try {
             c = DriverManager.getConnection(DB_URL);
             stmt = c.createStatement();
             System.out.println("Base de données ouverte");
 
-            rs = stmt.executeQuery("SELECT * FROM joueur WHERE nom = " + nom + ";");
+            rs = stmt.executeQuery("SELECT * FROM joueurs WHERE nom = '" + nom + "';");
 
             while (rs.next()) {
                 String hisName = rs.getString("Nom");
@@ -137,7 +137,7 @@ public class ConnectionDB {
                 int Xp = rs.getInt("Xp");
                 int id = rs.getInt("Id");
 
-                player = new db_Player(id, hisName, annee, Pv, Niveau, Xp);
+                player = new Player(id, hisName, annee, Pv, Niveau, Xp);
                 System.out.println(player);
                 System.out.println();
             }

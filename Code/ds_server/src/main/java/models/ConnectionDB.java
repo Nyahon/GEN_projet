@@ -82,7 +82,7 @@ public class ConnectionDB {
         }
     }
 
-    public static void insertJoueur(String nom, int annee){
+    public static void insertJoueur(db_Player player){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -90,10 +90,13 @@ public class ConnectionDB {
             c = DriverManager.getConnection(DB_URL);
             System.out.println("Base de donnee ouverte");
 
-            String sql = "INSERT INTO joueurs VALUES( ?, ?, ?)";
+            String sql = "INSERT INTO joueurs VALUES( ?, ?, ?, ?, ?, ?)";
             stmt = c.prepareStatement(sql);
-            stmt.setString(1, nom);
-            stmt.setInt(2, annee);
+            stmt.setString(1, player.getNom());
+            stmt.setInt(2, player.getAnnee());
+            stmt.setInt(4, player.getPv());
+            stmt.setInt(5, player.getNiveau());
+            stmt.setInt(6, player.getXp());
             stmt.executeUpdate();
             System.out.println("Nouveau joueur insere");
 
@@ -127,9 +130,12 @@ public class ConnectionDB {
             while (rs.next()) {
                 String hisName = rs.getString("Nom");
                 int annee = rs.getInt("Annee");
+                int Pv = rs.getInt("Pv");
+                int Niveau = rs.getInt("Niveau");
+                int Xp = rs.getInt("Xp");
                 int id = rs.getInt("Id");
 
-                player = new db_Player(id, nom, annee);
+                player = new db_Player(id, hisName, annee, Pv, Niveau, Xp);
                 System.out.println(player);
                 System.out.println();
             }

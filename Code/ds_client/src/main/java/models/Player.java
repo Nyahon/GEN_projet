@@ -2,6 +2,7 @@ package models;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.LinkedList;
 
 public class Player {
 
@@ -9,9 +10,13 @@ public class Player {
     private int nbXP;
     private String name;
     private int level;
+    private int id;
+    private int annee;
     private Socket socket = null;
 
-    public Player(String name){this.name = name; this.nbPV = 100; this.nbXP = 0; this.level = 1;}
+    public Player(int id, String name, int annee, int pv, int niveau, int xp){
+        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; this.id = id;}
+
 
     // TODO: Implement real question asking
     public boolean askQuestion(){
@@ -84,6 +89,19 @@ public class Player {
 
     public void setSocket(Socket socket) {
         this.socket = socket;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "nbPV=" + nbPV +
+                ", nbXP=" + nbXP +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", id=" + id +
+                ", annee=" + annee +
+                '}';
     }
 
 }

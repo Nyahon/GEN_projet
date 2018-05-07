@@ -1,4 +1,5 @@
 import models.Challenge;
+import models.JsonCreator;
 import models.Player;
 import models.WaitChallenge;
 
@@ -44,9 +45,9 @@ public class Client {
             System.out.println(input.readLine());
             identifier = scanner.nextLine();
             output.println(identifier);
+            output.flush();
 
             response = input.readLine();
-
             if (response.equals("FAILURE")) {
                 System.out.println("This user doesn't exist");
             }
@@ -58,9 +59,10 @@ public class Client {
 
 
         // Creation of the player object -------------------------------------------------------------------------------
-        player = new Player(identifier);
+        String playerPayloadJson = input.readLine();
+        player = JsonCreator.readPlayer(playerPayloadJson);
         player.setSocket(socket);
-        output.println(player.getName());
+        output.println(player);
         output.flush();
         System.out.println(input.readLine());
         // END OF CREATION ---------------------------------------------------------------------------------------------

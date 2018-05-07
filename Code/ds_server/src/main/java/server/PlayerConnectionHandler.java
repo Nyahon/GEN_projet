@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import game.GameEngine;
 import models.ConnectionDB;
 import models.Player;
@@ -60,6 +58,7 @@ public class PlayerConnectionHandler implements Runnable {
                     out.flush();
                 }
             }
+
             out.println("SERVER: Welcome to Drunk&Smart " + player.getName() + " !");
             out.flush();
             player.setClientSocket(clientSocket);
@@ -253,12 +252,6 @@ public class PlayerConnectionHandler implements Runnable {
             out.println(player.getFightMessageIn());
             out.println(player.getFightMessageIn());
             out.flush();
-
-
-
-
-
-
 
     }
 }

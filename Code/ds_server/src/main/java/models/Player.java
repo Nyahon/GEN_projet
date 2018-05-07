@@ -147,6 +147,11 @@ public class Player {
         inFight = bool;
     }
 
+
+    public int getAnnee() {
+        return annee;
+    }
+
     @Override
     public String toString() {
         return "Player{" +

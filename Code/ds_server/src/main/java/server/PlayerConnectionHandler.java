@@ -50,10 +50,12 @@ public class PlayerConnectionHandler implements Runnable {
                 String identifiant = in.readLine();
                 player = ConnectionDB.getJoueurByName(identifiant);
                 player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
-                if(player != null)
+                if(player != null) {
                     loginIsOk = true;
+                    out.println("SUCESS");
+                }
                 else{
-                    out.println("SERVER: Sorry but you need to be registred before login: ");
+                    out.println("FAILURE");
                     out.flush();
                 }
             }

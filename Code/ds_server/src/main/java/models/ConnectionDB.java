@@ -1,6 +1,8 @@
 package models;
 
+import models.db_models.db_Assistant;
 import models.db_models.db_Player;
+import models.db_models.db_Professeur;
 import models.db_models.db_Question;
 import sun.awt.image.ImageWatched;
 
@@ -225,6 +227,104 @@ public class ConnectionDB {
             rs = stmt.executeQuery("SELECT question.Id, question.Question, question.ReponseCorrecte," +
                     " question.ReponseFausse1, question.ReponseFausse2, question.ReponseFausse3 FROM question " +
                     "INNER JOIN possede ON question.Id = possede.IdQuestion WHERE IdJoueur = " + idPlayer + ";");
+
+            while (rs.next()) {
+                String question = rs.getString("Question");
+                String reponseCorrecte = rs.getString("ReponseCorrecte");
+                String reponseFausse1 = rs.getString("ReponseFausse1");
+                String reponseFausse2 = rs.getString("ReponseFausse2");
+                String reponseFausse3 = rs.getString("ReponseFausse3");
+                int id = rs.getInt("Id");
+
+                db_Question db_question = new db_Question(id,question, reponseCorrecte, reponseFausse1, reponseFausse2, reponseFausse3);
+                questions.add(db_question);
+                System.out.println(db_question);
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return questions;
+        }
+    }
+
+    public static db_Professeur getProfesseurById(int IdProf) {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        db_Professeur professeur = null;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT * FROM professeur WHERE Id = " + IdProf + ";");
+
+            while (rs.next()) {
+                String hisName = rs.getString("Nom");
+                int pv = rs.getInt("Pv");
+                int niveau = rs.getInt("Niveau");
+                int id = rs.getInt("Id");
+
+                professeur = new db_Professeur(id,hisName,pv,niveau);
+                System.out.println(professeur);
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return professeur;
+        }
+    }
+
+    public static db_Assistant getAssistantById(int IdAssistant) {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        db_Assistant assistant = null;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT * FROM professeur WHERE Id = " + IdAssistant + ";");
+
+            while (rs.next()) {
+                String hisName = rs.getString("Nom");
+                int pv = rs.getInt("Pv");
+                int niveau = rs.getInt("Niveau");
+                int id = rs.getInt("Id");
+
+                assistant = new db_Assistant(id,hisName,pv,niveau);
+                System.out.println(assistant);
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return assistant;
+        }
+    }
+
+    public static LinkedList<db_Question> getQuestionByProfesseur(int idProf) {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        LinkedList<db_Question> questions = new LinkedList<>();
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT question.Id, question.Question, question.ReponseCorrecte," +
+                    " question.ReponseFausse1, question.ReponseFausse2, question.ReponseFausse3 FROM question " +
+                    "INNER JOIN possede ON question.Id = possede.IdQuestion WHERE IdProfesseur = " + idProf + ";");
 
             while (rs.next()) {
                 String question = rs.getString("Question");

@@ -214,11 +214,11 @@ public class ConnectionDB {
 
     }
 
-    public static LinkedList<db_Question> getQuestionByPlayer(int idPlayer) {
+    public static LinkedList<Question> getQuestionByPlayer(int idPlayer) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
-        LinkedList<db_Question> questions = new LinkedList<>();
+        LinkedList<Question> questions = new LinkedList<>();
         try {
             c = DriverManager.getConnection(DB_URL);
             stmt = c.createStatement();
@@ -236,9 +236,9 @@ public class ConnectionDB {
                 String reponseFausse3 = rs.getString("ReponseFausse3");
                 int id = rs.getInt("Id");
 
-                db_Question db_question = new db_Question(id,question, reponseCorrecte, reponseFausse1, reponseFausse2, reponseFausse3);
-                questions.add(db_question);
-                System.out.println(db_question);
+                Question quest = new Question(id,question, reponseCorrecte, reponseFausse1, reponseFausse2, reponseFausse3);
+                questions.add(quest);
+                System.out.println("All question for " + idPlayer+ " are get");
                 System.out.println();
             }
 

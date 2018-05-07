@@ -1,6 +1,7 @@
 package models;
 
 import java.net.Socket;
+import java.util.LinkedList;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -17,12 +18,13 @@ public class Player {
     private Socket clientSocket = null;
     private PlayerConnectionHandler playerConnectionHandler;
     private boolean inFight = false;
+    private LinkedList<Question> questions;
 
     private BlockingQueue<String> fightMessageIn = new LinkedBlockingQueue<>();
     private BlockingQueue<String> fightMessageOut = new LinkedBlockingQueue<>();
 
     public Player(int id, String name, int annee, int pv, int niveau, int xp){
-        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee;}
+        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; questions = new LinkedList<>();this.id = id;}
 
     // TODO: Implement real question asking
     public boolean askQuestion(){
@@ -89,6 +91,23 @@ public class Player {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setQuestions(LinkedList<Question> questions){
+        this.questions = questions;
+    }
+
+    public void addQuestions(Question question){
+        this.questions.add(question);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public LinkedList<Question> getQuestions(){
+        return this.questions;
+
     }
 
     public String getFightMessageIn() throws InterruptedException {

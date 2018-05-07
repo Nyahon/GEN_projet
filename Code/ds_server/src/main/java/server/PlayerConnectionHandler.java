@@ -49,6 +49,7 @@ public class PlayerConnectionHandler implements Runnable {
                 out.flush();
                 String identifiant = in.readLine();
                 player = ConnectionDB.getJoueurByName(identifiant);
+                player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
                 if(player != null)
                     loginIsOk = true;
                 else{

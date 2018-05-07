@@ -16,6 +16,7 @@ public class Client {
     private Scanner scanner = new Scanner(System.in);
     private boolean isConnected;
     private Player player;
+    private String response;
 
     private BufferedReader input;
     private PrintWriter output;
@@ -36,9 +37,25 @@ public class Client {
         output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 
-        // Enter Player ID (Inscription)
-        System.out.println(input.readLine());
-        String identifier = scanner.nextLine();
+        // Enter Player ID (LOG IN) -----------------------------------------------------------------------------------
+        boolean isLoginOk = false;
+        String identifier = "";
+        while (!isLoginOk) {
+            System.out.println(input.readLine());
+            identifier = scanner.nextLine();
+            output.println(identifier);
+
+            response = input.readLine();
+
+            if (response.equals("FAILURE")) {
+                System.out.println("This user doesn't exist");
+            }
+            else {
+                isLoginOk = true;
+            }
+        }
+        // END OF LOG IN -----------------------------------------------------------------------------------------------
+
         player = new Player(identifier);
         player.setSocket(socket);
         output.println(identifier);

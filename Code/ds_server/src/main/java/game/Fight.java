@@ -75,7 +75,24 @@ public class Fight implements Runnable {
                         String response = player2.getFightMessageOut();
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
-                            //repondu juste
+                            player2.setFightMessageIn("RIGHT");
+                            player1.loosePV(40);
+                            // Envoi etat adversaire et joueur à player2 (RIGHT)
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                            // Envoi etat adversaire et joueur à player1 (ASK)
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                        }
+                        else {
+                            player2.setFightMessageIn("FALSE");
+                            player2.loosePV(40);
+                            // Envoi etat adversaire et joueur à player2 (FALSE)
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                            // Envoi etat adversaire et joueur à player1 (ASK)
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
                         }
 
 
@@ -97,18 +114,29 @@ public class Fight implements Runnable {
                         String response = player1.getFightMessageOut();
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
-                            //repondu juste
+                            player1.setFightMessageIn("RIGHT");
+                            player2.loosePV(40);
+                            // Envoi etat adversaire et joueur à player1 (RIGHT)
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                            // Envoi etat adversaire et joueur à player2 (ASK)
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                        }
+                        else {
+                            player1.setFightMessageIn("FALSE");
+                            player1.loosePV(40);
+                            // Envoi etat adversaire et joueur à player1 (RIGHT)
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                            player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                            // Envoi etat adversaire et joueur à player2 (ASK)
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                            player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
                         }
 
                     }
-                    // fixme: for the first sprint and for the demo answer is always defined as false;
 
-                    player1.setFightMessageIn("FALSE");
-                    player1.setFightMessageIn("40");
-                    player2.setFightMessageIn("FALSE");
-                    player2.setFightMessageIn("40");
 
-                    player2.loosePV(40);
 
                     round++;
 

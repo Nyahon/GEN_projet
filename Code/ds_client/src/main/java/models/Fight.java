@@ -9,10 +9,7 @@ import java.util.Scanner;
 
 public class Fight {
     private Player player;
-
-    // TODO will be changed to an Object to manage opponent information
-    private int opponentLife;
-    private String opponentName;
+    private Player opponnent = new Player( );
 
     private BufferedReader in;
     private PrintWriter out;
@@ -40,16 +37,17 @@ public class Fight {
         inFight = true;
         try {
             // get oppenents infos
-            opponentName = in.readLine();
-            opponentLife = Integer.parseInt(in.readLine());
+            opponnent.setName(in.readLine());
+            opponnent.setNbPV(Integer.parseInt(in.readLine()));
 
             System.out.println("Votre adversaire: ---------------------------------------------------------------------");
-            System.out.println(opponentName.toUpperCase());
-            System.out.println("PV: " + opponentLife);
+            System.out.println(opponnent.getName().toUpperCase());
+            System.out.println("PV: " + opponnent.getNbPV());
             System.out.println("---------------------------------------------------------------------------------------");
 
 
             // start loop for the fight until server tels one of the player is dead
+            Player temp;
             while (inFight) {
                 switch (in.readLine().toUpperCase()) {
                     case "ASK":
@@ -63,10 +61,16 @@ public class Fight {
                         // result of opponent
                         switch (in.readLine().toUpperCase()) {
                             case "RIGHT":
-                                player.setNbPV(Integer.parseInt(in.readLine()));
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                opponnent.setNbPV(temp.getNbPV());
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                player.setNbPV(temp.getNbPV());
                                 break;
                             case "FALSE":
-                                opponentLife -= Integer.parseInt(in.readLine());
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                opponnent.setNbPV(temp.getNbPV());
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                player.setNbPV(temp.getNbPV());
                                 break;
                         }
 
@@ -85,10 +89,16 @@ public class Fight {
                         // result
                         switch (in.readLine().toUpperCase()) {
                             case "RIGHT":
-                                opponentLife -= Integer.parseInt(in.readLine());
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                opponnent.setNbPV(temp.getNbPV());
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                player.setNbPV(temp.getNbPV());
                                 break;
                             case "FALSE":
-                                player.setNbPV(Integer.parseInt(in.readLine()));
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                opponnent.setNbPV(temp.getNbPV());
+                                temp = JsonCreator.readPlayer(in.readLine());
+                                player.setNbPV(temp.getNbPV());
                                 break;
                         }
 
@@ -111,7 +121,7 @@ public class Fight {
 
                 }
                 System.out.println("PV: -------------------------------------------------------------------------------");
-                System.out.println(opponentName + ": " + opponentLife);
+                System.out.println(opponnent.getName() + ": " + opponnent.getNbPV());
                 System.out.println("Vous: " + player.getNbPV());
                 System.out.println("-----------------------------------------------------------------------------------");
             }

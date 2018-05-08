@@ -15,6 +15,8 @@ public class Player {
     private LinkedList<Question> questions;
     private Socket socket = null;
 
+    public Player() {}
+
     public Player(int id, String name, int annee, int pv, int niveau, int xp){
         this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; this.id = id;
         questions = new LinkedList<>();}

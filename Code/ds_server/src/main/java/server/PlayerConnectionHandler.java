@@ -234,28 +234,44 @@ public class PlayerConnectionHandler implements Runnable {
 
         LOG.log(Level.INFO, player.getName() + " is in FIGHT Mode !");
 
+        // Recuperation Nom et PV adversaire
         out.println(player.getFightMessageIn());
         out.println(player.getFightMessageIn());
         out.flush();
 
+        // Debut combat
         while (player.getInFight()) {
+            // Question ou Réponse ?
             String variable = player.getFightMessageIn();
             out.println(variable);
             out.flush();
 
             switch (variable) {
                 case "ASK":
+                    // Choix question du joueur
                     player.setFightMessageOut(in.readLine());
                     break;
                 case "ANSWER":
+                    // Reception de la question
                     out.println(player.getFightMessageIn());
                     out.flush();
+                    // Reception ds choix de réponse
+                    out.println(player.getFightMessageIn());
+                    out.flush();
+                    // Envoi de la réponse choisie
                     player.setFightMessageOut(in.readLine());
                     break;
             }
 
+            // Réponse juste ou fausse ?
             out.println(player.getFightMessageIn());
+            out.flush();
+            // Payload état de l'adversaire
             out.println(player.getFightMessageIn());
+            out.flush();
+            // Payload état du joueur
+            out.println(player.getFightMessageIn());
+
             out.flush();
             /*synchronized (this) {
                 wait();
@@ -263,7 +279,9 @@ public class PlayerConnectionHandler implements Runnable {
             sleep(3000);
         }
 
+            // Envoi de END
             out.println(player.getFightMessageIn());
+            // Envoi de WIN ou LOST
             out.println(player.getFightMessageIn());
             out.flush();
 

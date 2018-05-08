@@ -2,6 +2,7 @@ package models;
 
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -20,8 +21,8 @@ public class Player {
     private boolean inFight = false;
     private LinkedList<Question> questions;
 
-    private BlockingQueue<String> fightMessageIn = new LinkedBlockingQueue<>();
-    private BlockingQueue<String> fightMessageOut = new LinkedBlockingQueue<>();
+    private BlockingQueue<String> fightMessageIn = new ArrayBlockingQueue<>(500, true);
+    private BlockingQueue<String> fightMessageOut = new ArrayBlockingQueue<>(500, true);
 
     public Player(int id, String name, int annee, int pv, int niveau, int xp){
         this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; questions = new LinkedList<>();this.id = id;}
@@ -124,6 +125,14 @@ public class Player {
 
     public void setFightMessageOut(String message) throws InterruptedException {
         fightMessageOut.put(message);
+    }
+
+    public BlockingQueue<String> getMessageIn() throws InterruptedException {
+        return fightMessageIn;
+    }
+
+    public BlockingQueue<String> getMessageOut() throws InterruptedException {
+        return fightMessageOut;
     }
 
     public Socket getClientSocket() {

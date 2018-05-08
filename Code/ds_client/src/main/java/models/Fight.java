@@ -59,7 +59,8 @@ public class Fight {
                         System.out.println("Wait your opponent to answer your question.");
 
                         // result of opponent
-                        switch (in.readLine().toUpperCase()) {
+                        String tmp = in.readLine().toUpperCase();
+                        switch (tmp) {
                             case "RIGHT":
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
@@ -76,7 +77,9 @@ public class Fight {
 
                         break;
                     case "ANSWER":
+
                         System.out.println("Wait for your opponent to ask you a quesiton.");
+                        // Affiche la question
                         System.out.println(in.readLine());
                         System.out.println("Type your answer select you answer between these by the letter: ");
 

@@ -242,6 +242,7 @@ public class PlayerConnectionHandler implements Runnable {
         // Debut combat
         while (player.getInFight()) {
             // Question ou Réponse ?
+
             String variable = player.getFightMessageIn();
             out.println(variable);
             out.flush();
@@ -260,18 +261,18 @@ public class PlayerConnectionHandler implements Runnable {
                     out.flush();
                     // Envoi de la réponse choisie
                     player.setFightMessageOut(in.readLine());
+
+                    // Réponse juste ou fausse ?
+                    out.println(player.getFightMessageIn());
+                    out.flush();
                     break;
             }
 
-            // Réponse juste ou fausse ?
-            out.println(player.getFightMessageIn());
-            out.flush();
             // Payload état de l'adversaire
             out.println(player.getFightMessageIn());
             out.flush();
             // Payload état du joueur
             out.println(player.getFightMessageIn());
-
             out.flush();
             /*synchronized (this) {
                 wait();

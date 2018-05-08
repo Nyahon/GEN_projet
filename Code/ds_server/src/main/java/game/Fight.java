@@ -110,6 +110,7 @@ public class Fight implements Runnable {
                         }
                         else {
                             player2.setFightMessageIn("FALSE");
+
                             player2.loosePV(40);
                             // Envoi etat adversaire et joueur à player2 (FALSE)
                             player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
@@ -139,6 +140,7 @@ public class Fight implements Runnable {
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
                             player1.setFightMessageIn("RIGHT");
+
                             player2.loosePV(40);
                             // Envoi etat adversaire et joueur à player1 (RIGHT)
                             player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
@@ -149,6 +151,7 @@ public class Fight implements Runnable {
                         }
                         else {
                             player1.setFightMessageIn("FALSE");
+
                             player1.loosePV(40);
                             // Envoi etat adversaire et joueur à player1 (RIGHT)
                             player1.setFightMessageIn(JsonCreator.SendPlayer(player2));

@@ -244,35 +244,52 @@ public class PlayerConnectionHandler implements Runnable {
             // Question ou Réponse ?
 
             String variable = player.getFightMessageIn();
+            LOG.log(Level.INFO,"ASK OR ANSWER : " + variable);
             out.println(variable);
             out.flush();
 
+            String tmp = "";
             switch (variable) {
                 case "ASK":
                     // Choix question du joueur
-                    player.setFightMessageOut(in.readLine());
+                    tmp = in.readLine();
+                    LOG.log(Level.INFO,"CHOIX QUESTION DU JOUEUR : " + tmp);
+                    player.setFightMessageOut(tmp);
+
                     break;
                 case "ANSWER":
                     // Reception de la question
-                    out.println(player.getFightMessageIn());
+                    tmp = player.getFightMessageIn();
+                    LOG.log(Level.INFO,"RECEPTION QUESTION : " + tmp);
+                    out.println(tmp);
                     out.flush();
                     // Reception ds choix de réponse
-                    out.println(player.getFightMessageIn());
+                    tmp = player.getFightMessageIn();
+                    LOG.log(Level.INFO,"RECEPTION CHOIX REPONSES : " + tmp);
+                    out.println(tmp);
                     out.flush();
                     // Envoi de la réponse choisie
-                    player.setFightMessageOut(in.readLine());
+                    tmp = in.readLine();
+                    LOG.log(Level.INFO,"ENVOIE REPONSE CHOISI : " + tmp);
+                    player.setFightMessageOut(tmp);
 
                     // Réponse juste ou fausse ?
-                    out.println(player.getFightMessageIn());
+                    tmp = player.getFightMessageIn();
+                    LOG.log(Level.INFO,"REPONSE JUSTE OU FAUX : " + tmp);
+                    out.println(tmp);
                     out.flush();
                     break;
             }
 
             // Payload état de l'adversaire
-            out.println(player.getFightMessageIn());
+            tmp = player.getFightMessageIn();
+            LOG.log(Level.INFO,"PAYLOAD ETAT ADVERSAIRE : "+tmp);
+            out.println(tmp);
             out.flush();
             // Payload état du joueur
-            out.println(player.getFightMessageIn());
+            tmp = player.getFightMessageIn();
+            LOG.log(Level.INFO,"PAYLOAD ETAT JOUEUR : "+tmp);
+            out.println(tmp);
             out.flush();
             /*synchronized (this) {
                 wait();

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Scanner;
 
@@ -48,8 +49,12 @@ public class Fight {
 
             // start loop for the fight until server tels one of the player is dead
             Player temp;
+            String tmp = "";
             while (inFight) {
-                switch (in.readLine().toUpperCase()) {
+
+                tmp = in.readLine().toUpperCase();
+                LOG.log(Level.INFO,"ATTEND DE RECEVOIR ASK OR ANSWER OR END : " + tmp);
+                switch (tmp) {
                     case "ASK":
                         System.out.print("Ask a question for your opponent : ");
                         System.out.println("select a question between these by his id : ");
@@ -59,7 +64,9 @@ public class Fight {
                         System.out.println("Wait your opponent to answer your question.");
 
                         // result of opponent
-                        String tmp = in.readLine().toUpperCase();
+
+                        tmp = in.readLine().toUpperCase();
+                        LOG.log(Level.INFO,"ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
                         switch (tmp) {
                             case "RIGHT":
                                 temp = JsonCreator.readPlayer(in.readLine());
@@ -90,7 +97,9 @@ public class Fight {
                         out.flush();
 
                         // result
-                        switch (in.readLine().toUpperCase()) {
+                        tmp = in.readLine().toUpperCase();
+                        LOG.log(Level.INFO,"ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
+                        switch (tmp) {
                             case "RIGHT":
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());

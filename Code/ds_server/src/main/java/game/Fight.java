@@ -42,15 +42,12 @@ public class Fight implements Runnable {
 
     public void run()  {
         try {
-            //System.out.println(" Nom et PV Joueur 2 -------------------------");
             player1.setFightMessageIn(player2.getName());
             player1.setFightMessageIn(String.valueOf(player2.getNbPV()));
-           // System.out.println(player1.getMessageIn());
 
-           // System.out.println(" Nom et PV Joueur 1 -------------------------");
             player2.setFightMessageIn(player1.getName());
             player2.setFightMessageIn(String.valueOf(player1.getNbPV()));
-           // System.out.println(player2.getMessageIn());
+
 
             inFight = true;
             player1.setInFight(true);
@@ -65,51 +62,33 @@ public class Fight implements Runnable {
 
 
                         player1.setFightMessageIn("ASK");
-                        //System.out.println("ASK OU ANSWER ? PLAYER 1 ---------------------------------");
-                        //System.out.println(player1.getMessageIn());
-
 
                         player2.setFightMessageIn("ANSWER");
-                       //System.out.println("ASK OU ANSWER ? PLAYER 2 ---------------------------------");
-                       //System.out.println(player2.getMessageIn());
 
-                        //System.out.println("QUESTION CHOISIE PLAYER 1 ---------------------------------");
-                       // System.out.println(player1.getMessageOut());
                         Question question = ConnectionDB.getQuestionById(Integer.parseInt(player1.getFightMessageOut()));
                         player2.setFightMessageIn(question.getQuestion());
-                        //System.out.println("QUESTION TRANSMISE PLAYER 2 ---------------------------------");
-                       // System.out.println(player2.getMessageIn());
 
                         // transmet les choix de réponses
                         // fixme: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
                         String repPayloadJson = JsonCreator.sendReponses(question);
-                       // System.out.println(repPayloadJson);
                         player2.setFightMessageIn(repPayloadJson);
-                       // System.out.println("REPONSES TRANSMISE PLAYER 2 -----------------------------------");
-                       // System.out.println(player2.getMessageIn());
 
-                       // System.out.println("REPONSE CHOISIE PAR PLAYER 2 -----------------------------------");
-                        //System.out.println(player2.getMessageOut());
                         String response = player2.getFightMessageOut();
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
                             player2.setFightMessageIn("RIGHT");
-                            //System.out.println("TRANSMISSION DU RIGHT PLAYER 2 ---------------------------------");
-                            //System.out.println(player2.getMessageIn());
+                            player1.setFightMessageIn("RIGHT");
                             player1.loosePV(40);
                             // Envoi etat adversaire et joueur à player2 (RIGHT)
                             player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
                             player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
-                            //System.out.println("ENVOI ETATS JOUEUR AU PLAYER 2 ------------------------------------");
-                           // System.out.println(player2.getMessageIn());
                             // Envoi etat adversaire et joueur à player1 (ASK)
                             player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
                             player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
-                            //System.out.println("ENVOI ETATS JOUEUR AU PLAYER 1 ------------------------------------");
-                           // System.out.println(player1.getMessageIn());
                         }
                         else {
                             player2.setFightMessageIn("FALSE");
+                            player1.setFightMessageIn("FALSE");
 
                             player2.loosePV(40);
                             // Envoi etat adversaire et joueur à player2 (FALSE)
@@ -140,6 +119,7 @@ public class Fight implements Runnable {
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
                             player1.setFightMessageIn("RIGHT");
+                            player2.setFightMessageIn("RIGHT");
 
                             player2.loosePV(40);
                             // Envoi etat adversaire et joueur à player1 (RIGHT)
@@ -151,6 +131,7 @@ public class Fight implements Runnable {
                         }
                         else {
                             player1.setFightMessageIn("FALSE");
+                            player2.setFightMessageIn("FALSE");
 
                             player1.loosePV(40);
                             // Envoi etat adversaire et joueur à player1 (RIGHT)

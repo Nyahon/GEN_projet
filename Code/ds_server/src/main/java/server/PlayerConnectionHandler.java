@@ -242,54 +242,40 @@ public class PlayerConnectionHandler implements Runnable {
         // Debut combat
         while (player.getInFight()) {
             // Question ou Réponse ?
-
             String variable = player.getFightMessageIn();
-            LOG.log(Level.INFO,"ASK OR ANSWER : " + variable);
             out.println(variable);
             out.flush();
 
-            String tmp = "";
             switch (variable) {
                 case "ASK":
                     // Choix question du joueur
-                    tmp = in.readLine();
-                    LOG.log(Level.INFO,"CHOIX QUESTION DU JOUEUR : " + tmp);
-                    player.setFightMessageOut(tmp);
+                    player.setFightMessageOut(in.readLine());
 
+                    // Réponse juste ou fausse ?
+                    out.println(player.getFightMessageIn());
+                    out.flush();
                     break;
                 case "ANSWER":
                     // Reception de la question
-                    tmp = player.getFightMessageIn();
-                    LOG.log(Level.INFO,"RECEPTION QUESTION : " + tmp);
-                    out.println(tmp);
+                    out.println(player.getFightMessageIn());
                     out.flush();
                     // Reception ds choix de réponse
-                    tmp = player.getFightMessageIn();
-                    LOG.log(Level.INFO,"RECEPTION CHOIX REPONSES : " + tmp);
-                    out.println(tmp);
+                    out.println(player.getFightMessageIn());
                     out.flush();
                     // Envoi de la réponse choisie
-                    tmp = in.readLine();
-                    LOG.log(Level.INFO,"ENVOIE REPONSE CHOISI : " + tmp);
-                    player.setFightMessageOut(tmp);
+                    player.setFightMessageOut(in.readLine());
 
                     // Réponse juste ou fausse ?
-                    tmp = player.getFightMessageIn();
-                    LOG.log(Level.INFO,"REPONSE JUSTE OU FAUX : " + tmp);
-                    out.println(tmp);
+                    out.println(player.getFightMessageIn());
                     out.flush();
                     break;
             }
 
             // Payload état de l'adversaire
-            tmp = player.getFightMessageIn();
-            LOG.log(Level.INFO,"PAYLOAD ETAT ADVERSAIRE : "+tmp);
-            out.println(tmp);
+            out.println(player.getFightMessageIn());
             out.flush();
             // Payload état du joueur
-            tmp = player.getFightMessageIn();
-            LOG.log(Level.INFO,"PAYLOAD ETAT JOUEUR : "+tmp);
-            out.println(tmp);
+            out.println(player.getFightMessageIn());
             out.flush();
             /*synchronized (this) {
                 wait();

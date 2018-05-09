@@ -4,7 +4,6 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 import server.PlayerConnectionHandler;
 
@@ -125,14 +124,6 @@ public class Player {
 
     public void setFightMessageOut(String message) throws InterruptedException {
         fightMessageOut.put(message);
-    }
-
-    public BlockingQueue<String> getMessageIn() throws InterruptedException {
-        return fightMessageIn;
-    }
-
-    public BlockingQueue<String> getMessageOut() throws InterruptedException {
-        return fightMessageOut;
     }
 
     public Socket getClientSocket() {

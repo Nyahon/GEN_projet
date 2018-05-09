@@ -86,6 +86,10 @@ public class PlayerConnectionHandler implements Runnable {
 
     public void receiveCMD(String cmd) throws IOException, InterruptedException {
         switch (cmd) {
+            case "HELP":
+                out.println("possible commande: EXIT, LIST_PLAYERS, VERSUS, CHALLENGE, STORY");
+                break;
+
             case "EXIT":
                 in.close();
                 out.close();
@@ -159,6 +163,10 @@ public class PlayerConnectionHandler implements Runnable {
                 out.flush();
 
                 switch (in.readLine().toUpperCase()) {
+                    case "HELP":
+                            out.println("Possible commande: EXIT, LIST_PLAYERS, FIGHT");
+                        break;
+
                     case "EXIT":
                         isInChallengeMode = false;
                         break;
@@ -197,7 +205,6 @@ public class PlayerConnectionHandler implements Runnable {
                                 opponent.notify();
                             }
 
-
                             gameEngine.startFight(player, opponent);
 
                             fight();
@@ -226,6 +233,9 @@ public class PlayerConnectionHandler implements Runnable {
         LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in STORY Mode");
 
         gameEngine.startFightStory(player);
+
+        story();
+
 
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
     }
@@ -302,6 +312,10 @@ public class PlayerConnectionHandler implements Runnable {
             // Envoi de WIN ou LOST
             out.println(player.getFightMessageIn());
             out.flush();
+
+    }
+
+    private void story() throws  IOException{
 
     }
 }

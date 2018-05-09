@@ -1,5 +1,6 @@
 package game;
 
+import Protocol.Pfight;
 import models.ConnectionDB;
 import models.Player;
 import models.Question;
@@ -41,7 +42,7 @@ public class FightStory implements Runnable {
             round = 0;
 
             while (inFight) {
-                player.setFightMessageIn("ANSWER");
+                player.setFightMessageIn(Pfight.ANSWER);
 
 
                 LinkedList<Question> questions = getQuestionByProfesseur(1);

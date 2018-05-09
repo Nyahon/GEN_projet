@@ -1,3 +1,5 @@
+import Protocol.Pcmd;
+import Protocol.Pinfo;
 import models.Challenge;
 import models.JsonCreator;
 import models.Player;
@@ -48,7 +50,7 @@ public class Client {
             output.flush();
 
             response = input.readLine();
-            if (response.equals("FAILURE")) {
+            if (response.equals(Pinfo.FAILURE)) {
                 System.out.println("This user doesn't exist");
             }
             else {
@@ -86,7 +88,7 @@ public class Client {
         output.println(cmd);
         output.flush();
         switch (cmd) {
-            case "EXIT" :
+            case Pcmd.EXIT :
                 input.close();
                 output.close();
                 socket.close();
@@ -94,16 +96,16 @@ public class Client {
                 isConnected = false;
                 break;
 
-            case "LIST_PLAYERS":
+            case Pcmd.LIST_PALYERS:
                 System.out.println(input.readLine());
                 break;
 
-            case "VERSUS":
+            case Pcmd.VERSUS:
                 WaitChallenge mode = new WaitChallenge(player);
                 mode.start();
                 break;
 
-            case "CHALLENGE":
+            case Pcmd.CHALLENGE:
                 Challenge challenge = new Challenge(player);
                 challenge.launch();
                 break;

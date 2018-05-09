@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static java.lang.Thread.sleep;
+
+import Protocol.Pcmd;
+import Protocol.Pfight;
+import Protocol.Pinfo;
 import game.GameEngine;
 import models.ConnectionDB;
 import models.Player;
@@ -51,12 +55,12 @@ public class PlayerConnectionHandler implements Runnable {
                 if(player != null) {
                     player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
                     loginIsOk = true;
-                    out.println("SUCCESS");
+                    out.println(Pinfo.SUCCESS);
                     out.println(JsonCreator.SendPlayer(player));
                     out.flush();
                 }
                 else{
-                    out.println("FAILURE");
+                    out.println(Pinfo.FAILURE);
                     out.flush();
                 }
             }
@@ -86,7 +90,11 @@ public class PlayerConnectionHandler implements Runnable {
 
     public void receiveCMD(String cmd) throws IOException, InterruptedException {
         switch (cmd) {
-            case "EXIT":
+            case Pcmd.HELP:
+
+                break;
+
+            case Pcmd.EXIT:
                 in.close();
                 out.close();
                 gameEngine.remove(player);
@@ -94,7 +102,7 @@ public class PlayerConnectionHandler implements Runnable {
                 LOG.log(Level.INFO, "models.Player " + player.getName() + " disconnected");
                 break;
 
-            case "LIST_PLAYERS":
+            case Pcmd.LIST_PALYERS:
                 String playerList = "{";
                 List<Player> players = gameEngine.getConnectedPlayers();
                 int numberOfPlayers = players.size();
@@ -110,21 +118,21 @@ public class PlayerConnectionHandler implements Runnable {
                 out.flush();
                 break;
 
-            case "VERSUS":
+            case Pcmd.VERSUS:
                 versusCMD();
                 break;
 
 
-            case "CHALLENGE":
+            case Pcmd.CHALLENGE:
                 challengeCMD();
                 break;
 
-            case "STORY":
+            case Pcmd.STORY:
                 storyCMD();
                 break;
 
             default:
-                LOG.log(Level.INFO, "UNKNOW COMMAND");
+                LOG.log(Level.INFO, Pinfo.UCOM);
                 return;
         }
     }
@@ -159,11 +167,11 @@ public class PlayerConnectionHandler implements Runnable {
                 out.flush();
 
                 switch (in.readLine().toUpperCase()) {
-                    case "EXIT":
+                    case Pcmd.EXIT:
                         isInChallengeMode = false;
                         break;
 
-                    case "LIST_PLAYERS":
+                    case Pcmd.LIST_CHALLENGERS:
                         String playerList = "{";
                         List<Player> challengersWaiting = gameEngine.getChallengers();
                         int numberOfPlayers = challengersWaiting.size();
@@ -179,19 +187,19 @@ public class PlayerConnectionHandler implements Runnable {
                         out.flush();
                         break;
 
-                    case "FIGHT":
+                    case Pcmd.FIGHT:
                         String opponentName = in.readLine();
                         Player opponent = gameEngine.getOpponent(opponentName);
                         if (opponent == null) {
                             LOG.log(Level.INFO, "models.Player not connected or not waiting for a challenge");
-                            out.println("FAIL");
+                            out.println(Pinfo.FAILURE);
                             out.flush();
                         } else {
                             LOG.log(Level.INFO, player.getName() + " Challenge " + opponent.getName());
-                            out.println("SUCCESS");
+                            out.println(Pinfo.SUCCESS);
                             out.flush();
                             PrintWriter signal = new PrintWriter(opponent.getClientSocket().getOutputStream());
-                            signal.println("FIGHT");
+                            signal.println(Pcmd.FIGHT);
                             signal.flush();
                             synchronized (opponent) {
                                 opponent.notify();
@@ -209,7 +217,7 @@ public class PlayerConnectionHandler implements Runnable {
 
 
                     default:
-                        LOG.log(Level.INFO, "UNKNOW COMMAND");
+                        LOG.log(Level.INFO, Pinfo.UCOM);
                         return;
 
                 }
@@ -247,7 +255,7 @@ public class PlayerConnectionHandler implements Runnable {
             out.flush();
 
             switch (variable) {
-                case "ASK":
+                case Pfight.ASK:
                     // Choix question du joueur
                     player.setFightMessageOut(in.readLine());
 
@@ -255,7 +263,7 @@ public class PlayerConnectionHandler implements Runnable {
                     out.println(player.getFightMessageIn());
                     out.flush();
                     break;
-                case "ANSWER":
+                case Pfight.ANSWER:
                     // Reception de la question
                     out.println(player.getFightMessageIn());
                     out.flush();

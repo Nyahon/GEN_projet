@@ -1,5 +1,8 @@
 package models;
 
+import Protocol.Pcmd;
+import Protocol.Pinfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -38,15 +41,16 @@ public class WaitChallenge {
 
     public void recieveCMD(String cmd) throws IOException {
         switch (cmd) {
-            case "QUIT":
+            case Pcmd
+                    .EXIT:
                 break;
-            case "FIGHT":
+            case Pcmd.FIGHT:
                 Fight fight = new Fight(player);
                 fight.start();
                 break;
 
             default :
-                LOG.log(Level.INFO,"UNKNOW COMMAND");
+                LOG.log(Level.INFO, Pinfo.UCOM);
                 return;
         }
     }

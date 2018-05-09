@@ -1,5 +1,7 @@
 package models;
 
+import Protocol.Pfight;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -55,7 +57,7 @@ public class Fight {
                 tmp = in.readLine().toUpperCase();
                 LOG.log(Level.INFO,"ATTEND DE RECEVOIR ASK OR ANSWER OR END : " + tmp);
                 switch (tmp) {
-                    case "ASK":
+                    case Pfight.ASK:
                         System.out.print("Ask a question for your opponent : ");
                         System.out.println("select a question between these by his id : ");
                         this.player.afficheQuestions();
@@ -68,13 +70,13 @@ public class Fight {
                         tmp = in.readLine().toUpperCase();
                         LOG.log(Level.INFO,"ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
                         switch (tmp) {
-                            case "RIGHT":
+                            case Pfight.RIGHT:
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 player.setNbPV(temp.getNbPV());
                                 break;
-                            case "FALSE":
+                            case Pfight.FALSE:
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
@@ -83,7 +85,7 @@ public class Fight {
                         }
 
                         break;
-                    case "ANSWER":
+                    case Pfight.ANSWER:
 
                         System.out.println("Wait for your opponent to ask you a quesiton.");
                         // Affiche la question
@@ -100,13 +102,13 @@ public class Fight {
                         tmp = in.readLine().toUpperCase();
                         LOG.log(Level.INFO,"ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
                         switch (tmp) {
-                            case "RIGHT":
+                            case Pfight.RIGHT:
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 player.setNbPV(temp.getNbPV());
                                 break;
-                            case "FALSE":
+                            case Pfight.FALSE:
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
@@ -116,12 +118,12 @@ public class Fight {
 
                         break;
 
-                    case "END":
+                    case Pfight.END:
                         switch (in.readLine().toUpperCase()) {
-                            case "WON":
+                            case Pfight.WIN:
                                 System.out.println("You won the fight !");
                                 break;
-                            case "LOST":
+                            case Pfight.LOST:
                                 System.out.println("You lost the fight !");
                                 break;
                         }

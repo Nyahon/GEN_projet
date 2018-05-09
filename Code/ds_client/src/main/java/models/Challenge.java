@@ -1,5 +1,8 @@
 package models;
 
+import Protocol.Pcmd;
+import Protocol.Pinfo;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,19 +43,19 @@ public class Challenge {
         out.println(cmd);
         out.flush();
         switch (cmd) {
-            case "EXIT":
+            case Pcmd.EXIT:
                 isInChallengeMode = false;
                 break;
 
-            case "LIST_PLAYERS":
+            case Pcmd.LIST_CHALLENGERS:
                 System.out.println(in.readLine());
                 break;
 
-            case "FIGHT":
+            case Pcmd.FIGHT:
                 System.out.println("Enter the name of your challenger");
                 out.println(scanner.nextLine());
                 out.flush();
-                if (in.readLine().equals("FAIL")) {
+                if (in.readLine().equals(Pinfo.FAILURE)) {
                     System.out.println("Player not connected or not waiting for a challenge");
                 }
                 else {

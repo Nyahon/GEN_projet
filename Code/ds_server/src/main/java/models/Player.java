@@ -19,15 +19,43 @@ public class Player {
     private PlayerConnectionHandler playerConnectionHandler;
     private boolean inFight = false;
     private LinkedList<Question> questions;
+    private LinkedList<Item> items;
+    private PlayerClass type;
 
     private BlockingQueue<String> fightMessageIn = new ArrayBlockingQueue<>(500, true);
     private BlockingQueue<String> fightMessageOut = new ArrayBlockingQueue<>(500, true);
 
-    public Player(int id, String name, int annee, int pv, int niveau, int xp){
-        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; questions = new LinkedList<>();this.id = id;}
+    public Player(int id, String name, int annee, int pv, int niveau, int xp, PlayerClass type) {
+        this.name = name;
+        this.nbPV = pv;
+        this.nbXP = xp;
+        this.level = niveau;
+        this.annee = annee;
+        questions = new LinkedList<>();
+        this.id = id;
+        this.type = type;
+        this.items = new LinkedList<>();
+        switch (type){
+            case Cynique:
+                items.add(new Item(ItemType.AntiSeche));
+                items.add(new Item(ItemType.AntiSeche));
+                items.add(new Item(ItemType.AntiSeche));
+                break;
+            case Cartesien:
+                items.add(new Item(ItemType.Livre));
+                items.add(new Item(ItemType.Livre));
+                items.add(new Item(ItemType.Livre));
+                break;
+            case Hedoniste:
+                items.add(new Item(ItemType.Biere));
+                items.add(new Item(ItemType.Biere));
+                items.add(new Item(ItemType.Biere));
+                break;
+        }
+    }
 
     // TODO: Implement real question asking
-    public boolean askQuestion(){
+    public boolean askQuestion() {
         // TODO: give to the player a list of question to choice.
         // TODO: send to the server the choice question, then the question will be send to the other player.
         // TODO: Then we receive from the server is the response of the adversery is true or false.
@@ -37,23 +65,22 @@ public class Player {
     }
 
     // TODO: Implement real question respond
-    public void respondQuestion(){
+    public void respondQuestion() {
         // TODO: give to the player a list of 4 responses to ask the question of the adversary.
         // TODO: send to the server his response.
         // TODO: Then the server respond if the response is true or false;
         boolean respondIsRight = false;
-        if(respondIsRight){
+        if (respondIsRight) {
             nbXP += 10;
             //TODO: test if we are in server vs server or vs player
             //TODO: if we are versus server we win the question asking.
-        }
-        else{
+        } else {
             nbPV -= 20;
         }
     }
 
-    public boolean IsLive(){
-        return nbPV>0;
+    public boolean IsLive() {
+        return nbPV > 0;
     }
 
     // ==========================================================
@@ -67,7 +94,9 @@ public class Player {
         this.nbPV = nbPV;
     }
 
-    public void loosePV(int nbPV){ this.nbPV -= nbPV;}
+    public void loosePV(int nbPV) {
+        this.nbPV -= nbPV;
+    }
 
     public int getNbXP() {
         return nbXP;
@@ -93,11 +122,11 @@ public class Player {
         this.level = level;
     }
 
-    public void setQuestions(LinkedList<Question> questions){
+    public void setQuestions(LinkedList<Question> questions) {
         this.questions = questions;
     }
 
-    public void addQuestions(Question question){
+    public void addQuestions(Question question) {
         this.questions.add(question);
     }
 
@@ -105,7 +134,7 @@ public class Player {
         return id;
     }
 
-    public LinkedList<Question> getQuestions(){
+    public LinkedList<Question> getQuestions() {
         return this.questions;
 
     }
@@ -134,7 +163,7 @@ public class Player {
         this.clientSocket = clientSocket;
     }
 
-    public void setPlayerConnectionHandler(PlayerConnectionHandler handler){
+    public void setPlayerConnectionHandler(PlayerConnectionHandler handler) {
         this.playerConnectionHandler = handler;
     }
 
@@ -147,9 +176,25 @@ public class Player {
         inFight = bool;
     }
 
-
     public int getAnnee() {
         return annee;
+    }
+
+    public void UseItem(Item item, Question question){
+        switch (item.getType()){
+            case Biere:
+                nbPV += 30;
+                break;
+            case Livre:
+                question.setReponseFalse2("##################");
+                break;
+            case AntiSeche:
+                nbPV -=20;
+                question.setReponseFalse1("##################");
+                question.setReponseFalse2("##################");
+                question.setReponseFalse3("##################");
+                break;
+        }
     }
 
     @Override

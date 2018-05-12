@@ -8,7 +8,6 @@ import models.ConnectionDB;
 import models.Player;
 import models.Question;
 import server.JsonCreator;
-import sun.jvm.hotspot.utilities.PointerFinder;
 
 
 public class Fight implements Runnable {

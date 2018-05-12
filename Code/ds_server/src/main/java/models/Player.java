@@ -9,6 +9,10 @@ import server.PlayerConnectionHandler;
 
 public class Player {
 
+    public static final int INITIAL_PV = 100;
+    public static final int INITIAL_XP = 0;
+    public static final int INITIAL_LEVEL = 0;
+
     private int id;
     private int annee;
     private int nbPV;
@@ -25,14 +29,13 @@ public class Player {
     private BlockingQueue<String> fightMessageIn = new ArrayBlockingQueue<>(500, true);
     private BlockingQueue<String> fightMessageOut = new ArrayBlockingQueue<>(500, true);
 
-    public Player(int id, String name, int annee, int pv, int niveau, int xp, PlayerClass type) {
+    public Player(String name, int annee, int pv, int niveau, int xp, PlayerClass type) {
         this.name = name;
         this.nbPV = pv;
         this.nbXP = xp;
         this.level = niveau;
         this.annee = annee;
         questions = new LinkedList<>();
-        this.id = id;
         this.type = type;
         this.items = new LinkedList<>();
         switch (type){
@@ -54,30 +57,6 @@ public class Player {
         }
     }
 
-    // TODO: Implement real question asking
-    public boolean askQuestion() {
-        // TODO: give to the player a list of question to choice.
-        // TODO: send to the server the choice question, then the question will be send to the other player.
-        // TODO: Then we receive from the server is the response of the adversery is true or false.
-        boolean adversaryResponse = false;
-
-        return adversaryResponse;
-    }
-
-    // TODO: Implement real question respond
-    public void respondQuestion() {
-        // TODO: give to the player a list of 4 responses to ask the question of the adversary.
-        // TODO: send to the server his response.
-        // TODO: Then the server respond if the response is true or false;
-        boolean respondIsRight = false;
-        if (respondIsRight) {
-            nbXP += 10;
-            //TODO: test if we are in server vs server or vs player
-            //TODO: if we are versus server we win the question asking.
-        } else {
-            nbPV -= 20;
-        }
-    }
 
     public boolean IsLive() {
         return nbPV > 0;
@@ -180,6 +159,14 @@ public class Player {
         return annee;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public PlayerClass getType() {
+        return type;
+    }
+
     public void UseItem(Item item, Question question){
         switch (item.getType()){
             case Biere:
@@ -197,6 +184,18 @@ public class Player {
         }
     }
 
+    public void setItems (LinkedList<Item> items){
+        this.items = items;
+    }
+
+    public void addItem (Item item){
+        this.items.add(item);
+    }
+
+    public LinkedList<Item> getItems(){
+        return this.items;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
@@ -206,6 +205,16 @@ public class Player {
                 ", nbXP=" + nbXP +
                 ", name='" + name + '\'' +
                 ", level=" + level +
+                ", clientSocket=" + clientSocket +
+                ", playerConnectionHandler=" + playerConnectionHandler +
+                ", inFight=" + inFight +
+                ", questions=" + questions +
+                ", items=" + items +
+                ", type=" + type +
+                ", fightMessageIn=" + fightMessageIn +
+                ", fightMessageOut=" + fightMessageOut +
                 '}';
     }
+
+
 }

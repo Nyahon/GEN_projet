@@ -85,7 +85,7 @@ public class ConnectionDB {
         }
     }
 
-    public static void insertJoueur(db_Player player){
+    public static void insertJoueur(Player player, String password){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -93,14 +93,19 @@ public class ConnectionDB {
             c = DriverManager.getConnection(DB_URL);
             System.out.println("Base de donnee ouverte");
 
-            String sql = "INSERT INTO joueurs VALUES( ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO joueurs VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = c.prepareStatement(sql);
-            stmt.setString(1, player.getNom());
+            stmt.setString(1, player.getName());
             stmt.setInt(2, player.getAnnee());
-            stmt.setInt(4, player.getPv());
-            stmt.setInt(5, player.getNiveau());
-            stmt.setInt(6, player.getXp());
+            stmt.setInt(4, player.getNbPV());
+            stmt.setInt(5, player.getLevel());
+            stmt.setInt(6, player.getNbXP());
+            stmt.setString(7, PlayerClass.EnumToString(player.getType()));
+            stmt.setString(8, password);
             stmt.executeUpdate();
+
+            assignItems(player.getItems(),player.getId());
+
             System.out.println("Nouveau joueur insere");
 
         } catch (SQLException e) {
@@ -116,6 +121,31 @@ public class ConnectionDB {
             }
         }
 
+    }
+
+    public static String getPasswordByJoueurId(int idPlayer){
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        String password = "";
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT Password FROM joueurs WHERE Id = " + idPlayer + ";");
+
+            while (rs.next()) {
+                password = rs.getString("Password");
+                System.out.println();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return password;
+        }
     }
 
     public static Player getJoueurByName(String nom) {
@@ -137,8 +167,14 @@ public class ConnectionDB {
                 int Niveau = rs.getInt("Niveau");
                 int Xp = rs.getInt("Xp");
                 int id = rs.getInt("Id");
+                String type = rs.getString("Type");
 
-                player = new Player(id, hisName, annee, Pv, Niveau, Xp);
+                PlayerClass classe = PlayerClass.StringToEnum(type);
+                LinkedList<Item> items = getItemsByJoueurId(id);
+
+                player = new Player(hisName, annee, Pv, Niveau, Xp, classe);
+                player.setId(id);
+                player.setItems(items);
                 System.out.println(player);
                 System.out.println();
             }
@@ -149,6 +185,81 @@ public class ConnectionDB {
             closeRessources(c, stmt, rs);
             return player;
         }
+    }
+
+    public static LinkedList<Item> getItemsByJoueurId(int idJoueur){
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        LinkedList<Item> items = new LinkedList<>();
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT * FROM Item INNER JOIN utilise ON item.Id = utilise.ItemId WHERE JoueursId = " + idJoueur + ";");
+
+            while (rs.next()) {
+                String type = rs.getString("type");
+                int id = rs.getInt("Id");
+
+                ItemType itemType = ItemType.StringToEnum(type);
+
+                Item item = new Item(itemType);
+                System.out.println(item);
+                System.out.println();
+                items.add(item);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return items;
+        }
+    }
+
+    public static void assignItems(LinkedList<Item> items, int idPlayer){
+        Connection c = null;
+        PreparedStatement stmt = null;
+
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            System.out.println("Base de donnee ouverte");
+
+            for(Item item : items) {
+
+                String sql = "INSERT INTO utilise VALUES( ?, ?, ?)";
+                stmt = c.prepareStatement(sql);
+                stmt.setInt(2, idPlayer);
+                switch (item.getType()){
+                    case AntiSeche:
+                        stmt.setInt(3, ItemType.ID_ANTISECHE_TYPE_BD);
+                        break;
+                    case Livre:
+                        stmt.setInt(3, ItemType.ID_LIVRE_TYPE_BD);
+                        break;
+                    case Biere:
+                        stmt.setInt(3, ItemType.ID_BIERE_TYPE_BD);
+                        break;
+                }
+                stmt.executeUpdate();
+                System.out.println("Nouvelle item assigné");
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                stmt.close();
+                //c.commit();
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public static void insertQuestion(String question, String reponseOK, String reponseFalse1, String reponseFalse2

@@ -13,6 +13,7 @@ import Protocol.Pinfo;
 import game.GameEngine;
 import models.ConnectionDB;
 import models.Player;
+import models.PlayerClass;
 
 
 // Class that receive the client socket from the ConnectionHandler and serve the client then close the connexion with him
@@ -47,6 +48,28 @@ public class PlayerConnectionHandler implements Runnable {
         try {
             // Create and add models.Player in models.Connexions to the game engine
             boolean loginIsOk = false;
+
+            // TODO: Vérifier si player existe et se connecter VOIR EXEMPLE COMMENTE:
+            /*
+
+            //demander nom joueur :
+            String nom = "";
+            //demander password :
+            String passwordTemp1 = "";
+            Player pTemp1 = ConnectionDB.getJoueurByName(nom);
+            //check if password correspond au nom de joueur demandé.
+            if(passwordTemp1.equals(ConnectionDB.getPasswordByJoueurId(player.getId()))){
+                loginIsOk = true;
+            }
+
+            //TODO : Ajouter un nouveau Player VOIR EXEMPLE COMMENTE:
+            //ça liste d'item est initialisée dans le constructeur, 3 items selon son type de classe.
+            String passwordTemp2 ="";
+            Player pTemp2 = new Player("hisName", 1, Player.INITIAL_PV, Player.INITIAL_LEVEL,Player.INITIAL_XP, PlayerClass.Hedoniste);
+            ConnectionDB.insertJoueur(player,passwordTemp2);
+
+            */
+
             while (!loginIsOk) {
                 out.println("SERVER: Entrez votre identifiant: ");
                 out.flush();

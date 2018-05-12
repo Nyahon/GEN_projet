@@ -14,6 +14,11 @@ public enum ItemType {
 
     private String description = "";
 
+
+    public static final int ID_BIERE_TYPE_BD = 1;
+    public static final int ID_LIVRE_TYPE_BD= 2;
+    public static final int ID_ANTISECHE_TYPE_BD = 3;
+
     ItemType(String description) {
         this.description = description;
     }
@@ -23,5 +28,18 @@ public enum ItemType {
         return "ItemType{" +
                 "description='" + description + '\'' +
                 '}';
+    }
+
+    public static ItemType StringToEnum(String type){
+        if(type.equals(Biere.name()))
+            return Biere;
+        else if(type.equals(Livre.name()))
+            return Livre;
+        else
+            return AntiSeche;
+    }
+
+    public static String EnumToString(ItemType type){
+        return type.name();
     }
 }

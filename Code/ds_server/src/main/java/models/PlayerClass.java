@@ -17,4 +17,17 @@ public enum PlayerClass {
                 "description='" + description + '\'' +
                 '}';
     }
+
+    public static PlayerClass StringToEnum(String type){
+        if(type.equals(Cartesien.name()))
+            return Cartesien;
+        else if(type.equals(Hedoniste.name()))
+            return Hedoniste;
+        else
+            return Cynique;
+    }
+
+    public static String EnumToString(PlayerClass type){
+        return type.name();
+    }
 }

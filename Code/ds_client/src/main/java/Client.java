@@ -43,19 +43,68 @@ public class Client {
         // Enter Player ID (LOG IN) -----------------------------------------------------------------------------------
         boolean isLoginOk = false;
         String identifier = "";
+        String password = "";
         while (!isLoginOk) {
+            //ASK IF HE WANT TO CREATE A ACCOUNT
             System.out.println(input.readLine());
-            identifier = scanner.nextLine();
-            output.println(identifier);
+            String hasAnAccount = scanner.nextLine();
+            output.println(hasAnAccount);
             output.flush();
 
-            response = input.readLine();
-            if (response.equals(Pinfo.FAILURE)) {
-                System.out.println("This user doesn't exist");
+            if (hasAnAccount.toUpperCase().equals("Y")) {
+                //demande nom
+                System.out.println(input.readLine());
+                identifier = scanner.nextLine();
+                output.println(identifier);
+                output.flush();
+
+                //demande password
+                System.out.println(input.readLine());
+                password = scanner.nextLine();
+                output.println(password);
+                output.flush();
+
+                response = input.readLine();
+                if (response.equals(Pinfo.FAILURE)) {
+                    System.out.println("This user doesn't exist");
+                }
+                else {
+                    isLoginOk = true;
+                }
             }
-            else {
-                isLoginOk = true;
+            else{
+                //demande nom
+                System.out.println(input.readLine());
+                identifier = scanner.nextLine();
+                output.println(identifier);
+                output.flush();
+
+                //demande password
+                System.out.println(input.readLine());
+                password = scanner.nextLine();
+                output.println(password);
+                output.flush();
+
+                //Demande Classe
+                System.out.println(input.readLine());
+                System.out.println(input.readLine());
+                System.out.println(input.readLine());
+                System.out.println(input.readLine());
+
+                String choixClasse = scanner.nextLine();
+                output.println(choixClasse);
+                output.flush();
+
+                response = input.readLine();
+                if (response.equals(Pinfo.FAILURE)) {
+                    System.out.println("This user name exist already");
+                }
+                else {
+                    isLoginOk = true;
+                }
             }
+
+
         }
         // END OF LOG IN -----------------------------------------------------------------------------------------------
 

@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import static java.lang.Thread.sleep;
 
 import Protocol.Pcmd;
@@ -47,44 +48,93 @@ public class PlayerConnectionHandler implements Runnable {
 
         try {
             // Create and add models.Player in models.Connexions to the game engine
+            final String QUESTION_IDENTIFIANT = "SERVER: Entrez votre identifiant: ";
+            final String QUESTION_PASSWORD = "SERVER; Entrez votre mot de passe: ";
+            final String QUESTION_CLASSE = "veuillez choisir parmis un de ces classes via leur numéro: ";
+            final String HEDONISTE_DESCRIPTION = "1 : " + PlayerClass.Hedoniste.name() + " : " + PlayerClass.Hedoniste.getDescription();
+            final String CYNIQUE_DESCRIPTION = "2 : " + PlayerClass.Cynique.name() + " : " + PlayerClass.Cynique.getDescription();
+            final String CARTESIEN_DESCRIPTION = "3 : " + PlayerClass.Cartesien.name() + " : " + PlayerClass.Cartesien.getDescription();
+
             boolean loginIsOk = false;
 
-            // TODO: Vérifier si player existe et se connecter VOIR EXEMPLE COMMENTE:
-            /*
-
-            //demander nom joueur :
-            String nom = "";
-            //demander password :
-            String passwordTemp1 = "";
-            Player pTemp1 = ConnectionDB.getJoueurByName(nom);
-            //check if password correspond au nom de joueur demandé.
-            if(passwordTemp1.equals(ConnectionDB.getPasswordByJoueurId(player.getId()))){
-                loginIsOk = true;
-            }
-
-            //TODO : Ajouter un nouveau Player VOIR EXEMPLE COMMENTE:
-            //ça liste d'item est initialisée dans le constructeur, 3 items selon son type de classe.
-            String passwordTemp2 ="";
-            Player pTemp2 = new Player("hisName", 1, Player.INITIAL_PV, Player.INITIAL_LEVEL,Player.INITIAL_XP, PlayerClass.Hedoniste);
-            ConnectionDB.insertJoueur(player,passwordTemp2);
-
-            */
+            String identifiant = "";
+            String password = "";
 
             while (!loginIsOk) {
-                out.println("SERVER: Entrez votre identifiant: ");
+                out.println("SERVER: Avez-vous déjà un compte ? Y/N");
                 out.flush();
-                String identifiant = in.readLine();
-                player = ConnectionDB.getJoueurByName(identifiant);
-                if(player != null) {
-                    player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
-                    loginIsOk = true;
-                    out.println(Pinfo.SUCCESS);
-                    out.println(JsonCreator.SendPlayer(player));
+                String hasAnAccount = in.readLine();
+
+                if (hasAnAccount.toUpperCase().equals("Y")) {
+
+                    out.println(QUESTION_IDENTIFIANT);
                     out.flush();
-                }
-                else{
-                    out.println(Pinfo.FAILURE);
+                    identifiant = in.readLine();
+
+                    out.println(QUESTION_PASSWORD);
                     out.flush();
+                    password = in.readLine();
+
+                    player = ConnectionDB.getJoueurByName(identifiant);
+
+                    // test si le joueur existe dans la base de donnée et que le mot de passe correspond.
+                    if (player != null && password.equals(ConnectionDB.getPasswordByJoueurId(player.getId()))) {
+
+                        player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
+                        loginIsOk = true;
+                        out.println(Pinfo.SUCCESS);
+                        out.println(JsonCreator.SendPlayer(player));
+                        out.flush();
+
+                    } else {
+
+                        out.println(Pinfo.FAILURE);
+                        out.flush();
+                    }
+
+                } else if(hasAnAccount.toUpperCase().equals("N")) {
+                    out.println(QUESTION_IDENTIFIANT);
+                    out.flush();
+                    identifiant = in.readLine();
+
+                    out.println(QUESTION_PASSWORD);
+                    out.flush();
+                    password = in.readLine();
+
+                    out.println(QUESTION_CLASSE);
+                    out.println(HEDONISTE_DESCRIPTION);
+                    out.println(CYNIQUE_DESCRIPTION);
+                    out.println(CARTESIEN_DESCRIPTION);
+                    out.flush();
+
+                    String choix = in.readLine();
+                    PlayerClass pc = PlayerClass.Hedoniste;
+                    switch (Integer.parseInt(choix)){
+                        case 1:
+                            pc = PlayerClass.Hedoniste;
+                            break;
+                        case 2:
+                            pc = PlayerClass.Cynique;
+                            break;
+                        case 3:
+                            pc = PlayerClass.Cartesien;
+                            break;
+                    }
+
+                    // joueur existe déjà
+                    if(ConnectionDB.getJoueurByName(identifiant)!=null){
+                        out.println(Pinfo.FAILURE);
+                        out.flush();
+                    }
+                    else {
+                        player = new Player(identifiant, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc);
+                        ConnectionDB.insertJoueur(player, password);
+
+                        loginIsOk = true;
+                        out.println(Pinfo.SUCCESS);
+                        out.println(JsonCreator.SendPlayer(player));
+                        out.flush();
+                    }
                 }
             }
 
@@ -261,7 +311,7 @@ public class PlayerConnectionHandler implements Runnable {
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
     }
 
-    private void fight() throws InterruptedException, IOException{
+    private void fight() throws InterruptedException, IOException {
 
         LOG.log(Level.INFO, player.getName() + " is in FIGHT Mode !");
 
@@ -314,11 +364,11 @@ public class PlayerConnectionHandler implements Runnable {
             sleep(3000);
         }
 
-            // Envoi de END
-            out.println(player.getFightMessageIn());
-            // Envoi de WIN ou LOST
-            out.println(player.getFightMessageIn());
-            out.flush();
+        // Envoi de END
+        out.println(player.getFightMessageIn());
+        // Envoi de WIN ou LOST
+        out.println(player.getFightMessageIn());
+        out.flush();
 
     }
 }

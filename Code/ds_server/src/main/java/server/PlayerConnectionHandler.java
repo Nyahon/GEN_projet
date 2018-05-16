@@ -15,6 +15,13 @@ import game.GameEngine;
 import models.ConnectionDB;
 import models.Player;
 import models.PlayerClass;
+import models.db_models.db_Professeur;
+
+/* selon moi c'est inversé, à voir
+
+ commHandler -> Fight : setFightMessageOut - getFightMessageOut
+ commHandler <- Fight : getFightMessageIn  - setFichetMessageIn
+ */
 
 
 // Class that receive the client socket from the ConnectionHandler and serve the client then close the connexion with him
@@ -306,7 +313,9 @@ public class PlayerConnectionHandler implements Runnable {
     public void storyCMD() throws InterruptedException, IOException {
         LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in STORY Mode");
 
-        gameEngine.startFightStory(player);
+        db_Professeur Rentsch = ConnectionDB.getProfesseurById(1);
+        gameEngine.startFightStory(player, Rentsch);
+        fight();
 
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
     }
@@ -337,13 +346,32 @@ public class PlayerConnectionHandler implements Runnable {
                     out.flush();
                     break;
                 case Pfight.ANSWER:
-                    // Reception de la question
+                    // Reception de la question, envoie au joueur
                     out.println(player.getFightMessageIn());
                     out.flush();
-                    // Reception ds choix de réponse
+                    // Reception du choix de réponse, envoie au joueur
                     out.println(player.getFightMessageIn());
                     out.flush();
-                    // Envoi de la réponse choisie
+
+                    // Reception de la demande d'utiliser un item (O/N), envoie du choix.
+                    String rep = in.readLine();
+                    // Transfert de la réponse au fight
+                    player.setFightMessageOut(rep);
+                    if(rep.equals(Pfight.USE_ITEM)){
+
+                        // réception des items disponnible, envoie au joueur
+                        out.println(player.getFightMessageIn());
+                        out.flush();
+
+                        // transfert du choix au fight
+                        player.setFightMessageOut(in.readLine());
+
+                        // r'envoie des choix de réponse possible
+                        out.println(player.getFightMessageIn());
+                        out.flush();
+                    }
+
+                    // réception du joueur et Envoi de la réponse choisie
                     player.setFightMessageOut(in.readLine());
 
                     // Réponse juste ou fausse ?

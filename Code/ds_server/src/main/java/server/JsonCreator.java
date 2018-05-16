@@ -9,11 +9,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Item;
+import models.ItemType;
 import models.Player;
 import models.Question;
+import models.db_models.db_Professeur;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class JsonCreator {
 
@@ -44,6 +48,37 @@ public class JsonCreator {
         playerNode.putPOJO("Questions",questionsNode);
         try {
             return mapper.writeValueAsString(playerNode);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static String SendProfesseur(db_Professeur professeur) {
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode professeurNode = mapper.createObjectNode();
+        professeurNode.put("id",professeur.getId());
+        professeurNode.put("name",professeur.getNom());
+        professeurNode.put("level", professeur.getNiveau());
+        professeurNode.put("pv", professeur.getPv());
+
+
+        ArrayNode questionsNode = mapper.createArrayNode();
+        for(Question question : professeur.getQuestions()){
+            ObjectNode questionNode = mapper.createObjectNode();
+            questionNode.put("question",question.getQuestion());
+            questionNode.put("idQuestion",question.getId());
+            questionNode.put("reponseA",question.getReponseOK());
+            questionNode.put("reponseB",question.getReponseFalse1());
+            questionNode.put("reponseC",question.getReponseFalse2());
+            questionNode.put("reponseD",question.getReponseFalse3());
+            questionsNode.add(questionNode);
+        }
+
+        professeurNode.putPOJO("Questions",questionsNode);
+        try {
+            return mapper.writeValueAsString(professeurNode);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -106,5 +141,58 @@ public class JsonCreator {
             e.printStackTrace();
         }
         return "NULL";
+    }
+
+    public static String sendItems(LinkedList<Item> items){
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectNode payload = mapper.createObjectNode();
+        ArrayNode reponsesNodes = mapper.createArrayNode();
+
+        int nbItemAntiSeche = 0;
+        int nbItemLivre = 0;
+        int nbItemBiere = 0;
+
+        for(Item item : items){
+            switch(item.getType()){
+                case AntiSeche:
+                    nbItemAntiSeche++;
+                    break;
+                case Livre:
+                    nbItemLivre++;
+                    break;
+                case Biere:
+                    nbItemBiere++;
+                    break;
+            }
+        }
+
+        ObjectNode itemAntiseche = mapper.createObjectNode();
+        itemAntiseche.put("item", ItemType.AntiSeche.name());
+        itemAntiseche.put("nbAvailable", nbItemAntiSeche);
+        itemAntiseche.put("idItem", "1");
+
+        ObjectNode itemLivre = mapper.createObjectNode();
+        itemLivre.put("item", ItemType.Livre.name());
+        itemLivre.put("nbAvailable", nbItemLivre);
+        itemLivre.put("idItem", "2");
+
+        ObjectNode itemBiere = mapper.createObjectNode();
+        itemBiere.put("item", ItemType.Biere.name());
+        itemBiere.put("nbAvailable", nbItemBiere);
+        itemBiere.put("idItem", "3");
+
+
+        reponsesNodes.add(itemAntiseche);
+        reponsesNodes.add(itemLivre);
+        reponsesNodes.add(itemBiere);
+
+
+        payload.putPOJO("Items",reponsesNodes);
+        try {
+            return mapper.writeValueAsString(payload);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

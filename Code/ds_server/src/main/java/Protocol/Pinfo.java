@@ -1,6 +1,6 @@
 package Protocol;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
+//import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 /**
  * Communication Protocol, information responses returned to client

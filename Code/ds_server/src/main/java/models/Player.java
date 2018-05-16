@@ -196,6 +196,28 @@ public class Player {
         return this.items;
     }
 
+    public Item getItem(ItemType itemType){
+        Item tmp = null;
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).getType().equals(itemType)){
+                tmp = items.get(i);
+                items.remove(i);
+                break;
+            }
+        }
+        return tmp;
+    }
+
+    public int getNbItem(ItemType itemType){
+        int count = 0;
+        for(int i = 0; i < items.size(); i++){
+            if(items.get(i).getType().equals(itemType)){
+                count++;
+            }
+        }
+        return count;
+    }
+
     @Override
     public String toString() {
         return "Player{" +

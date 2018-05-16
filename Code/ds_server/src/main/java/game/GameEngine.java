@@ -2,6 +2,7 @@ package game;
 
 import models.Connexions;
 import models.Player;
+import models.db_models.db_Professeur;
 import server.ServerConnectionHandler;
 
 import java.util.List;
@@ -71,7 +72,7 @@ public class GameEngine implements Runnable{
         Fight fight = new Fight(player, opponent);
     }
 
-    public void startFightStory(Player player){
-        FightStory fight = new FightStory(player);
+    public void startFightStory(Player player, db_Professeur professeur){
+        FightStory fight = new FightStory(player, professeur);
     }
 }

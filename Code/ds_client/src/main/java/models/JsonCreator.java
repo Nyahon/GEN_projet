@@ -76,4 +76,26 @@ public class JsonCreator {
             e.printStackTrace();
         }
     }
+
+    public static void AfficherItems(String jsonPayload){
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        JsonNode rootNode = null;
+        try{
+
+            rootNode = objectMapper.readTree(jsonPayload);
+
+            JsonNode itemsNode = rootNode.path("Items");
+            Iterator<JsonNode> elements = itemsNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode item = elements.next();
+                System.out.println(item.path("idItem").asText() + " : " + item.path("item").asText() + " -> " + item.path("nbAvailable"));
+            }
+
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
 }

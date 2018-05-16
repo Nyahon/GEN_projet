@@ -5,6 +5,7 @@ import java.util.prefs.PreferencesFactory;
 
 import Protocol.Pfight;
 import models.ConnectionDB;
+import models.ItemType;
 import models.Player;
 import models.Question;
 import server.JsonCreator;
@@ -75,6 +76,39 @@ public class Fight implements Runnable {
                         String repPayloadJson = JsonCreator.sendReponses(question);
                         player2.setFightMessageIn(repPayloadJson);
 
+                        // désire de choisir un item.
+                        String rep = player2.getFightMessageOut();
+                        if(rep.equals(Pfight.USE_ITEM)){
+
+                            // envoie des items disponnible
+                            String itemsPayloadJson = JsonCreator.sendItems(player2.getItems());
+                            player2.setFightMessageIn(itemsPayloadJson);
+
+                            // récupérer le choix d'item à utiliser et utiliser l'item
+                            switch(player2.getFightMessageOut()){
+                                case Pfight.ITEM_BIERE:
+                                    if(player2.getNbItem(ItemType.Biere) > 0){
+                                        player2.UseItem(player2.getItem(ItemType.Biere), question);
+                                    }
+                                    break;
+                                case Pfight.ITEM_LIVRE:
+                                    if(player2.getNbItem(ItemType.Livre) > 0) {
+                                        player2.UseItem(player2.getItem(ItemType.Livre), question);
+                                    }
+                                    break;
+                                case Pfight.ITEM_ANTISECHE:
+                                    if(player2.getNbItem(ItemType.AntiSeche) > 0) {
+                                        player2.UseItem(player2.getItem(ItemType.AntiSeche), question);
+                                    }
+                                    break;
+                            }
+
+                            // r'envoi du choix de réponse possible
+                            repPayloadJson = JsonCreator.sendReponses(question);
+                            System.out.println(repPayloadJson);
+                            player2.setFightMessageIn(repPayloadJson);
+                        }
+
                         String response = player2.getFightMessageOut();
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
@@ -117,6 +151,40 @@ public class Fight implements Runnable {
                         //System.out.println(repPayloadJson);
                         player1.setFightMessageIn(repPayloadJson);
 
+                        // désire de choisir un item.
+                        String rep = player1.getFightMessageOut();
+                        if(rep.equals(Pfight.USE_ITEM)){
+
+                            // envoie des items disponnible
+                            String itemsPayloadJson = JsonCreator.sendItems(player1.getItems());
+                            player1.setFightMessageIn(itemsPayloadJson);
+
+                            // récupérer le choix d'item à utiliser et utiliser l'item
+                            switch(player1.getFightMessageOut()){
+                                case Pfight.ITEM_BIERE:
+                                    if(player1.getNbItem(ItemType.Biere) > 0){
+                                        player1.UseItem(player1.getItem(ItemType.Biere), question);
+                                    }
+                                    break;
+                                case Pfight.ITEM_LIVRE:
+                                    if(player1.getNbItem(ItemType.Livre) > 0) {
+                                        player1.UseItem(player1.getItem(ItemType.Livre), question);
+                                    }
+                                    break;
+                                case Pfight.ITEM_ANTISECHE:
+                                    if(player1.getNbItem(ItemType.AntiSeche) > 0) {
+                                        player1.UseItem(player1.getItem(ItemType.AntiSeche), question);
+                                    }
+                                    break;
+                            }
+
+                            // r'envoi du choix de réponse possible
+                            repPayloadJson = JsonCreator.sendReponses(question);
+                            System.out.println(repPayloadJson);
+                            player1.setFightMessageIn(repPayloadJson);
+                        }
+
+
                         String response = player1.getFightMessageOut();
                         String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
                         if(question.getReponseOK().equals(choixReponse)){
@@ -145,7 +213,6 @@ public class Fight implements Runnable {
                         }
 
                     }
-
 
 
                     round++;

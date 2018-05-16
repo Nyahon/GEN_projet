@@ -1,10 +1,17 @@
 package models.db_models;
 
+import models.Question;
+
+import java.util.LinkedList;
+
 public class db_Professeur {
     private int Id;
     private String Nom;
     private int Pv;
     private int Niveau;
+    private LinkedList<Question> questions = new LinkedList<>();
+
+
 
     public db_Professeur(int id, String nom, int pv, int niveau) {
         Id = id;
@@ -43,6 +50,12 @@ public class db_Professeur {
 
     public void setNiveau(int niveau) {
         Niveau = niveau;
+    }
+
+    public void loosePv(int pv) { this.Pv -= pv; }
+
+    public LinkedList<Question> getQuestions() {
+        return questions;
     }
 
 

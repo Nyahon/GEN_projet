@@ -10,9 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Scanner;
 
-public class Fight {
+public class Story {
     private Player player;
-    private Player opponnent = new Player( );
+    private Professor opponnent = new Professor();
 
     private BufferedReader in;
     private PrintWriter out;
@@ -22,7 +22,7 @@ public class Fight {
     private boolean inFight;
 
 
-    public Fight(Player player) {
+    public Story(Player player) {
         this.player = player;
 
         try {
@@ -57,7 +57,7 @@ public class Fight {
                 tmp = in.readLine().toUpperCase();
                 LOG.log(Level.INFO,"ATTEND DE RECEVOIR ASK OR ANSWER OR END : " + tmp);
                 switch (tmp) {
-                    case Pfight.ASK:
+                    case "ASK":
                         System.out.print("Ask a question for your opponent : ");
                         System.out.println("select a question between these by his id : ");
                         this.player.afficheQuestions();
@@ -70,13 +70,13 @@ public class Fight {
                         tmp = in.readLine().toUpperCase();
                         LOG.log(Level.INFO,"ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
                         switch (tmp) {
-                            case Pfight.RIGHT:
+                            case "RIGHT":
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 player.setNbPV(temp.getNbPV());
                                 break;
-                            case Pfight.FALSE:
+                            case "FALSE":
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
@@ -85,9 +85,9 @@ public class Fight {
                         }
 
                         break;
-                    case Pfight.ANSWER:
+                    case "ANSWER":
 
-                        System.out.println("Wait for your opponent to ask you a quesiton.");
+                        //System.out.println("Wait for your opponent to ask you a quesiton.");
                         // Affiche la question
                         System.out.println(in.readLine());
 
@@ -130,7 +130,6 @@ public class Fight {
 
                         System.out.println("Type your answer select you answer between these by the letter: ");
 
-                        // Envoie de la réponse choisie
                         out.println(scanner.nextLine());
                         out.flush();
 
@@ -138,13 +137,13 @@ public class Fight {
                         tmp = in.readLine().toUpperCase();
                         LOG.log(Level.INFO,"ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
                         switch (tmp) {
-                            case Pfight.RIGHT:
+                            case "RIGHT":
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 player.setNbPV(temp.getNbPV());
                                 break;
-                            case Pfight.FALSE:
+                            case "FALSE":
                                 temp = JsonCreator.readPlayer(in.readLine());
                                 opponnent.setNbPV(temp.getNbPV());
                                 temp = JsonCreator.readPlayer(in.readLine());
@@ -154,12 +153,12 @@ public class Fight {
 
                         break;
 
-                    case Pfight.END:
+                    case "END":
                         switch (in.readLine().toUpperCase()) {
-                            case Pfight.WIN:
+                            case "WON":
                                 System.out.println("You won the fight !");
                                 break;
-                            case Pfight.LOST:
+                            case "LOST":
                                 System.out.println("You lost the fight !");
                                 break;
                         }
@@ -181,4 +180,5 @@ public class Fight {
         }
     }
 }
+
 

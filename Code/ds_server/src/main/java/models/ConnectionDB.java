@@ -4,7 +4,7 @@ import models.db_models.db_Assistant;
 import models.db_models.db_Player;
 import models.db_models.db_Professeur;
 import models.db_models.db_Question;
-import sun.awt.image.ImageWatched;
+//import sun.awt.image.ImageWatched;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -197,11 +197,11 @@ public class ConnectionDB {
             stmt = c.createStatement();
             System.out.println("Base de données ouverte");
 
-            rs = stmt.executeQuery("SELECT * FROM Item INNER JOIN utilise ON item.Id = utilise.ItemId WHERE JoueursId = " + idJoueur + ";");
+            rs = stmt.executeQuery("SELECT Item.Id AS ID_Item, type FROM Item INNER JOIN utilise ON Item.Id = utilise.ItemId WHERE JoueursId =" + idJoueur + ";");
 
             while (rs.next()) {
                 String type = rs.getString("type");
-                int id = rs.getInt("Id");
+                int id = rs.getInt("ID_Item");
 
                 ItemType itemType = ItemType.StringToEnum(type);
 

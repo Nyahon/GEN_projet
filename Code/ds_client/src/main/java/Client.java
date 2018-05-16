@@ -1,9 +1,6 @@
 import Protocol.Pcmd;
 import Protocol.Pinfo;
-import models.Challenge;
-import models.JsonCreator;
-import models.Player;
-import models.WaitChallenge;
+import models.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -158,7 +155,10 @@ public class Client {
                 Challenge challenge = new Challenge(player);
                 challenge.launch();
                 break;
-
+            case Pcmd.STORY:
+                System.out.println("You enter Story mode !");
+                Story story = new Story(player);
+                story.start();
             default :
 
         }

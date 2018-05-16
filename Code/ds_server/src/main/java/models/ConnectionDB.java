@@ -104,8 +104,6 @@ public class ConnectionDB {
             stmt.setString(8, password);
             stmt.executeUpdate();
 
-            assignItems(player.getItems(),player.getId());
-
             System.out.println("Nouveau joueur insere");
 
         } catch (SQLException e) {
@@ -304,7 +302,7 @@ public class ConnectionDB {
             c = DriverManager.getConnection(DB_URL);
             System.out.println("Base de donnee ouverte");
 
-            String sql = "INSERT INTO possede VALUES( ?, ?, ?)";
+            String sql = "INSERT INTO possede VALUES( ?, ?, ?, ?)";
             stmt = c.prepareStatement(sql);
             stmt.setInt(2, idPlayer);
             stmt.setInt(3, idQuestion);

@@ -136,7 +136,9 @@ public class PlayerConnectionHandler implements Runnable {
                     else {
                         player = new Player(identifiant, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc);
                         ConnectionDB.insertJoueur(player, password);
-
+                        player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
+                        player.initItemsPlayer();
+                        player.initQuestionPlayer();
                         loginIsOk = true;
                         out.println(Pinfo.SUCCESS);
                         out.println(JsonCreator.SendPlayer(player));

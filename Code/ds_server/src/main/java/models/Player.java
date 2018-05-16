@@ -38,23 +38,7 @@ public class Player {
         questions = new LinkedList<>();
         this.type = type;
         this.items = new LinkedList<>();
-        switch (type){
-            case Cynique:
-                items.add(new Item(ItemType.AntiSeche));
-                items.add(new Item(ItemType.AntiSeche));
-                items.add(new Item(ItemType.AntiSeche));
-                break;
-            case Cartesien:
-                items.add(new Item(ItemType.Livre));
-                items.add(new Item(ItemType.Livre));
-                items.add(new Item(ItemType.Livre));
-                break;
-            case Hedoniste:
-                items.add(new Item(ItemType.Biere));
-                items.add(new Item(ItemType.Biere));
-                items.add(new Item(ItemType.Biere));
-                break;
-        }
+
     }
 
 
@@ -216,6 +200,40 @@ public class Player {
             }
         }
         return count;
+    }
+
+    public void initQuestionPlayer(){
+
+        Question question1 = ConnectionDB.getQuestionById(1);
+        Question question2 = ConnectionDB.getQuestionById(2);
+        Question question3 = ConnectionDB.getQuestionById(3);
+        questions.add(question1);
+        questions.add(question2);
+        questions.add(question3);
+        for(Question q : questions)
+            ConnectionDB.assignQuestion(this.id, q.getId());
+    }
+
+    public void initItemsPlayer(){
+
+        switch (type){
+            case Cynique:
+                items.add(new Item(ItemType.AntiSeche));
+                items.add(new Item(ItemType.AntiSeche));
+                items.add(new Item(ItemType.AntiSeche));
+                break;
+            case Cartesien:
+                items.add(new Item(ItemType.Livre));
+                items.add(new Item(ItemType.Livre));
+                items.add(new Item(ItemType.Livre));
+                break;
+            case Hedoniste:
+                items.add(new Item(ItemType.Biere));
+                items.add(new Item(ItemType.Biere));
+                items.add(new Item(ItemType.Biere));
+                break;
+        }
+            ConnectionDB.assignItems(items,this.id);
     }
 
     @Override

@@ -2,8 +2,12 @@ import Protocol.Pcmd;
 import Protocol.Pinfo;
 import models.*;
 
+import javax.xml.bind.DatatypeConverter;
 import java.io.*;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.logging.*;
 
@@ -58,7 +62,7 @@ public class Client {
                 //demande password
                 System.out.println(input.readLine());
                 password = scanner.nextLine();
-                output.println(password);
+                output.println(hashPass(password));
                 output.flush();
 
                 response = input.readLine();
@@ -79,7 +83,7 @@ public class Client {
                 //demande password
                 System.out.println(input.readLine());
                 password = scanner.nextLine();
-                output.println(password);
+                output.println(hashPass(password));
                 output.flush();
 
                 //Demande Classe
@@ -182,6 +186,20 @@ public class Client {
         }
         LOG.log(Level.INFO, "Disconnected !");
 
+    }
+
+    private String hashPass(String password){
+        MessageDigest digest = null;
+        String hex ="";
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest("12345".getBytes(StandardCharsets.UTF_8));
+
+            hex = DatatypeConverter.printHexBinary(hash);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return hex;
     }
 
 

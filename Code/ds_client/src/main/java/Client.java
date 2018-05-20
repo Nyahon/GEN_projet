@@ -1,5 +1,11 @@
 import Protocol.Pcmd;
 import Protocol.Pinfo;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import models.*;
 
 import javax.xml.bind.DatatypeConverter;
@@ -36,7 +42,7 @@ public class Client {
 
     public void connect() throws IOException, InterruptedException {
         LOG.log(Level.INFO, "Connection with the server...");
-        socket = new Socket(serverAddress, serverListenPort);
+        socket = new Socket("localhost", 4500);
         input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -168,15 +174,9 @@ public class Client {
         }
     }
 
-    public static void main(String[] args) {
-        Client client = new Client("localhost", 4500);
-        System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s%6$s%n");
-
-        try {
-            client.connect();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
+    public static void quitSystem() {
+        LOG.info("System closing");
+        // TODO: ADD HERE ALL THINGS WHO NEED TO BE QUIT CORRECTLY
 
         LOG.log(Level.INFO, "Disconnection...");
         try {
@@ -186,6 +186,7 @@ public class Client {
         }
         LOG.log(Level.INFO, "Disconnected !");
 
+        System.exit(0);
     }
 
     private String hashPass(String password){

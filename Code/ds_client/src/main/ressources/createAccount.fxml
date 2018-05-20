@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.createAccount">
+    <children>
+        <AnchorPane prefHeight="800.0" prefWidth="1000.0">
+            <children>
+                <Label layoutX="402.0" layoutY="24.0" prefHeight="42.0" prefWidth="191.0" text="Créer votre compte">
+                    <font>
+                        <Font size="37.0" />
+                    </font>
+                </Label>
+                <Label layoutX="117.0" layoutY="200.0" text="Nom d'utilisateur :">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="117.0" layoutY="255.0" text="Mot de passe :">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="username" layoutX="283.0" layoutY="198.0" prefHeight="25.0" prefWidth="199.0" promptText="username" />
+                <TextField fx:id="password" layoutX="283.0" layoutY="253.0" prefHeight="25.0" prefWidth="199.0" promptText="password" />
+            <Label layoutX="117.0" layoutY="346.0" text="Choisis un classe d'étudiant parmis les suivantes :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="cartesien" layoutX="117.0" layoutY="397.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="21.0" text="cartesien" />
+            <RadioButton fx:id="hedoniste" layoutX="117.0" layoutY="455.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="24.0" text="hedoniste" />
+            <RadioButton fx:id="cynique" layoutX="117.0" layoutY="512.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="24.0" text="cynique" />
+            <Label layoutX="141.0" layoutY="397.0" prefHeight="42.0" prefWidth="638.0" text="Le Cartésien : étudiant rationnel, logique, méthodique, il n'est jamais en retard et cherche a avoir les meilleures résultat afin d'acquérir le plus de connaissance possible." wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="141.0" layoutY="452.0" prefHeight="42.0" prefWidth="638.0" text="L'Hédoniste : étudiant priorisant les joie de la vie à l'étude, social, drole et bon vivant, cela ne l'empeche pas de réussir ces études malgrès son rythme de vie." wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="141.0" layoutY="509.0" prefHeight="42.0" prefWidth="638.0" text="Le Cynique : étudiant imprudent, éffronté meme parfois insultant. Il cherchera par tous les moyen de réussir au dépit des autres et par tous les bon et surtout mauvais moyens." wrapText="true">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="valider" onAction="#validateData" layoutX="117.0" layoutY="594.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" text="Valider">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label fx:id="errorUsername" layoutX="502.0" layoutY="203.0" prefHeight="15.0" prefWidth="144.0" textFill="RED" />
+            <Label fx:id="errorPassword" layoutX="498.0" layoutY="258.0" prefHeight="15.0" prefWidth="166.0" textFill="RED" />
+            </children>
+        </AnchorPane>
+    </children>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+    </rowConstraints>
+</GridPane>

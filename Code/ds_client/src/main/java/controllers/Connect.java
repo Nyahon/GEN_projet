@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.net.Socket;
 
-public class createAccount extends mainController {
+public class Connect extends mainController {
 
     @FXML
     private TextField username;
@@ -24,15 +23,6 @@ public class createAccount extends mainController {
 
     @FXML
     private Label errorUsername;
-
-    @FXML
-    private RadioButton cartesien;
-
-    @FXML
-    private RadioButton hedoniste;
-
-    @FXML
-    private RadioButton cynique;
 
     @FXML
     private Button valider;
@@ -57,8 +47,8 @@ public class createAccount extends mainController {
 
     @FXML
     public void validateData() {
-
         try {
+
             // ENVOIE LE USERNAME AU SERVEUR
             System.out.println(input.readLine());
             output.println(username.getText());
@@ -69,37 +59,15 @@ public class createAccount extends mainController {
             output.println(hashPass(password.getText()));
             output.flush();
 
-            System.out.println(input.readLine());
-            System.out.println(input.readLine());
-            System.out.println(input.readLine());
-            System.out.println(input.readLine());
-
-            String choixClasse = "1";
-
-            if (hedoniste.isSelected()) {
-                choixClasse = "1";
-
-            }
-            if (cynique.isSelected()) {
-                choixClasse = "2";
-
-            }
-            if (cartesien.isSelected()) {
-                choixClasse = "2";
-            }
-
-            // ENVOIE LE CHOIX DE PERSONNAGE AU SERVEUR
-            output.println(choixClasse);
-            output.flush();
-
             String response = "";
+
             response = input.readLine();
             if (response.equals(Pinfo.FAILURE)) {
                 errorUsername.setTextFill(Color.RED);
-                errorUsername.setText("This user name exist already");
+                errorUsername.setText("This user doesn't exist");
             } else {
                 errorUsername.setTextFill(Color.GREEN);
-                errorUsername.setText("account created and login Ok");
+                errorUsername.setText("login OK");
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
                 Stage stage = new Stage();
@@ -107,15 +75,16 @@ public class createAccount extends mainController {
                 mainController main = fxmlLoader.<mainController>getController();
                 main.setLoginOk(true);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
     @FXML
     private void returnHome() {
         Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
+
     }
 }

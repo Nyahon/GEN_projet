@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.connect">
+<GridPane alignment="center" hgap="10" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Connect">
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="1000.0">
             <children>
@@ -30,13 +30,20 @@
             </Label>
             <TextField fx:id="username" layoutX="391.0" layoutY="183.0" prefHeight="25.0" prefWidth="199.0" promptText="username" />
             <TextField fx:id="password" layoutX="391.0" layoutY="278.0" prefHeight="25.0" prefWidth="199.0" promptText="password" />
-            <Button fx:id="valider" onAction="#validateData" layoutX="209.0" layoutY="375.0" mnemonicParsing="false" text="Valider">
+            <Button fx:id="valider" layoutX="209.0" layoutY="375.0" mnemonicParsing="false" onAction="#validateData" text="Valider">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="errorUsername" layoutX="600.0" layoutY="188.0" prefHeight="15.0" prefWidth="137.0" />
-            <Label fx:id="errorPassword" layoutX="600.0" layoutY="283.0" prefHeight="15.0" prefWidth="137.0" />
+            <Label fx:id="errorUsername" layoutX="222.0" layoutY="723.0" prefHeight="42.0" prefWidth="467.0" textFill="#f50000">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Button fx:id="close" onAction="#returnHome" layoutX="697.0" layoutY="723.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="130.0" text="returnMenu">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
             </children>
         </AnchorPane>
     </children>

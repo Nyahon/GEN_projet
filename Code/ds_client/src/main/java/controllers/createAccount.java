@@ -85,7 +85,7 @@ public class createAccount extends mainController {
 
             }
             if (cartesien.isSelected()) {
-                choixClasse = "2";
+                choixClasse = "3";
             }
 
             // ENVOIE LE CHOIX DE PERSONNAGE AU SERVEUR
@@ -102,8 +102,6 @@ public class createAccount extends mainController {
                 errorUsername.setText("account created and login Ok");
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader.load()));
                 mainController main = fxmlLoader.<mainController>getController();
                 main.setLoginOk(true);
             }

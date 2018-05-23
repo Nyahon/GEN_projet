@@ -70,8 +70,6 @@ public class Connect extends mainController {
                 errorUsername.setText("login OK");
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader.load()));
                 mainController main = fxmlLoader.<mainController>getController();
                 main.setLoginOk(true);
             }

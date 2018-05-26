@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -49,10 +50,10 @@
                   <RadioButton fx:id="thirstRespond" layoutX="34.0" layoutY="122.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="253.0" text="reponse3" wrapText="true" />
                   <RadioButton fx:id="fourthRespond" layoutX="34.0" layoutY="172.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="253.0" text="response4" wrapText="true" />
                   <Separator layoutX="354.0" layoutY="4.0" orientation="VERTICAL" prefHeight="244.0" prefWidth="6.0" />
-                  <Separator layoutY="-5.0" prefHeight="8.0" prefWidth="1000.0"/>
+                  <Separator layoutY="-5.0" prefHeight="8.0" prefWidth="1000.0" />
                   <Label layoutX="389.0" layoutY="22.0" prefHeight="15.0" prefWidth="204.0" text="Choice if you want to use an Item" />
                   <Separator layoutX="700.0" layoutY="1.0" orientation="VERTICAL" prefHeight="244.0" prefWidth="6.0" />
-                  <Button fx:id="respondQuestion" layoutX="304.0" layoutY="208.0" mnemonicParsing="false" text="Ask"  onAction="#respondToTheQuestion"/>
+                  <Button fx:id="respondQuestion" layoutX="304.0" layoutY="208.0" mnemonicParsing="false" onAction="#respondToTheQuestion" text="Ask" />
                   <Label layoutX="741.0" layoutY="14.0" text="Your life : " />
                   <Label fx:id="ennemisLabelRespond" layoutX="741.0" layoutY="49.0" text="Ennemis" />
                   <Label layoutX="794.0" layoutY="49.0" prefHeight="15.0" prefWidth="30.0" text="life :" />
@@ -64,8 +65,30 @@
                   <RadioButton fx:id="livre" layoutX="388.0" layoutY="96.0" mnemonicParsing="false" text="LIVRE" />
                   <RadioButton fx:id="biere" layoutX="387.0" layoutY="134.0" mnemonicParsing="false" text="BIERE" />
                   <RadioButton fx:id="noItems" layoutX="387.0" layoutY="172.0" mnemonicParsing="false" text="NoItems" />
+                  <Label fx:id="itemChoisis" layoutX="520.0" layoutY="211.0" text="Item Choisis" textFill="#57cd30">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
+            <Label fx:id="winOrLost" layoutX="462.0" layoutY="93.0">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
+            <Label fx:id="rightOrFalse" layoutX="468.0" layoutY="517.0">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Button fx:id="close" layoutX="385.0" layoutY="297.0" mnemonicParsing="false" onAction="#returnHome" text="Quit this fight">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="imgMe" fitHeight="327.0" fitWidth="435.0" layoutX="14.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="imgAdversary" fitHeight="327.0" fitWidth="435.0" layoutX="552.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </AnchorPane>
     </children>

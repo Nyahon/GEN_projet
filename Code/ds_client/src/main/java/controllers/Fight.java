@@ -10,6 +10,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -31,6 +33,24 @@ public class Fight extends mainController {
 
     @FXML
     private Label ennemisLabel; // name of the adversary
+
+    @FXML
+    private Label itemChoisis;
+
+    @FXML
+    private Label winOrLost;
+
+    @FXML
+    private Label rightOrFalse;
+
+    @FXML
+    private Button close;
+
+    @FXML
+    private ImageView imgMe;
+
+    @FXML
+    private ImageView imgAdversary;
 
     // ASKING PANE
 
@@ -134,6 +154,16 @@ public class Fight extends mainController {
             // disable un-use Pane
             respond.setVisible(false);
             asking.setVisible(false);
+            winOrLost.setVisible(false);
+            rightOrFalse.setVisible(false);
+            close.setVisible(false);
+
+            // TODO : METTRE UNE IMAGE DIFFERENTE SELON LE TYPE DE CLASSE
+            Image meImg = new Image("/images/hedoniste.png");
+            imgMe.setImage(meImg);
+
+            Image HisImg = new Image("/images/rentsch.png");
+            imgAdversary.setImage(HisImg);
 
             // Set labels life Value
             setLifeLabel();
@@ -153,6 +183,7 @@ public class Fight extends mainController {
         Player temp;
         String tmp = "";
         if (inFight) {
+            itemChoisis.setVisible(false);
             respond.setVisible(false);
             asking.setVisible(false);
 
@@ -174,12 +205,19 @@ public class Fight extends mainController {
                         switch (in.readLine().toUpperCase()) {
                             case Pfight.WIN:
                                 System.out.println("You won the fight !");
+                                winOrLost.setVisible(true);
+                                winOrLost.setTextFill(Color.GREEN);
+                                winOrLost.setText("You won the fight !");
                                 break;
                             case Pfight.LOST:
                                 System.out.println("You lost the fight !");
+                                winOrLost.setVisible(true);
+                                winOrLost.setTextFill(Color.RED);
+                                winOrLost.setText("You lost the fight !");
                                 break;
                         }
-                        inFight = false;
+                        Thread.sleep(2);
+                        returnHome();
                         break;
 
                     default:
@@ -349,6 +387,8 @@ public class Fight extends mainController {
                 out.flush();
             }
 
+            itemChoisis.setVisible(true);
+
         } catch (Exception e)
 
         {
@@ -366,12 +406,20 @@ public class Fight extends mainController {
             LOG.log(Level.INFO, "ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
             switch (tmp) {
                 case Pfight.RIGHT:
+                    rightOrFalse.setVisible(true);
+                    rightOrFalse.setTextFill(Color.GREEN);
+                    rightOrFalse.setText("Right");
+
                     temp = JsonCreator.readPlayer(in.readLine());
                     opponnent.setNbPV(temp.getNbPV());
                     temp = JsonCreator.readPlayer(in.readLine());
                     player.setNbPV(temp.getNbPV());
                     break;
                 case Pfight.FALSE:
+                    rightOrFalse.setVisible(true);
+                    rightOrFalse.setTextFill(Color.RED);
+                    rightOrFalse.setText("False");
+
                     temp = JsonCreator.readPlayer(in.readLine());
                     opponnent.setNbPV(temp.getNbPV());
                     temp = JsonCreator.readPlayer(in.readLine());
@@ -386,6 +434,12 @@ public class Fight extends mainController {
         }
         setLifeLabel();
         beginRound();
+    }
+
+    @FXML
+    private void returnHome() {
+        Stage stage = (Stage) close.getScene().getWindow();
+        stage.close();
     }
 
 }

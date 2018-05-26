@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import models.JsonCreator;
 
 import java.io.*;
 import java.net.Socket;
@@ -35,12 +36,12 @@ public class Connect extends mainController {
     private Socket socket;
 
     @FXML
-    protected void initialize(Socket socket) {
-        this.socket = socket;
+    protected void initialize() {
+        this.socket = getSocket();
         try {
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (IOException e) {
+            input = getInput();
+            output = getOutput();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -71,8 +72,19 @@ public class Connect extends mainController {
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
                 mainController main = fxmlLoader.<mainController>getController();
-                main.setLoginOk(true);
+
+                setLoginOk(true);
+                setSocket(socket);
+
+                // Creation of the player object -------------------------------------------------------------------------------
+                String playerPayloadJson = null;
+
+
+                playerPayloadJson = input.readLine();
+
+                setPlayer(JsonCreator.readPlayer(playerPayloadJson));
             }
+            input.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,6 +95,5 @@ public class Connect extends mainController {
     private void returnHome() {
         Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
-
     }
 }

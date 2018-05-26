@@ -110,11 +110,8 @@ public class Client {
                     isLoginOk = true;
                 }
             }
-
-
         }
         // END OF LOG IN -----------------------------------------------------------------------------------------------
-
 
         // Creation of the player object -------------------------------------------------------------------------------
         String playerPayloadJson = input.readLine();

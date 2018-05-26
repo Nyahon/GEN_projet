@@ -30,15 +30,5 @@ public class starter extends Application {
             client.quitSystem();
         });
         primaryStage.show();
-
-        /*
-        try {
-            client.connect();
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        */
-
     }
 }

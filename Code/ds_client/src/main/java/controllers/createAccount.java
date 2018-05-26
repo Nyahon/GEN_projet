@@ -100,7 +100,6 @@ public class createAccount extends mainController {
             } else {
                 errorUsername.setTextFill(Color.GREEN);
                 errorUsername.setText("account created and login Ok");
-
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
                 mainController main = fxmlLoader.<mainController>getController();
                 main.setLoginOk(true);

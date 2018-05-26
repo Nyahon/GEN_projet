@@ -90,6 +90,7 @@ public class PlayerConnectionHandler implements Runnable {
                         player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
                         loginIsOk = true;
                         out.println(Pinfo.SUCCESS);
+
                         out.println(JsonCreator.SendPlayer(player));
                         out.flush();
 
@@ -141,6 +142,7 @@ public class PlayerConnectionHandler implements Runnable {
                         player.initQuestionPlayer();
                         loginIsOk = true;
                         out.println(Pinfo.SUCCESS);
+
                         out.println(JsonCreator.SendPlayer(player));
                         out.flush();
                     }

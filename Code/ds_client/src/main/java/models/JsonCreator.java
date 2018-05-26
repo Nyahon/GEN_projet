@@ -77,6 +77,30 @@ public class JsonCreator {
         }
     }
 
+    public static LinkedList<String> GetReponsesList(String jsonPayload){
+        ObjectMapper objectMapper = new ObjectMapper();
+        LinkedList<String> responses = new LinkedList<>();
+        JsonNode rootNode = null;
+        try {
+
+            rootNode = objectMapper.readTree(jsonPayload);
+
+            JsonNode reponsesNode = rootNode.path("Reponses");
+            Iterator<JsonNode> elements = reponsesNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode reponse = elements.next();
+                System.out.println(reponse.path("idRep").asText() + " : " + reponse.path("rep").asText());
+                responses.add(reponse.path("idRep").asText() + " : " + reponse.path("rep").asText());
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return responses;
+    }
+
     public static void AfficherItems(String jsonPayload){
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -97,5 +121,30 @@ public class JsonCreator {
         } catch (IOException e){
             e.printStackTrace();
         }
+    }
+
+    public static LinkedList<String> GetItemsList (String jsonPayload){
+        ObjectMapper objectMapper = new ObjectMapper();
+        LinkedList<String> items = new LinkedList<>();
+        JsonNode rootNode = null;
+        try{
+
+            rootNode = objectMapper.readTree(jsonPayload);
+
+            JsonNode itemsNode = rootNode.path("Items");
+            Iterator<JsonNode> elements = itemsNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode item = elements.next();
+                System.out.println(item.path("idItem").asText() + " : " + item.path("item").asText() + " -> " + item.path("nbAvailable"));
+                items.add(item.path("idItem").asText() + " : " + item.path("item").asText() + " -> " + item.path("nbAvailable"));
+            }
+
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return items;
     }
 }

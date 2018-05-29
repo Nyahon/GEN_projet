@@ -1,9 +1,11 @@
 package controllers;
 
+import Protocol.Pcmd;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.JsonCreator;
 import models.Player;
 
 import java.io.BufferedReader;
@@ -38,16 +40,10 @@ public class Hub extends mainController{
     @FXML
     public void startStory() {
         try {
-
             player.setSocket(socket);
             System.out.println(player);
 
-            // END OF CREATION PLAYER --------------------------------------------------------------------------------------
-
-            // Send Commands to the server ---------------------------------------------------------------------------------
-
-                System.out.println(input.readLine());
-                output.println("STORY");
+                output.println(Pcmd.STORY);
                 output.flush();
 
                 //Charge la page fight

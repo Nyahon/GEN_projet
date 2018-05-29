@@ -141,11 +141,6 @@ public class Fight extends mainController {
             opponnent.setName(in.readLine());
             opponnent.setNbPV(Integer.parseInt(in.readLine()));
 
-            System.out.println("Votre adversaire: ---------------------------------------------------------------------");
-            System.out.println(opponnent.getName().toUpperCase());
-            System.out.println("PV: " + opponnent.getNbPV());
-            System.out.println("---------------------------------------------------------------------------------------");
-
             // Set labels Name Value
             ennemisLabel.setText(opponnent.getName());
             ennemisLabelRespond.setText(opponnent.getName());
@@ -159,6 +154,7 @@ public class Fight extends mainController {
             close.setVisible(false);
 
             // TODO : METTRE UNE IMAGE DIFFERENTE SELON LE TYPE DE CLASSE
+
             Image meImg = new Image("/images/hedoniste.png");
             imgMe.setImage(meImg);
 
@@ -183,6 +179,7 @@ public class Fight extends mainController {
         Player temp;
         String tmp = "";
         if (inFight) {
+
             itemChoisis.setVisible(false);
             respond.setVisible(false);
             asking.setVisible(false);
@@ -265,10 +262,9 @@ public class Fight extends mainController {
             //Activate Respond Pane
             respond.setVisible(true);
 
-            System.out.println("Wait for your opponent to ask you a quesiton.");
             // Affiche la question
             String receiveQuestion = in.readLine();
-            System.out.println(receiveQuestion);
+
             question.setText(receiveQuestion);
 
             //récupère les choix de réponses
@@ -278,10 +274,11 @@ public class Fight extends mainController {
             thirstRespond.setText(reponses.get(2));
             fourthRespond.setText(reponses.get(3));
 
-            // Demande les items
-            // Proposer l'utilisation d'un item.
-            System.out.println("Voulez vous utilisez un item ? (O/N)");
-            System.out.print("Choisir un des item possible :");
+            // récupère la liste des objets.
+            // TODO récupère les objets
+            in.readLine();
+
+            //ATTENT ACTION SUR BOUTON.
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -311,11 +308,10 @@ public class Fight extends mainController {
 
     @FXML
     private void respondToTheQuestion() {
+
+        out.println(Pfight.ANSWER);
+        System.out.println("Bouton répondre appuié ");
         try {
-            // réafficher les réponses possible
-            in.readLine();
-            System.out.println("Type your answer select you answer between these by the letter: ");
-            // Envoie de la réponse choisie
 
             // Envoie de la réponse choisie
             if (firstRespond.isSelected()) {
@@ -347,47 +343,38 @@ public class Fight extends mainController {
     @FXML
     private void useTheItem() {
 
+        out.println(Pfight.USE_ITEM);
+
         try {
 
             if (antiseche.isSelected()) {
-                out.println(Pfight.USE_ITEM);
-                out.flush();
-
-                //TODO : ICI ON RECOIT LES ITEMS MAIS JE VOIS PAS COMMENT LES AFFICHER AVANT
-                // TODO: DE LES SELECTIONNER (AFFICHER LEUR NOMBRE).
-                System.out.println(in.readLine());
                 out.println(Pfight.ITEM_ANTISECHE);
                 out.flush();
             }
 
             if (livre.isSelected()) {
-                out.println(Pfight.USE_ITEM);
-                out.flush();
-
-                //TODO : ICI ON RECOIT LES ITEMS MAIS JE VOIS PAS COMMENT LES AFFICHER AVANT
-                // TODO: DE LES SELECTIONNER (AFFICHER LEUR NOMBRE).
-                System.out.println(in.readLine());
                 out.println(Pfight.ITEM_LIVRE);
                 out.flush();
             }
 
             if (biere.isSelected()) {
-                out.println(Pfight.USE_ITEM);
-                out.flush();
-
-                //TODO : ICI ON RECOIT LES ITEMS MAIS JE VOIS PAS COMMENT LES AFFICHER AVANT
-                // TODO: DE LES SELECTIONNER (AFFICHER LEUR NOMBRE).
-                System.out.println(in.readLine());
                 out.println(Pfight.ITEM_BIERE);
                 out.flush();
             }
 
-            if (noItems.isSelected()) {
-                out.println(Pfight.NO_USE_ITEM);
-                out.flush();
-            }
-
             itemChoisis.setVisible(true);
+
+            //récupère les choix de réponses
+            LinkedList<String> reponses = JsonCreator.GetReponsesList(in.readLine());
+            firstRespond.setText(reponses.get(0));
+            SecondRespond.setText(reponses.get(1));
+            thirstRespond.setText(reponses.get(2));
+            fourthRespond.setText(reponses.get(3));
+
+            //récupère l'etat de notre joueur.
+            Player temp = JsonCreator.readPlayer(in.readLine());
+            player.setNbPV(temp.getNbPV());
+            setLifeLabel();
 
         } catch (Exception e)
 
@@ -398,42 +385,41 @@ public class Fight extends mainController {
 
     private void getRightORFalse() {
         try {
-            // result
-            String tmp = null;
 
-            tmp = in.readLine().toUpperCase();
+            String tmp = in.readLine().toUpperCase();
             Player temp;
             LOG.log(Level.INFO, "ATTEND DE RECEVOIR RIGHT OR FALSE : " + tmp);
+
             switch (tmp) {
                 case Pfight.RIGHT:
                     rightOrFalse.setVisible(true);
                     rightOrFalse.setTextFill(Color.GREEN);
                     rightOrFalse.setText("Right");
 
-                    temp = JsonCreator.readPlayer(in.readLine());
-                    opponnent.setNbPV(temp.getNbPV());
-                    temp = JsonCreator.readPlayer(in.readLine());
-                    player.setNbPV(temp.getNbPV());
                     break;
+
                 case Pfight.FALSE:
                     rightOrFalse.setVisible(true);
                     rightOrFalse.setTextFill(Color.RED);
                     rightOrFalse.setText("False");
 
-                    temp = JsonCreator.readPlayer(in.readLine());
-                    opponnent.setNbPV(temp.getNbPV());
-                    temp = JsonCreator.readPlayer(in.readLine());
-                    player.setNbPV(temp.getNbPV());
                     break;
             }
+
+            //Mise a jour des points de vie généraux.
+            temp = JsonCreator.readPlayer(in.readLine());
+            opponnent.setNbPV(temp.getNbPV());
+            temp = JsonCreator.readPlayer(in.readLine());
+            player.setNbPV(temp.getNbPV());
+
+            setLifeLabel();
+            beginRound();
 
         } catch (Exception e)
 
         {
             e.printStackTrace();
         }
-        setLifeLabel();
-        beginRound();
     }
 
     @FXML

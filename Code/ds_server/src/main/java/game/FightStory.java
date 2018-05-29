@@ -2,6 +2,7 @@ package game;
 
 import java.util.Random;
 
+import Protocol.Pcmd;
 import Protocol.Pfight;
 import models.ConnectionDB;
 import models.ItemType;
@@ -33,6 +34,7 @@ public class FightStory implements Runnable {
 
     public void run()  {
         try {
+            // Recuperation Nom et PV adversaire
             player.setFightMessageIn(professeur.getNom());
             player.setFightMessageIn(String.valueOf(professeur.getPv()));
 
@@ -43,67 +45,83 @@ public class FightStory implements Runnable {
             while (inFight) {
 
                 // todo: function to avoid duplicated code
+                // Mode question ou Réponse ?
+                player.setFightMessageIn(Pfight.ANSWER);
 
-                player.setFightMessageIn("ANSWER");
-
+                // TODO : FAIRE récup question aléa
                 Question question = ConnectionDB.getQuestionById(1);
+                // envoie la question du prof au player.
                 player.setFightMessageIn(question.getQuestion());
 
-                // transmet les choix de réponses
+                // transmet les choix de réponses au joueur
                 // fixme: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
                 String repPayloadJson = JsonCreator.sendReponses(question);
                 player.setFightMessageIn(repPayloadJson);
 
-                // désire de choisir un item.
-                String rep = player.getFightMessageOut();
-                if(rep.equals(Pfight.USE_ITEM)){
+                // envoie des items disponnible au joueur
+                String itemsPayloadJson = JsonCreator.sendItems(player.getItems());
+                player.setFightMessageIn(itemsPayloadJson);
 
-                    // envoie des items disponnible
-                    String itemsPayloadJson = JsonCreator.sendItems(player.getItems());
-                    player.setFightMessageIn(itemsPayloadJson);
+                boolean hasAnswer = false;
+                while (!hasAnswer) {
 
-                    // récupérer le choix d'item à utiliser et utiliser l'item
-                    switch(player.getFightMessageOut()){
-                        case Pfight.ITEM_BIERE:
-                            if(player.getNbItem(ItemType.Biere) > 0){
-                                player.UseItem(player.getItem(ItemType.Biere), question);
+                    switch (player.getFightMessageOut()) {
+                        case Pfight.USE_ITEM:
+
+                            // récupérer le choix d'item à utiliser et utiliser l'item
+                            switch(player.getFightMessageOut()){
+                                case Pfight.ITEM_BIERE:
+                                    if(player.getNbItem(ItemType.Biere) > 0){
+                                        player.UseItem(player.getItem(ItemType.Biere), question);
+                                    }
+                                    break;
+                                case Pfight.ITEM_LIVRE:
+                                    if(player.getNbItem(ItemType.Livre) > 0) {
+                                        player.UseItem(player.getItem(ItemType.Livre), question);
+                                    }
+                                    break;
+                                case Pfight.ITEM_ANTISECHE:
+                                    if(player.getNbItem(ItemType.AntiSeche) > 0) {
+                                        player.UseItem(player.getItem(ItemType.AntiSeche), question);
+                                    }
+                                    break;
                             }
+
+                            // envoi du choix de réponse possible au handler
+                            repPayloadJson = JsonCreator.sendReponses(question);
+                            System.out.println(repPayloadJson);
+                            player.setFightMessageIn(repPayloadJson);
+
+                            // envoie de l'état du joueur au handler
+                            player.setFightMessageIn(JsonCreator.SendPlayer(player));
+
                             break;
-                        case Pfight.ITEM_LIVRE:
-                            if(player.getNbItem(ItemType.Livre) > 0) {
-                                player.UseItem(player.getItem(ItemType.Livre), question);
+
+                        case Pfight.ANSWER:
+
+                            String response = player.getFightMessageOut();
+
+                            String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
+
+                            if(question.getReponseOK().equals(choixReponse)){
+                                player.setFightMessageIn("RIGHT");
+                                professeur.loosePv(40);
                             }
-                            break;
-                        case Pfight.ITEM_ANTISECHE:
-                            if(player.getNbItem(ItemType.AntiSeche) > 0) {
-                                player.UseItem(player.getItem(ItemType.AntiSeche), question);
+
+                            else {
+                                player.setFightMessageIn("FALSE");
+                                player.loosePV(40);
                             }
+
+                            hasAnswer = true;
+
                             break;
                     }
-
-                    // r'envoi du choix de réponse possible
-                    repPayloadJson = JsonCreator.sendReponses(question);
-                    System.out.println(repPayloadJson);
-                    player.setFightMessageIn(repPayloadJson);
                 }
 
-                String response = player.getFightMessageOut();
-                String choixReponse = JsonCreator.parseReponseByLetter(repPayloadJson, response);
-                if(question.getReponseOK().equals(choixReponse)){
-                    player.setFightMessageIn("RIGHT");
-                    professeur.loosePv(40);
-                    // Envoi etat adversaire et joueur à player1
-                    player.setFightMessageIn(JsonCreator.SendProfesseur(professeur));
-                    player.setFightMessageIn(JsonCreator.SendPlayer(player));
-                }
-                else {
-                    player.setFightMessageIn("FALSE");
-                    player.loosePV(40);
-                    // Envoi etat adversaire et joueur à player1
-                    player.setFightMessageIn(JsonCreator.SendProfesseur(professeur));
-                    player.setFightMessageIn(JsonCreator.SendPlayer(player));
-                }
-
+                // Envoi etat adversaire et joueur à player1
+                player.setFightMessageIn(JsonCreator.SendProfesseur(professeur));
+                player.setFightMessageIn(JsonCreator.SendPlayer(player));
 
                 if(player.getNbPV() <= 0 || professeur.getPv() <= 0){
                     inFight = false;
@@ -113,12 +131,12 @@ public class FightStory implements Runnable {
             } // END OF FIGHT
 
             if (player.getNbPV() <= 0) {
-                player.setFightMessageIn("END");
-                player.setFightMessageIn("LOST");
+                player.setFightMessageIn(Pfight.END);
+                player.setFightMessageIn(Pfight.LOST);
             }
             if (professeur.getPv() <= 0) {
-                player.setFightMessageIn("END");
-                player.setFightMessageIn("WON");
+                player.setFightMessageIn(Pfight.END);
+                player.setFightMessageIn(Pfight.WIN);
 
             }
 

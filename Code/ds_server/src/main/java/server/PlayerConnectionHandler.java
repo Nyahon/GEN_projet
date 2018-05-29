@@ -73,9 +73,6 @@ public class PlayerConnectionHandler implements Runnable {
 
             // Receive and treat commands from the client
             while (gameEngine.isConnected(player)) {
-
-                out.println("SERVER: Enter your command: ");
-                out.flush();
                 receiveCMD(in.readLine());
             }
 
@@ -86,15 +83,15 @@ public class PlayerConnectionHandler implements Runnable {
 
     }
 
-    public void connectionMenu() throws  IOException{
+    public void connectionMenu() throws IOException {
         boolean success = false;
         String command;
         String username;
         String password;
-        while (!success){
+        while (!success) {
 
-            switch (command = in.readLine()){
-                case Pcmd.CONNECT :
+            switch (command = in.readLine()) {
+                case Pcmd.CONNECT:
                     username = in.readLine();
                     password = in.readLine();
                     //CONTROLER PASSWORD
@@ -122,14 +119,14 @@ public class PlayerConnectionHandler implements Runnable {
                     }
 
                     break;
-                case Pcmd.CREATE_ACCOUNT :
+                case Pcmd.CREATE_ACCOUNT:
 
                     username = in.readLine();
                     password = in.readLine();
                     String classChoice = in.readLine();
 
                     PlayerClass pc = PlayerClass.Hedoniste;
-                    switch (Integer.parseInt(classChoice)){
+                    switch (Integer.parseInt(classChoice)) {
                         case 1:
                             pc = PlayerClass.Hedoniste;
                             break;
@@ -142,14 +139,12 @@ public class PlayerConnectionHandler implements Runnable {
                     }
 
                     // joueur existe déjà
-                    if(ConnectionDB.getJoueurByName(username)!=null){
+                    if (ConnectionDB.getJoueurByName(username) != null) {
                         out.println(Pinfo.FAILURE);
                         out.flush();
 
                         success = false;
-                    }
-
-                    else {
+                    } else {
                         player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc);
                         ConnectionDB.insertJoueur(player, password);
                         player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
@@ -332,14 +327,15 @@ public class PlayerConnectionHandler implements Runnable {
 
         // Debut combat
         while (player.getInFight()) {
-            // Question ou Réponse ?
+
+            // Mode question ou Réponse ?
             String variable = player.getFightMessageIn();
             out.println(variable);
             out.flush();
 
             switch (variable) {
                 case Pfight.ASK:
-                    // Choix question du joueur
+                    // Choix question du joueur(client)
                     player.setFightMessageOut(in.readLine());
 
                     // Réponse juste ou fausse ?
@@ -347,38 +343,56 @@ public class PlayerConnectionHandler implements Runnable {
                     out.flush();
                     break;
                 case Pfight.ANSWER:
-                    // Reception de la question, envoie au joueur
-                    out.println(player.getFightMessageIn());
-                    out.flush();
-                    // Reception du choix de réponse, envoie au joueur
+                    // Reception de la question, envoie au client
                     out.println(player.getFightMessageIn());
                     out.flush();
 
-                    // Reception de la demande d'utiliser un item (O/N), envoie du choix.
-                    String rep = in.readLine();
-                    // Transfert de la réponse au fight
-                    player.setFightMessageOut(rep);
-                    if(rep.equals(Pfight.USE_ITEM)){
+                    // Reception du choix de réponse, envoie au client
+                    out.println(player.getFightMessageIn());
+                    out.flush();
 
-                        // réception des items disponnible, envoie au joueur
-                        out.println(player.getFightMessageIn());
-                        out.flush();
+                    // Reception des objets du player envoie au client.
+                    out.println(player.getFightMessageIn());
+                    out.flush();
 
-                        // transfert du choix au fight
-                        player.setFightMessageOut(in.readLine());
+                    //reçois si utilise réponse ou objet
+                    boolean hasAnswer = false;
+                    while (!hasAnswer) {
 
-                        // r'envoie des choix de réponse possible
-                        out.println(player.getFightMessageIn());
-                        out.flush();
+                        String action = in.readLine();
+                        player.setFightMessageOut(action);
+                        switch (action) {
+                            case Pfight.USE_ITEM:
+
+                                // récupère l'item choisi par le client.
+                                String item = in.readLine();
+
+                                // transfert du choix d'item au fight
+                                player.setFightMessageOut(item);
+
+                                // envoie des choix de réponse possible
+                                out.println(player.getFightMessageIn());
+                                out.flush();
+
+                                // Payload état du joueur
+                                out.println(player.getFightMessageIn());
+                                out.flush();
+                                break;
+
+                            case Pfight.ANSWER:
+
+                                // réception de la réponse du joueur.
+                                player.setFightMessageOut(in.readLine());
+
+                                // Réponse juste ou fausse ?
+                                out.println(player.getFightMessageIn());
+                                out.flush();
+
+                                hasAnswer = true;
+
+                                break;
+                        }
                     }
-
-                    // réception du joueur et Envoi de la réponse choisie
-                    player.setFightMessageOut(in.readLine());
-
-                    // Réponse juste ou fausse ?
-                    out.println(player.getFightMessageIn());
-                    out.flush();
-                    break;
             }
 
             // Payload état de l'adversaire

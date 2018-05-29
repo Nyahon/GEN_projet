@@ -62,95 +62,9 @@ public class PlayerConnectionHandler implements Runnable {
             final String CYNIQUE_DESCRIPTION = "2 : " + PlayerClass.Cynique.name() + " : " + PlayerClass.Cynique.getDescription();
             final String CARTESIEN_DESCRIPTION = "3 : " + PlayerClass.Cartesien.name() + " : " + PlayerClass.Cartesien.getDescription();
 
-            boolean loginIsOk = false;
+            connectionMenu();
 
-            String identifiant = "";
-            String password = "";
-
-            while (!loginIsOk) {
-                out.println("SERVER: Avez-vous déjà un compte ? Y/N");
-                out.flush();
-                String hasAnAccount = in.readLine();
-
-                if (hasAnAccount.toUpperCase().equals("Y")) {
-
-                    out.println(QUESTION_IDENTIFIANT);
-                    out.flush();
-                    identifiant = in.readLine();
-
-                    out.println(QUESTION_PASSWORD);
-                    out.flush();
-                    password = in.readLine();
-
-                    player = ConnectionDB.getJoueurByName(identifiant);
-
-                    // test si le joueur existe dans la base de donnée et que le mot de passe correspond.
-                    if (player != null && password.equals(ConnectionDB.getPasswordByJoueurId(player.getId()))) {
-
-                        player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
-                        loginIsOk = true;
-                        out.println(Pinfo.SUCCESS);
-
-                        out.println(JsonCreator.SendPlayer(player));
-                        out.flush();
-
-                    } else {
-
-                        out.println(Pinfo.FAILURE);
-                        out.flush();
-                    }
-
-                } else if(hasAnAccount.toUpperCase().equals("N")) {
-                    out.println(QUESTION_IDENTIFIANT);
-                    out.flush();
-                    identifiant = in.readLine();
-
-                    out.println(QUESTION_PASSWORD);
-                    out.flush();
-                    password = in.readLine();
-
-                    out.println(QUESTION_CLASSE);
-                    out.println(HEDONISTE_DESCRIPTION);
-                    out.println(CYNIQUE_DESCRIPTION);
-                    out.println(CARTESIEN_DESCRIPTION);
-                    out.flush();
-
-                    String choix = in.readLine();
-                    PlayerClass pc = PlayerClass.Hedoniste;
-                    switch (Integer.parseInt(choix)){
-                        case 1:
-                            pc = PlayerClass.Hedoniste;
-                            break;
-                        case 2:
-                            pc = PlayerClass.Cynique;
-                            break;
-                        case 3:
-                            pc = PlayerClass.Cartesien;
-                            break;
-                    }
-
-                    // joueur existe déjà
-                    if(ConnectionDB.getJoueurByName(identifiant)!=null){
-                        out.println(Pinfo.FAILURE);
-                        out.flush();
-                    }
-                    else {
-                        player = new Player(identifiant, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc);
-                        ConnectionDB.insertJoueur(player, password);
-                        player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
-                        player.initItemsPlayer();
-                        player.initQuestionPlayer();
-                        loginIsOk = true;
-                        out.println(Pinfo.SUCCESS);
-
-                        out.println(JsonCreator.SendPlayer(player));
-                        out.flush();
-                    }
-                }
-            }
-
-            out.println("SERVER: Welcome to Drunk&Smart " + player.getName() + " !");
-            out.flush();
+            // le moteur de jeu enregistre le player.
             player.setClientSocket(clientSocket);
             player.setPlayerConnectionHandler(this);
             gameEngine.register(player);
@@ -170,6 +84,89 @@ public class PlayerConnectionHandler implements Runnable {
             return;
         }
 
+    }
+
+    public void connectionMenu() throws  IOException{
+        boolean success = false;
+        String command;
+        String username;
+        String password;
+        while (!success){
+
+            switch (command = in.readLine()){
+                case Pcmd.CONNECT :
+                    username = in.readLine();
+                    password = in.readLine();
+                    //CONTROLER PASSWORD
+                    player = ConnectionDB.getJoueurByName(username);
+
+                    if (player != null && password.equals(ConnectionDB.getPasswordByJoueurId(player.getId()))) {
+
+                        player.setQuestions(ConnectionDB.getQuestionByPlayer(player.getId()));
+
+                        out.println(Pinfo.SUCCESS);
+                        out.flush();
+
+                        out.println(JsonCreator.SendPlayer(player));
+                        out.flush();
+
+                        success = true;
+
+                    } else {
+
+                        out.println(Pinfo.FAILURE);
+                        out.flush();
+
+                        success = false;
+
+                    }
+
+                    break;
+                case Pcmd.CREATE_ACCOUNT :
+
+                    username = in.readLine();
+                    password = in.readLine();
+                    String classChoice = in.readLine();
+
+                    PlayerClass pc = PlayerClass.Hedoniste;
+                    switch (Integer.parseInt(classChoice)){
+                        case 1:
+                            pc = PlayerClass.Hedoniste;
+                            break;
+                        case 2:
+                            pc = PlayerClass.Cynique;
+                            break;
+                        case 3:
+                            pc = PlayerClass.Cartesien;
+                            break;
+                    }
+
+                    // joueur existe déjà
+                    if(ConnectionDB.getJoueurByName(username)!=null){
+                        out.println(Pinfo.FAILURE);
+                        out.flush();
+
+                        success = false;
+                    }
+
+                    else {
+                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc);
+                        ConnectionDB.insertJoueur(player, password);
+                        player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
+                        player.initItemsPlayer();
+                        player.initQuestionPlayer();
+
+                        out.println(Pinfo.SUCCESS);
+
+                        out.println(JsonCreator.SendPlayer(player));
+                        out.flush();
+
+                        success = true;
+                    }
+                    break;
+            }
+
+        }
     }
 
     public void receiveCMD(String cmd) throws IOException, InterruptedException {

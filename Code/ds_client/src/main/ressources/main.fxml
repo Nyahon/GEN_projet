@@ -27,16 +27,6 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="versus" layoutX="217.0" layoutY="448.0" mnemonicParsing="false" onAction="#startVersus" prefHeight="61.0" prefWidth="164.0" text="Versus">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Button fx:id="Story" layoutX="632.0" layoutY="448.0" mnemonicParsing="false" onAction="#startStory" prefHeight="61.0" prefWidth="164.0" text="Story">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
             <Label fx:id="errorLogin" layoutX="273.0" layoutY="97.0" prefHeight="36.0" prefWidth="455.0" textAlignment="CENTER" >
                <font>
                   <Font size="17.0" />

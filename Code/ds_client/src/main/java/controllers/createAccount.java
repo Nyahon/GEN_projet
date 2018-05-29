@@ -1,5 +1,6 @@
 package controllers;
 
+import Protocol.Pcmd;
 import Protocol.Pinfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import models.JsonCreator;
 
 import java.io.*;
 import java.net.Socket;
@@ -45,12 +47,12 @@ public class createAccount extends mainController {
     private Socket socket;
 
     @FXML
-    protected void initialize(Socket socket) {
-        this.socket = socket;
+    protected void initialize() {
+        this.socket = getSocket();
         try {
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-        } catch (IOException e) {
+            input = getInput();
+            output = getOutput();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -59,20 +61,15 @@ public class createAccount extends mainController {
     public void validateData() {
 
         try {
+            output.println(Pcmd.CREATE_ACCOUNT);
+
             // ENVOIE LE USERNAME AU SERVEUR
-            System.out.println(input.readLine());
             output.println(username.getText());
             output.flush();
 
             // ENVOIE LE PASSWORD AU SERVEUR
-            System.out.println(input.readLine());
             output.println(hashPass(password.getText()));
             output.flush();
-
-            System.out.println(input.readLine());
-            System.out.println(input.readLine());
-            System.out.println(input.readLine());
-            System.out.println(input.readLine());
 
             String choixClasse = "1";
 
@@ -93,18 +90,38 @@ public class createAccount extends mainController {
             output.flush();
 
             String response = "";
+
             response = input.readLine();
             if (response.equals(Pinfo.FAILURE)) {
                 errorUsername.setTextFill(Color.RED);
-                errorUsername.setText("This user name exist already");
+                errorUsername.setText("This user already exist");
             } else {
                 errorUsername.setTextFill(Color.GREEN);
-                errorUsername.setText("account created and login Ok");
+                errorUsername.setText("create account ok, login OK");
+
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
                 mainController main = fxmlLoader.<mainController>getController();
-                main.setLoginOk(true);
+
+                setLoginOk(true);
+                setSocket(socket);
+
+                // Creation of the player object -------------------------------------------------------------------------------
+                String playerPayloadJson = null;
+
+
+                playerPayloadJson = input.readLine();
+
+                setPlayer(JsonCreator.readPlayer(playerPayloadJson));
+
+                fxmlLoader = new FXMLLoader(getClass().getResource("/hub.fxml"));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(fxmlLoader.load()));
+                Hub hub = fxmlLoader.<Hub>getController();
+                hub.initialize();
+                stage.show();
             }
-        } catch (Exception e) {
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

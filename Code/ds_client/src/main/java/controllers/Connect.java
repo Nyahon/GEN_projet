@@ -1,5 +1,6 @@
 package controllers;
 
+import Protocol.Pcmd;
 import Protocol.Pinfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -50,13 +51,13 @@ public class Connect extends mainController {
     public void validateData() {
         try {
 
+            output.println(Pcmd.CONNECT);
+
             // ENVOIE LE USERNAME AU SERVEUR
-            System.out.println(input.readLine());
             output.println(username.getText());
             output.flush();
 
             // ENVOIE LE PASSWORD AU SERVEUR
-            System.out.println(input.readLine());
             output.println(hashPass(password.getText()));
             output.flush();
 
@@ -83,8 +84,14 @@ public class Connect extends mainController {
                 playerPayloadJson = input.readLine();
 
                 setPlayer(JsonCreator.readPlayer(playerPayloadJson));
+
+                fxmlLoader = new FXMLLoader(getClass().getResource("/hub.fxml"));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(fxmlLoader.load()));
+                Hub hub = fxmlLoader.<Hub>getController();
+                hub.initialize();
+                stage.show();
             }
-            input.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }

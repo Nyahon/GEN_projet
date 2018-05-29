@@ -61,12 +61,6 @@ public class mainController {
     @FXML
     public void connectAccount() {
         try {
-            System.out.println(input.readLine());
-
-            // Question from server : has an account , respond Y
-            output.println("Y");
-            output.flush();
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/connect.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
@@ -80,74 +74,15 @@ public class mainController {
 
     @FXML
     public void createMyAccount() {
-
         try {
-
-            System.out.println(input.readLine());
-
-            // Question from server : has an account , respond N because he create a account
-            output.println("N");
-            output.flush();
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
             Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
-            createAccount createAccount1 = fxmlLoader.<createAccount>getController();
-            createAccount1.initialize(socket);
+            createAccount create = fxmlLoader.<createAccount>getController();
+            create.initialize();
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void startVersus() {
-        checkLogin();
-
-    }
-
-    @FXML
-    public void startStory() {
-        try {
-            checkLogin();
-
-            player.setSocket(socket);
-            System.out.println(player);
-
-            // END OF CREATION PLAYER --------------------------------------------------------------------------------------
-
-            // Send Commands to the server ---------------------------------------------------------------------------------
-            LOG.log(Level.INFO, "Connected !");
-            isConnected = true;
-
-            if (isConnected) {
-                System.out.println(input.readLine());
-                output.println("STORY");
-                output.flush();
-
-                //Charge la page fight
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader.load()));
-                Fight fight = fxmlLoader.<Fight>getController();
-                fight.initialize(player);
-                stage.show();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void checkLogin() {
-        if (isLoginOk) {
-            errorLogin.setTextFill(Color.GREEN);
-            errorLogin.setText("Vous etes connecté");
-            createAccount.setCancelButton(true);
-            connect.setCancelButton(true);
-        } else {
-            errorLogin.setTextFill(Color.RED);
-            errorLogin.setText("Avant de commencer connectez vous ou créer un compte");
         }
     }
 
@@ -156,7 +91,7 @@ public class mainController {
         String hex = "";
         try {
             digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest("12345".getBytes(StandardCharsets.UTF_8));
+            byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 
             hex = DatatypeConverter.printHexBinary(hash);
         } catch (NoSuchAlgorithmException e) {
@@ -228,5 +163,9 @@ public class mainController {
 
     public static void setPlayer(Player player) {
        mainController.player = player;
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 }

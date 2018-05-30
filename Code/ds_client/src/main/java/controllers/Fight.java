@@ -307,15 +307,15 @@ public class Fight extends mainController {
             int[] items = JsonCreator.GetNumberOfEveryItem(cochon);
             if(items[0] > 0){
                 antiseche.setVisible(true);
-                antiseche.setText(String.valueOf(items[0]) + ": " + antiseche.getText());
+                antiseche.setText(String.valueOf(items[0]) + ": Antisèches");
             }
             if(items[1] > 0){
                 livre.setVisible(true);
-                livre.setText(String.valueOf(items[1]) + ": " + livre.getText());
+                livre.setText(String.valueOf(items[1]) + ": Livre");
             }
             if(items[2] > 0){
                 biere.setVisible(true);
-                biere.setText(String.valueOf(items[2]) + ": " + biere.getText());
+                biere.setText(String.valueOf(items[2]) + ": Bières");
             }
             System.out.println(cochon);
             //ATTENT ACTION SUR BOUTON.

@@ -50,11 +50,9 @@ public class FightStory implements Runnable {
                 player.setFightMessageIn(Pfight.ANSWER);
 
                 Random generator = new Random();
-                Question question = ConnectionDB.getQuestionById(generator.nextInt(3) + 1);
-                        // TODO : Remplir la liste de question des db_professeur et utilisé la méthode ci dessous
-                        // Bonne manière de récup les questions
-                        //List<Question> questions = professeur.getQuestions();
-                        //questions.get(generator.nextInt(questions.size()));
+                //Question question = ConnectionDB.getQuestionById(generator.nextInt(3) + 1);
+                List<Question> questions = professeur.getQuestions();
+                Question question = questions.get(generator.nextInt(questions.size()));
 
                 // envoie la question du prof au player.
                 player.setFightMessageIn(question.getQuestion());

@@ -34,7 +34,7 @@
                                 <transformer implementation=
                                                      "org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <!-- nom de la classe ou se situe le main (ATTENTION nom complet avec les packages) -->
-                                    <mainClass>Client</mainClass>
+                                    <mainClass>starter</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>

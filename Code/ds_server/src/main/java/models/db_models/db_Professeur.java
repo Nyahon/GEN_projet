@@ -1,5 +1,6 @@
 package models.db_models;
 
+import models.ConnectionDB;
 import models.Question;
 
 import java.util.LinkedList;
@@ -18,6 +19,7 @@ public class db_Professeur {
         Nom = nom;
         Pv = pv;
         Niveau = niveau;
+        questions = ConnectionDB.getQuestionByProfesseur(id);
     }
 
     public int getId() {
@@ -57,6 +59,7 @@ public class db_Professeur {
     public LinkedList<Question> getQuestions() {
         return questions;
     }
+
 
 
     @Override

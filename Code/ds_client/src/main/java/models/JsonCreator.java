@@ -12,8 +12,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Player;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class JsonCreator {
 
@@ -123,9 +125,9 @@ public class JsonCreator {
         }
     }
 
-    public static LinkedList<String> GetItemsList (String jsonPayload){
+    public static int[] GetNumberOfEveryItem (String jsonPayload){
         ObjectMapper objectMapper = new ObjectMapper();
-        LinkedList<String> items = new LinkedList<>();
+        int[] items = new int[3];
         JsonNode rootNode = null;
         try{
 
@@ -134,11 +136,28 @@ public class JsonCreator {
             JsonNode itemsNode = rootNode.path("Items");
             Iterator<JsonNode> elements = itemsNode.elements();
 
+            int numberOfAntiSeche = 0;
+            int numberOfLivre = 0;
+            int numberOfBiere = 0;
             while(elements.hasNext()){
                 JsonNode item = elements.next();
-                System.out.println(item.path("idItem").asText() + " : " + item.path("item").asText() + " -> " + item.path("nbAvailable"));
-                items.add(item.path("idItem").asText() + " : " + item.path("item").asText() + " -> " + item.path("nbAvailable"));
+                int numberItem = Integer.parseInt(item.path("nbAvailable").asText());
+                if( numberItem > 0)
+                switch (item.path("idItem").asText()){
+                    case "1" :
+                        numberOfAntiSeche += numberItem;
+                        break;
+                    case "2" :
+                        numberOfLivre  += numberItem;
+                        break;
+                    case "3" :
+                        numberOfBiere  += numberItem;
+                        break;
+                }
             }
+            items[0] = numberOfAntiSeche;
+            items[1] = numberOfLivre;
+            items[2] = numberOfBiere;
 
 
         } catch (IOException e){

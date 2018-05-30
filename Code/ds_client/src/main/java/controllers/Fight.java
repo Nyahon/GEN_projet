@@ -26,6 +26,7 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
+import java.util.function.BiConsumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -261,6 +262,9 @@ public class Fight extends mainController {
         try {
             //Activate Respond Pane
             respond.setVisible(true);
+            antiseche.setVisible(false);
+            livre.setVisible(false);
+            biere.setVisible(false);
 
             // Affiche la question
             String receiveQuestion = in.readLine();
@@ -276,8 +280,21 @@ public class Fight extends mainController {
 
             // récupère la liste des objets.
             // TODO récupère les objets
-            in.readLine();
-
+            String cochon = in.readLine();
+            int[] items = JsonCreator.GetNumberOfEveryItem(cochon);
+            if(items[0] > 0){
+                antiseche.setVisible(true);
+                antiseche.setText(String.valueOf(items[0]) + ": " + antiseche.getText());
+            }
+            if(items[1] > 0){
+                livre.setVisible(true);
+                livre.setText(String.valueOf(items[1]) + ": " + livre.getText());
+            }
+            if(items[2] > 0){
+                biere.setVisible(true);
+                biere.setText(String.valueOf(items[2]) + ": " + biere.getText());
+            }
+            System.out.println(cochon);
             //ATTENT ACTION SUR BOUTON.
 
         } catch (Exception e) {

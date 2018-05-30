@@ -90,7 +90,9 @@ public class Player {
     }
 
     public void addQuestions(Question question) {
-        this.questions.add(question);
+        LinkedList<Question> questions = getQuestions();
+        if(!questions.contains(question))
+            this.questions.add(question);
     }
 
     public int getId() {

@@ -109,6 +109,7 @@ public class FightStory implements Runnable {
 
                             if(question.getReponseOK().equals(choixReponse)){
                                 player.setFightMessageIn("RIGHT");
+                                player.addQuestions(question);
                                 professeur.loosePv(40);
                             }
 

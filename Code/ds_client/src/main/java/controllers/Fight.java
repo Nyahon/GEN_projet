@@ -80,6 +80,7 @@ public class Fight extends mainController {
     @FXML
     private Pane respond;
 
+    ToggleGroup chooseResponse;
     @FXML
     private RadioButton firstRespond;
     @FXML
@@ -89,6 +90,7 @@ public class Fight extends mainController {
     @FXML
     private RadioButton fourthRespond;
 
+    ToggleGroup chooseItem;
     @FXML
     private RadioButton antiseche;
 
@@ -133,6 +135,21 @@ public class Fight extends mainController {
 
     @FXML
     protected void initialize(Player player) {
+
+        chooseResponse = new ToggleGroup();
+
+        firstRespond.setToggleGroup(chooseResponse);
+        SecondRespond.setToggleGroup(chooseResponse);
+        thirstRespond.setToggleGroup(chooseResponse);
+        fourthRespond.setToggleGroup(chooseResponse);
+
+        chooseItem = new ToggleGroup();
+
+        livre.setToggleGroup(chooseItem);
+        antiseche.setToggleGroup(chooseItem);
+        biere.setToggleGroup(chooseItem);
+
+
         try {
             in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
             out = new PrintWriter(player.getSocket().getOutputStream());

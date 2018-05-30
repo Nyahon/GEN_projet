@@ -5,10 +5,7 @@ import Protocol.Pinfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.JsonCreator;
@@ -27,6 +24,7 @@ public class createAccount extends mainController {
     @FXML
     private Label errorUsername;
 
+    ToggleGroup chooseClass;
     @FXML
     private RadioButton cartesien;
 
@@ -48,6 +46,13 @@ public class createAccount extends mainController {
 
     @FXML
     protected void initialize() {
+
+        chooseClass = new ToggleGroup();
+
+        cartesien.setToggleGroup(chooseClass);
+        hedoniste.setToggleGroup(chooseClass);
+        cynique.setToggleGroup(chooseClass);
+
         this.socket = getSocket();
         try {
             input = getInput();

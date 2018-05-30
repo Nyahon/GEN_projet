@@ -309,10 +309,27 @@ public class PlayerConnectionHandler implements Runnable {
     public void storyCMD() throws InterruptedException, IOException {
         LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in STORY Mode");
 
-        db_Professeur Rentsch = ConnectionDB.getProfesseurById(1);
-        gameEngine.startFightStory(player, Rentsch);
-        fight();
+        switch (player.getLevel()) {
+            case 0:
+                db_Professeur Miguel = ConnectionDB.getProfesseurById(3);
+                gameEngine.startFightStory(player, Miguel);
+                fight();
+                out.println("CONTINUE");
+                out.flush();
+            case 1:
+                db_Professeur Liechti = ConnectionDB.getProfesseurById(2);
+                gameEngine.startFightStory(player,Liechti);
+                fight();
+                out.println("CONTINUE");
+                out.flush();
 
+            case 2:
+                db_Professeur Rentsch = ConnectionDB.getProfesseurById(1);
+                gameEngine.startFightStory(player, Rentsch);
+                fight();
+                out.println("END");
+                out.flush();
+        }
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
     }
 

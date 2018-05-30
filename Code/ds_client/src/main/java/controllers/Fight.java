@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -215,7 +216,12 @@ public class Fight extends mainController {
                                 break;
                         }
                         Thread.sleep(2);
-                        returnHome();
+                        if (in.readLine().equals("CONTINUE")) {
+                            nextFight();
+                        }
+                        else {
+                            returnHome();
+                        }
                         break;
 
                     default:
@@ -443,6 +449,18 @@ public class Fight extends mainController {
     private void returnHome() {
         Stage stage = (Stage) close.getScene().getWindow();
         stage.close();
+    }
+
+
+    private void nextFight() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(fxmlLoader.load()));
+        Fight fight = fxmlLoader.<Fight>getController();
+        fight.initialize(player);
+        stage.show();
+        //Stage stage = (Stage) close.getScene().getWindow();
+        //stage.close();
     }
 
 }

@@ -1,5 +1,6 @@
 package game;
 
+import java.util.List;
 import java.util.Random;
 
 import Protocol.Pcmd;
@@ -48,8 +49,13 @@ public class FightStory implements Runnable {
                 // Mode question ou Réponse ?
                 player.setFightMessageIn(Pfight.ANSWER);
 
-                // TODO : FAIRE récup question aléa
-                Question question = ConnectionDB.getQuestionById(1);
+                Random generator = new Random();
+                Question question = ConnectionDB.getQuestionById(generator.nextInt(3) + 1);
+                        // TODO : Remplir la liste de question des db_professeur et utilisé la méthode ci dessous
+                        // Bonne manière de récup les questions
+                        //List<Question> questions = professeur.getQuestions();
+                        //questions.get(generator.nextInt(questions.size()));
+
                 // envoie la question du prof au player.
                 player.setFightMessageIn(question.getQuestion());
 

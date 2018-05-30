@@ -166,6 +166,7 @@ public class Client {
                 System.out.println("You enter Story mode !");
                 Story story = new Story(player);
                 story.start();
+
             default :
 
         }

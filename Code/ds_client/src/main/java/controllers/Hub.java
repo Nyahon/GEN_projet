@@ -1,6 +1,7 @@
 package controllers;
 
 import Protocol.Pcmd;
+import Protocol.Pfight;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -46,13 +47,13 @@ public class Hub extends mainController{
                 output.println(Pcmd.STORY);
                 output.flush();
 
-                //Charge la page fight
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(fxmlLoader.load()));
-                Fight fight = fxmlLoader.<Fight>getController();
-                fight.initialize(player);
-                stage.show();
+                    //Charge la page fight
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(fxmlLoader.load()));
+                    Fight fight = fxmlLoader.<Fight>getController();
+                    fight.initialize(player);
+                    stage.show();
 
         } catch (Exception e) {
             e.printStackTrace();

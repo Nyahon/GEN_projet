@@ -1,5 +1,6 @@
 package models;
 
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.LinkedList;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -91,8 +92,16 @@ public class Player {
 
     public void addQuestions(Question question) {
         LinkedList<Question> questions = getQuestions();
-        if(!questions.contains(question))
+        if(questions.isEmpty()) {
             this.questions.add(question);
+            ConnectionDB.assignQuestion(question.getId(), this.getId());
+        }
+        for(Question q : getQuestions()){
+            if(q.getId() != question.getId()) {
+                this.questions.add(question);
+                ConnectionDB.assignQuestion(question.getId(), this.getId());
+            }
+        }
     }
 
     public int getId() {

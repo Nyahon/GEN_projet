@@ -294,7 +294,7 @@ public class ConnectionDB {
 
     }
 
-    public static void assignQuestion(int idQuestion, int idPlayer){
+    public static synchronized void assignQuestion(int idQuestion, int idPlayer){
         Connection c = null;
         PreparedStatement stmt = null;
 

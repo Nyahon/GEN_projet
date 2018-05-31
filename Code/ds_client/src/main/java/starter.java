@@ -27,7 +27,9 @@ public class starter extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Drunk and Smart");
-        primaryStage.setScene(new Scene(root));
+        Scene rootScene = new Scene(root);
+        rootScene.getStylesheets().add(starter.class.getResource("/bootstrap3.css").toExternalForm());
+        primaryStage.setScene(rootScene);
 
 
         primaryStage.setOnCloseRequest(e -> {

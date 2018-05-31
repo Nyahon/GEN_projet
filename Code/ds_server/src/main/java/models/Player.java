@@ -91,17 +91,21 @@ public class Player {
     }
 
     public void addQuestions(Question question) {
-        LinkedList<Question> questions = getQuestions();
         if(questions.isEmpty()) {
-            this.questions.add(question);
-            ConnectionDB.assignQuestion(question.getId(), this.getId());
+            ConnectionDB.assignQuestion(question.getId(), id);
         }
-        for(Question q : getQuestions()){
-            if(q.getId() != question.getId()) {
-                this.questions.add(question);
-                ConnectionDB.assignQuestion(question.getId(), this.getId());
+        else {
+            boolean addQuestion = true;
+            for (Question q : questions) {
+                if (q.getId() == question.getId()) {
+                    addQuestion = false;
+                    break;
+                }
             }
+            if(addQuestion)
+                ConnectionDB.assignQuestion(question.getId(), id);
         }
+        questions = ConnectionDB.getQuestionByPlayer(id);
     }
 
     public int getId() {

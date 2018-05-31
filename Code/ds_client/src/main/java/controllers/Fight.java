@@ -121,6 +121,14 @@ public class Fight extends mainController {
     @FXML
     private Label question; // my life
 
+    @FXML
+    private ImageView bitBier;
+
+    @FXML
+    private ImageView bitBook;
+
+    @FXML
+    private ImageView bitAntiseche;
 
     private PrintWriter out;
     private BufferedReader in;
@@ -179,6 +187,15 @@ public class Fight extends mainController {
 
             Image HisImg = new Image("/images/rentsch.png");
             imgAdversary.setImage(HisImg);
+
+            Image imgKey = new Image("/images/bitKey.jpg");
+            bitAntiseche.setImage(imgKey);
+
+            Image imgBook = new Image("/images/bitBook.png");
+            bitBook.setImage(imgBook);
+
+            Image imgBier = new Image("/images/bitBiere.png");
+            bitBier.setImage(imgBier);
 
             // Set labels life Value
             setLifeLabel();
@@ -285,9 +302,12 @@ public class Fight extends mainController {
         try {
             //Activate Respond Pane
             respond.setVisible(true);
-            antiseche.setVisible(false);
-            livre.setVisible(false);
-            biere.setVisible(false);
+            antiseche.setDisable(true);
+            antiseche.setText(String.valueOf("0 : Antisèches"));
+            livre.setDisable(true);
+            livre.setText(String.valueOf("0 : Livre"));
+            biere.setDisable(true);
+            biere.setText(String.valueOf("0 : Bières"));
 
             // Affiche la question
             String receiveQuestion = in.readLine();
@@ -303,21 +323,21 @@ public class Fight extends mainController {
 
             // récupère la liste des objets.
             // TODO récupère les objets
-            String cochon = in.readLine();
-            int[] items = JsonCreator.GetNumberOfEveryItem(cochon);
+            String itemsPayload = in.readLine();
+            int[] items = JsonCreator.GetNumberOfEveryItem(itemsPayload);
             if(items[0] > 0){
-                antiseche.setVisible(true);
+                antiseche.setDisable(false);
                 antiseche.setText(String.valueOf(items[0]) + ": Antisèches");
             }
             if(items[1] > 0){
-                livre.setVisible(true);
+                livre.setDisable(false);
                 livre.setText(String.valueOf(items[1]) + ": Livre");
             }
             if(items[2] > 0){
-                biere.setVisible(true);
+                biere.setDisable(false);
                 biere.setText(String.valueOf(items[2]) + ": Bières");
             }
-            System.out.println(cochon);
+
             //ATTENT ACTION SUR BOUTON.
 
         } catch (Exception e) {

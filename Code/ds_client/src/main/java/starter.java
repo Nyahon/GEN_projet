@@ -10,6 +10,8 @@ import java.net.Socket;
 
 public class starter extends Application {
 
+    public static Stage stage;
+
     public static void main(String[] argv) {
         System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s%6$s%n");
 
@@ -19,11 +21,14 @@ public class starter extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        stage = primaryStage;
+
+        Client client = new Client("localhost", 4500);
+
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
         primaryStage.setTitle("Drunk and Smart");
         primaryStage.setScene(new Scene(root));
 
-        Client client = new Client("localhost", 4500);
 
         primaryStage.setOnCloseRequest(e -> {
             Platform.exit();

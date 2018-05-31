@@ -2,8 +2,10 @@ package controllers;
 
 import Protocol.Pcmd;
 import Protocol.Pinfo;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -48,7 +50,7 @@ public class Connect extends mainController {
     }
 
     @FXML
-    public void validateData() {
+    public void validateData(Event ev) {
         try {
 
             output.println(Pcmd.CONNECT);
@@ -86,7 +88,9 @@ public class Connect extends mainController {
                 setPlayer(JsonCreator.readPlayer(playerPayloadJson));
 
                 fxmlLoader = new FXMLLoader(getClass().getResource("/hub.fxml"));
-                Stage stage = new Stage();
+                Node node=(Node) ev.getSource();
+                Stage stage=(Stage) node.getScene().getWindow();
+                //Stage stage = new Stage();
                 stage.setScene(new Scene(fxmlLoader.load()));
                 Hub hub = fxmlLoader.<Hub>getController();
                 hub.initialize();
@@ -98,9 +102,5 @@ public class Connect extends mainController {
 
     }
 
-    @FXML
-    private void returnHome() {
-        Stage stage = (Stage) close.getScene().getWindow();
-        stage.close();
-    }
+
 }

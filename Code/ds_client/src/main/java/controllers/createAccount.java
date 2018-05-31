@@ -2,8 +2,10 @@ package controllers;
 
 import Protocol.Pcmd;
 import Protocol.Pinfo;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -63,7 +65,7 @@ public class createAccount extends mainController {
     }
 
     @FXML
-    public void validateData() {
+    public void validateData(Event ev) {
 
         try {
             output.println(Pcmd.CREATE_ACCOUNT);
@@ -119,7 +121,9 @@ public class createAccount extends mainController {
                 setPlayer(JsonCreator.readPlayer(playerPayloadJson));
 
                 fxmlLoader = new FXMLLoader(getClass().getResource("/hub.fxml"));
-                Stage stage = new Stage();
+                Node node=(Node) ev.getSource();
+                Stage stage=(Stage) node.getScene().getWindow();
+                //Stage stage = new Stage();
                 stage.setScene(new Scene(fxmlLoader.load()));
                 Hub hub = fxmlLoader.<Hub>getController();
                 hub.initialize();
@@ -132,9 +136,5 @@ public class createAccount extends mainController {
     }
 
 
-    @FXML
-    private void returnHome() {
-        Stage stage = (Stage) close.getScene().getWindow();
-        stage.close();
-    }
+
 }

@@ -1,0 +1,29 @@
+{
+
+
+  "Profs" : [
+
+    // -----
+    // ADDING some prof for each professor give his name, his level his question list by ID
+    // -----
+
+    {"Prof" : "Liechti", "niveau" : 2, "questions" : [1,2,3]},
+    {"Prof" : "Miguel", "niveau" : 1, "questions" : [1,2,3]}
+    {"Prof" : "Rentsch", "niveau" : 3, "questions" : [1,2,3]}
+  ]
+
+
+
+  "Questions" : [
+
+    // ----
+    // ADDING some Question, for each give an id by increment, the question, the right answer and 3 bad answer.
+    // ----
+
+    {"id" : 1, "Question" : "En C quel est la taille de SHRT_MAX + 1", "RepOk" : "32,768", "rep2"  : "32,767", "rep3" : "−32,767", "rep4" : "0"},
+    {"id" : 2, "Question" : "Donnez l'intégrale de e puissance x", "RepOk" : "e puissance x", "rep2"  : "ln(x)", "rep3" : "1/x", "rep4" : "e"},
+    {"id" : 3, "Question" : "En cryptographie on ?", "RepOk" : "chiffre", "rep2"  : "crypte", "rep3" : "encode", "rep4" : "decode"}
+
+  ]
+
+}

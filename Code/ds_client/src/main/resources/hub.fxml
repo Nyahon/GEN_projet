@@ -27,6 +27,11 @@
                         <Font size="18.0" />
                     </font>
                 </Button>
+                <Button fx:id="Challenge" layoutX="363.0" layoutY="400.0" mnemonicParsing="false" onAction="#startChallenge" prefHeight="55.0" prefWidth="275.0" text="Challenge">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
                 <Label fx:id="errorLogin" layoutX="273.0" layoutY="97.0" prefHeight="36.0" prefWidth="455.0" textAlignment="CENTER">
                     <font>
                         <Font size="17.0" />

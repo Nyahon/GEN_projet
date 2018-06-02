@@ -221,6 +221,7 @@ public class PlayerConnectionHandler implements Runnable {
             out.println("VERSUS: Waiting for a Challenger...");
             out.flush();
 
+
             synchronized (player) {
                 player.wait();
             }

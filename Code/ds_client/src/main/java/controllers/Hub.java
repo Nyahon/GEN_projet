@@ -39,6 +39,11 @@ public class Hub extends mainController{
     }
 
     @FXML
+    public void startChallenge() {
+
+    }
+
+    @FXML
     public void startStory() {
         try {
             player.setSocket(socket);

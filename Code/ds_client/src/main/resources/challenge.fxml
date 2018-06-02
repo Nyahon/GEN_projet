@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" prefWidth="1000.0" stylesheets="@bootstrap3.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Challenge">
+    <children>
+        <AnchorPane prefHeight="800.0" prefWidth="1000.0">
+            <children>
+                <Label layoutX="363.0" layoutY="108.0" prefHeight="68.0" prefWidth="305.0" styleClass="title" text=" Challenge !">
+                    <font>
+                        <Font size="37.0" />
+                    </font>
+                </Label>
+                <Button fx:id="fight" layoutX="654.0" layoutY="568.0" mnemonicParsing="false" onAction="#startFight" prefHeight="55.0" prefWidth="275.0" text="Fight">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="returnMenu" layoutX="654.0" layoutY="699.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="55.0" prefWidth="275.0" text="Quit">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+            <Label layoutX="175.0" layoutY="317.0" text="Choisis ton challenger : " />
+            <ChoiceBox fx:id="list_Player" layoutX="175.0" layoutY="339.0" prefHeight="29.0" prefWidth="441.0" />
+            </children>
+        </AnchorPane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

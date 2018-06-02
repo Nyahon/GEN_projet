@@ -9,11 +9,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="center" hgap="10" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Connect">
+<?import javafx.scene.control.PasswordField?>
+<GridPane alignment="center" hgap="10" prefWidth="1000.0" stylesheets="@bootstrap3.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Connect">
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="1000.0">
             <children>
-                <Label layoutX="402.0" layoutY="24.0" prefHeight="42.0" prefWidth="191.0" text="Connection">
+                <Label layoutX="311.0" layoutY="24.0" prefHeight="68.0" prefWidth="282.0" styleClass="title" text="Connection">
                     <font>
                         <Font size="37.0" />
                     </font>
@@ -28,9 +29,9 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="username" layoutX="391.0" layoutY="183.0" prefHeight="25.0" prefWidth="199.0" promptText="username" />
-            <TextField fx:id="password" layoutX="391.0" layoutY="278.0" prefHeight="25.0" prefWidth="199.0" promptText="password" />
-            <Button fx:id="valider" layoutX="209.0" layoutY="375.0" mnemonicParsing="false" onAction="#validateData" text="Valider">
+            <TextField fx:id="username" layoutX="452.0" layoutY="177.0" prefHeight="25.0" prefWidth="199.0" promptText="username" />
+            <PasswordField fx:id="password" layoutX="391.0" layoutY="272.0" prefHeight="25.0" prefWidth="199.0" promptText="password" />
+            <Button fx:id="valider" layoutX="645.0" layoutY="459.0" mnemonicParsing="false" onAction="#validateData" text="Valider">
                <font>
                   <Font size="18.0" />
                </font>
@@ -39,7 +40,7 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Button fx:id="close" onAction="#returnHome" layoutX="697.0" layoutY="523.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="130.0" text="returnMenu">
+            <Button fx:id="close" layoutX="645.0" layoutY="523.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="55.0" prefWidth="182.0" text="returnMenu">
                <font>
                   <Font size="18.0" />
                </font>

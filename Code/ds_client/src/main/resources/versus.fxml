@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<GridPane alignment="center" hgap="10" prefWidth="1000.0" stylesheets="@bootstrap3.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Versus">
+    <children>
+        <AnchorPane prefHeight="800.0" prefWidth="1000.0">
+            <children>
+                <Label layoutX="371.0" layoutY="75.0" prefHeight="68.0" prefWidth="258.0" styleClass="title" text="Versus !">
+                    <font>
+                        <Font size="37.0" />
+                    </font>
+                </Label>
+                <Button fx:id="stop" layoutX="648.0" layoutY="682.0" mnemonicParsing="false" onAction="#returnHome" prefHeight="55.0" prefWidth="275.0" text="Stop Wainting">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+            <Label layoutX="199.0" layoutY="149.0" prefHeight="121.0" prefWidth="575.0" text="Veuillez attendre que quelqu'un vous défie !">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Label>
+            <ProgressBar fx:id="timer" layoutX="112.0" layoutY="314.0" prefHeight="20.0" prefWidth="787.0" progress="1" />
+            <Label layoutX="112.0" layoutY="344.0" text="Temps d'attente restant avant annulation :" />
+            <Label fx:id="time" layoutX="658.0" layoutY="344.0" prefHeight="14.0" prefWidth="51.0" />
+            </children>
+        </AnchorPane>
+    </children>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

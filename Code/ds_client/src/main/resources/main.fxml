@@ -8,39 +8,25 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<?import java.lang.String?>
-<GridPane alignment="center" hgap="10" prefWidth="1000.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.mainController" stylesheets="@bootstrap3.css">
+<GridPane alignment="center" hgap="10" prefWidth="1000.0" stylesheets="@bootstrap3.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.mainController">
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="1000.0">
          <children>
-            <Label layoutX="250.0" layoutY="23.0" prefHeight="42.0" prefWidth="523.0" text="Bienvenu sur Drunk and Smart">
-               <font>
-                  <Font size="37.0" />
+            <Label layoutX="123.0" layoutY="108.0" prefHeight="68.0" prefWidth="755.0" styleClass="title" text="Bienvenu sur Drunk and Smart">
+                <font>
+                  <Font size="34.0" />
                </font>
             </Label>
-            <Button fx:id="createAccount" layoutX="632.0" layoutY="296.0" mnemonicParsing="false" onAction="#createMyAccount" prefHeight="61.0" prefWidth="164.0" text="Créer un compte">
-                <styleClass>
-                    <String fx:value="info"/>
-                    <String fx:value="action-btn"/>
-                </styleClass>
+            <Button fx:id="createAccount" layoutX="591.0" layoutY="296.0" mnemonicParsing="false" onAction="#createMyAccount" prefHeight="55.0" prefWidth="275.0" text="Créer un compte">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="connect" layoutX="217.0" layoutY="296.0" mnemonicParsing="false" onAction="#connectAccount" prefHeight="61.0" prefWidth="164.0" text="Se connecter">
-                <styleClass>
-                    <String fx:value="info"/>
-                    <String fx:value="action-btn"/>
-                </styleClass>
+            <Button fx:id="connect" layoutX="136.0" layoutY="296.0" mnemonicParsing="false" onAction="#connectAccount" prefHeight="55.0" prefWidth="275.0" text="Se connecter">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="errorLogin" layoutX="273.0" layoutY="97.0" prefHeight="36.0" prefWidth="455.0" textAlignment="CENTER" >
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
          </children>
         </AnchorPane>
     </children>

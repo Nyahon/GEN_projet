@@ -1,14 +1,54 @@
-
+/*Personnalisé */
 @font-face {
     src: url('PressStart2P.ttf');
 }
 
+@font-face {
+    src: url('FIPPS.ttf');
+}
+
+.text{
+    -fx-font-family: "Press Start 2P";
+}
+
+.title .text{
+    -fx-font-family: "Fipps" !important;
+    -fx-font-size: 30px;
+}
+
+.button {
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+            #9d4024,
+            #d86e3a,
+            radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c) !important;
+    -fx-text-alignment: center !important;
+    -fx-padding: 20px !important;
+    -fx-text-fill: white !important;
+    -fx-border-style: segments(2, 2, 2, 2) outside;
+    -fx-border-color: #d86e3a #d86e3a #903b12 #d86e3a !important;
+    -fx-border-width: 1px 1px 1px 1px !important;
+    -fx-border-insets: 0px !important;
+    -fx-border-radius: 1px !important;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 5,0,0,1 ) !important;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0 !important;
+}
+
+.text-field{
+    -fx-font-family: "Press Start 2P";
+    -fx-background-color: none !important;
+    -fx-border-color: black black black black !important;
+    -fx-border-width: 0px 0px 4px 2px !important;
+    -fx-border-insets: 0px !important;
+    -fx-border-radius: 0px !important;
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0 !important;
+}
+
+ /* initial */
+
 .root {
     -fx-body-color : #F5F5F5;
     -fx-outer-border : #cecece;
-}
-.text{
-    -fx-font-family: "Press Start 2P";
 }
 
 .button:focused, .toggle-button:focused,
@@ -424,8 +464,8 @@ VBox > .split-menu-button.last > .arrow-button {
 }
 
 .text-field:focused, .text-area:focused {
-    -fx-border-color: #66afe9;
-    -fx-effect: dropshadow(gaussian, #66afe9, 10, 0, 0, 0);
+    /*-fx-border-color: #66afe9;
+    -fx-effect: dropshadow(gaussian, #66afe9, 10, 0, 0, 0);*/
 }
 
 .text-area .scroll-pane, .text-area .scroll-pane .content {
@@ -617,9 +657,19 @@ VBox > .split-menu-button.last > .arrow-button {
     -fx-background-color: #f5f5f5;
 }
 
-.progress-bar > .bar {
-    -fx-background-insets: 0;
-    -fx-background-color: #337ab7;
+.progress-bar > .bar{
+    /*-fx-background-insets: 0;*/
+    -fx-background-color:linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+    #9d4024,
+    #d86e3a,
+    radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c) !important;
+    -fx-border-style: segments(2, 2, 2, 2) outside;
+    -fx-border-color: #d86e3a #d86e3a #903b12 #d86e3a !important;
+    -fx-border-width: 1px 1px 1px 1px !important;
+    -fx-border-insets: 0px !important;
+    -fx-border-radius: 1px !important;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 5,0,0,1 ) !important;
+    -fx-background-insets: 0,0 0 2 0, 0 0 2 0, 0 0 3 0 !important;
 }
 
 .progress-bar.success > .bar {
@@ -629,7 +679,10 @@ VBox > .split-menu-button.last > .arrow-button {
 
 .progress-bar.info > .bar {
     -fx-background-insets: 0;
-    -fx-background-color: #5bc0de;
+    -fx-background-color:linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
+    #9d4024,
+    #d86e3a,
+    radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c) !important;
 }
 
 .progress-bar.warning > .bar {
@@ -873,7 +926,8 @@ VBox > .split-menu-button.last > .arrow-button {
 }
 .radio-button > .radio,
 .radio-button:focused > .radio  {
-    -fx-border-color: #56c0e0;
+    -fx-border-style: segments(1, 1, 1, 1) inside;
+    -fx-border-color: #c54e2c;
     -fx-border-radius: 1em;
     -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
     -fx-padding: 1 2 3 2;
@@ -886,13 +940,13 @@ VBox > .split-menu-button.last > .arrow-button {
     -fx-background-insets: 3 2 1 2;
 }
 .radio-button:selected > .radio,.radio-button:hover > .radio {
-    -fx-fill-color: #56c0e0;
+    -fx-fill-color: #d86e3a;
 }
 .radio-button:pressed > .radio {
-    -fx-background-color: #50c0e2;
+    -fx-background-color: #d86e3a;
 }
 .radio-button:selected > .radio > .dot {
-    -fx-background-color: #56c0e0;
+    -fx-background-color: #d86e3a;
 }
 
 /*common things*/

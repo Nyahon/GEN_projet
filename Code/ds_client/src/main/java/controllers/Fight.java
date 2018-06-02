@@ -40,13 +40,28 @@ public class Fight extends mainController {
     private Label itemChoisis;
 
     @FXML
+    private Label ennemisName;
+
+    @FXML
+    private Label myName;
+
+    @FXML
     private Label winOrLost;
 
     @FXML
     private Label rightOrFalse;
 
     @FXML
-    private Button close;
+    private ProgressBar myLifeBar;
+
+    @FXML
+    private ProgressBar hisLifeBar;
+
+    @FXML
+    private Label hisLife;
+
+    @FXML
+    private Label myLife;
 
     @FXML
     private ImageView imgMe;
@@ -54,41 +69,10 @@ public class Fight extends mainController {
     @FXML
     private ImageView imgAdversary;
 
-    // ASKING PANE
+    // ITEM PANE
 
     @FXML
-    private Pane asking;
-
-    @FXML
-    private ChoiceBox<String> choiceQuestion;
-
-    @FXML
-    private Button askQuestion; // clic to ask your question
-
-    @FXML
-    private Label ennemisLabelAsking; // name of the adversary
-
-    @FXML
-    private Label askHisLife; // life of the adversary
-
-    @FXML
-    private Label askMyLife; // my life
-
-
-    // RESPOND PANE
-
-    @FXML
-    private Pane respond;
-
-    ToggleGroup chooseResponse;
-    @FXML
-    private RadioButton firstRespond;
-    @FXML
-    private RadioButton SecondRespond;
-    @FXML
-    private RadioButton thirstRespond;
-    @FXML
-    private RadioButton fourthRespond;
+    private Pane item;
 
     ToggleGroup chooseItem;
     @FXML
@@ -101,25 +85,7 @@ public class Fight extends mainController {
     private RadioButton biere;
 
     @FXML
-    private RadioButton noItems;
-
-    @FXML
     private Button choiceItem;
-
-    @FXML
-    private Button respondQuestion; // clic to ask your question
-
-    @FXML
-    private Label ennemisLabelRespond; // name of the adversary
-
-    @FXML
-    private Label respHisLife; // life of the adversary
-
-    @FXML
-    private Label respMyLife; // my life
-
-    @FXML
-    private Label question; // my life
 
     @FXML
     private ImageView bitBier;
@@ -130,9 +96,46 @@ public class Fight extends mainController {
     @FXML
     private ImageView bitAntiseche;
 
+    // ASKING PANE
+
+    @FXML
+    private Pane asking;
+
+    @FXML
+    private ChoiceBox<String> choiceQuestion;
+
+    @FXML
+    private Button askQuestion; // clic to ask your question
+
+
+    // RESPOND PANE
+
+    @FXML
+    private Pane respond;
+
+    @FXML
+    private Label question;
+
+    ToggleGroup chooseResponse;
+    @FXML
+    private RadioButton firstRespond;
+    @FXML
+    private RadioButton SecondRespond;
+    @FXML
+    private RadioButton thirstRespond;
+    @FXML
+    private RadioButton fourthRespond;
+
+    @FXML
+    private Button respondQuestion; // clic to ask your question
+
+
     private PrintWriter out;
     private BufferedReader in;
     private Socket socket;
+
+    private int myInitialPV;
+    private int hisInitialPV;
 
     private static final Logger LOG = Logger.getLogger(models.Fight.class.getName());
 
@@ -168,17 +171,20 @@ public class Fight extends mainController {
             opponnent.setName(in.readLine());
             opponnent.setNbPV(Integer.parseInt(in.readLine()));
 
+            myInitialPV = player.getNbPV();
+            hisInitialPV = opponnent.getNbPV();
+
             // Set labels Name Value
             ennemisLabel.setText(opponnent.getName());
-            ennemisLabelRespond.setText(opponnent.getName());
-            ennemisLabelAsking.setText(opponnent.getName());
+            ennemisName.setText(opponnent.getName());
+            myName.setText(player.getName());
 
             // disable un-use Pane
             respond.setVisible(false);
             asking.setVisible(false);
+            item.setVisible(false);
             winOrLost.setVisible(false);
             rightOrFalse.setVisible(false);
-            close.setVisible(false);
 
             // TODO : METTRE UNE IMAGE DIFFERENTE SELON LE TYPE DE CLASSE
 
@@ -198,7 +204,7 @@ public class Fight extends mainController {
             bitBier.setImage(imgBier);
 
             // Set labels life Value
-            setLifeLabel();
+            setLifeLabel(player, opponnent);
 
             inFight = true;
             //start the fight
@@ -269,19 +275,18 @@ public class Fight extends mainController {
         }
     }
 
-    private void setLifeLabel() {
+    private void setLifeLabel(Player player, Player opponnent) {
         // Set labels life Value
-        askMyLife.setText(Integer.toString(this.player.getNbPV()));
-        respMyLife.setText(Integer.toString(this.player.getNbPV()));
-
-        askHisLife.setText(Integer.toString(opponnent.getNbPV()));
-        respHisLife.setText(Integer.toString(opponnent.getNbPV()));
+        myLife.setText(Integer.toString(player.getNbPV()));
+        hisLife.setText(Integer.toString(opponnent.getNbPV()));
+        myLifeBar.setProgress((double)player.getNbPV() / myInitialPV);
+        hisLifeBar.setProgress((double)opponnent.getNbPV() / hisInitialPV);
     }
 
     private void askPart() {
         try {
             //Activate ASK Pane
-            asking.setVisible(true);
+            Interface_Fight_Question();
 
             System.out.print("Ask a question for your opponent : ");
             System.out.println("select a question between these by his id : ");
@@ -301,7 +306,8 @@ public class Fight extends mainController {
     private void respondPart() {
         try {
             //Activate Respond Pane
-            respond.setVisible(true);
+            Interface_Fight_Respond();
+
             antiseche.setDisable(true);
             antiseche.setText(String.valueOf("0 : Antisèches"));
             livre.setDisable(true);
@@ -434,7 +440,7 @@ public class Fight extends mainController {
             //récupère l'etat de notre joueur.
             Player temp = JsonCreator.readPlayer(in.readLine());
             player.setNbPV(temp.getNbPV());
-            setLifeLabel();
+            setLifeLabel(player, opponnent);
 
         } catch (Exception e)
 
@@ -472,7 +478,7 @@ public class Fight extends mainController {
             temp = JsonCreator.readPlayer(in.readLine());
             player.setNbPV(temp.getNbPV());
 
-            setLifeLabel();
+            setLifeLabel(player, opponnent);
             beginRound();
 
         } catch (Exception e)
@@ -484,7 +490,7 @@ public class Fight extends mainController {
 
     @FXML
     private void returnHome() {
-        Stage stage = (Stage) close.getScene().getWindow();
+        Stage stage = (Stage) respond.getScene().getWindow();
         stage.close();
     }
 
@@ -498,6 +504,27 @@ public class Fight extends mainController {
         stage.show();
         //Stage stage = (Stage) close.getScene().getWindow();
         //stage.close();
+    }
+
+    @FXML
+    private void Interface_Fight_Question(){
+        respond.setVisible(false);
+        item.setVisible(false);
+        asking.setVisible(true);
+    }
+
+    @FXML
+    private void Interface_Item(){
+        respond.setVisible(false);
+        item.setVisible(true);
+        asking.setVisible(false);
+    }
+
+    @FXML
+    private void Interface_Fight_Respond(){
+        respond.setVisible(true);
+        item.setVisible(false);
+        asking.setVisible(false);
     }
 
 }

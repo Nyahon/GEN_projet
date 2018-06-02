@@ -246,8 +246,8 @@ public class mainController {
                 break;
 
             case Pcmd.CHALLENGE:
-                Challenge challenge = new Challenge(player);
-                challenge.launch();
+                //Challenge challenge = new Challenge(player);
+                //challenge.launch();
                 break;
             case Pcmd.STORY:
                 System.out.println("You enter Story mode !");

@@ -22,8 +22,16 @@
 
     {"id" : 1, "Question" : "En C quel est la taille de SHRT_MAX + 1", "RepOk" : "32,768", "rep2"  : "32,767", "rep3" : "−32,767", "rep4" : "0"},
     {"id" : 2, "Question" : "Donnez l'intégrale de e puissance x", "RepOk" : "e puissance x", "rep2"  : "ln(x)", "rep3" : "1/x", "rep4" : "e"},
-    {"id" : 3, "Question" : "En cryptographie on ?", "RepOk" : "chiffre", "rep2"  : "crypte", "rep3" : "encode", "rep4" : "decode"}
-
+    {"id" : 3, "Question" : "En cryptographie on ?", "RepOk" : "chiffre", "rep2"  : "crypte", "rep3" : "encode", "rep4" : "decode"},
+    {"id" : 4, "Question" : "En java, avec Maven à quoi sert le pom.xml", "RepOk" : "Gestionnaire de package", "rep2"  : "fichier javaFx", "rep3" : "Documenter", "rep4" : "faire la connexion client - serveur"},
+    {"id" : 5, "Question" : "Quel est la différence entre Java et C++", "RepOk" : "Java est encapsulé dans un VM", "rep2"  : "Java est encapsulé dans un VM", "rep3" : "C++ est plus userFriendly", "rep4" : "C++ interdit l'héritage multiple"},
+    {"id" : 6, "Question" : "A quoi sert le module Node JS : Express", "RepOk" : "Programmer un serveur HTTP", "rep2"  : "Accélérer la communication réseau", "rep3" : "faire de la sérialisation", "rep4" : "A programmer en <bas niveau>"},
+    {"id" : 7, "Question" : "Le gestionnaire de package NPM est utilisé en ", "RepOk" : "JavaScript (nodeJS)", "rep2"  : "Java", "rep3" : "Python", "rep4" : "Ruby"},
+    {"id" : 8, "Question" : "Le gestionnaire de package PIP est utilisé en ", "RepOk" : "Python", "rep2"  : "Java", "rep3" : "JavaScript (nodeJS)", "rep4" : "Ruby"},
+    {"id" : 9, "Question" : "SmartAndDrunk correspond à quoi en César ", "RepOk" : "VpduwDqgGuxqn", "rep2"  : "DqgGuxqnVpduw", "rep3" : "GqgDuxnqdpVuw", "rep4" : "VdirhjdVardf"},
+    {"id" : 10, "Question" : "Quelle sécurité un HMac apporte", "RepOk" : "Integrité et authentification", "rep2"  : "authentification", "rep3" : "chiffrement", "rep4" : "sécurité Mac OS"},
+    {"id" : 11, "Question" : "A quoi sert un IDS", "RepOk" : "detecter des intrusion", "rep2"  : "empecher des intrusion", "rep3" : "sécuriser les ports", "rep4" : "chiffrer des données"},
+    {"id" : 11, "Question" : "A quoi sert un IPS", "RepOk" : "empecher des intrusion", "rep2"  : "detecter des intrusion", "rep3" : "sécuriser les ports", "rep4" : "chiffrer des données"}
   ]
 
 }

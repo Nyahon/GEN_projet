@@ -1,11 +1,5 @@
 import Protocol.Pcmd;
 import Protocol.Pinfo;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import models.*;
 
 import javax.xml.bind.DatatypeConverter;
@@ -149,7 +143,7 @@ public class Client {
                 isConnected = false;
                 break;
 
-            case Pcmd.LIST_PALYERS:
+            case Pcmd.LIST_PLAYERS:
                 System.out.println(input.readLine());
                 break;
 

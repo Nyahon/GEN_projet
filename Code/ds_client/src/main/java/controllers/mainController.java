@@ -5,9 +5,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class mainController {
@@ -236,7 +233,7 @@ public class mainController {
                 isConnected = false;
                 break;
 
-            case Pcmd.LIST_PALYERS:
+            case Pcmd.LIST_PLAYERS:
                 System.out.println(input.readLine());
                 break;
 

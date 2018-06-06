@@ -326,7 +326,8 @@ public class Fight extends mainController {
             question.setText(receiveQuestion);
 
             //récupère les choix de réponses
-            LinkedList<String> reponses = JsonCreator.GetReponsesList(in.readLine());
+            String tmp = in.readLine();
+            LinkedList<String> reponses = JsonCreator.GetReponsesList(tmp);
             firstRespond.setText(reponses.get(0));
             SecondRespond.setText(reponses.get(1));
             thirstRespond.setText(reponses.get(2));

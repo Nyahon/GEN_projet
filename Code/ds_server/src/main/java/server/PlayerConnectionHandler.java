@@ -343,7 +343,11 @@ public class PlayerConnectionHandler implements Runnable {
         out.println(player.getFightMessageIn());
         out.flush();
 
-        // hack -> synchronized
+
+        //HACK. TODO BETTER. please.
+        //as fight() is called right after gameEngine.startFightStory (line 322),
+        //it seems that inFight of player is not set to true fast enough.
+        //So we do it again here. Dirty.
         player.setInFight(true);
 
         // Debut combat

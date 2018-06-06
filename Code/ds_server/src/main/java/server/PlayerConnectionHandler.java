@@ -145,7 +145,8 @@ public class PlayerConnectionHandler implements Runnable {
 
                         success = false;
                     } else {
-                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, Player.INITIAL_IMAGE);
+
+                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, pc.getImage());
                         ConnectionDB.insertJoueur(player, password);
                         player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
                         player.initItemsPlayer();

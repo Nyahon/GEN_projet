@@ -58,8 +58,7 @@ public class FightStory implements Runnable {
                 // envoie la question du prof au player.
                 player.setFightMessageIn(question.getQuestion());
 
-                // transmet les choix de réponses au joueur
-                // fixme: TROUVER UN MOYEN DE METTRE DE l ALEATOIRE
+                // transmet les choix de réponses au joueur les réponses sont randomizées dans la génération du payload json
                 String repPayloadJson = JsonCreator.sendReponses(question);
                 player.setFightMessageIn(repPayloadJson);
 

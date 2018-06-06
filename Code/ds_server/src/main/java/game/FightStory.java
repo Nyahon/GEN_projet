@@ -36,8 +36,9 @@ public class FightStory implements Runnable {
     public void run()  {
         try {
             // Recuperation Nom et PV adversaire
-            player.setFightMessageIn(professeur.getNom());
-            player.setFightMessageIn(String.valueOf(professeur.getPv()));
+            //player.setFightMessageIn(professeur.getNom());
+            //player.setFightMessageIn(String.valueOf(professeur.getPv()));
+            player.setFightMessageIn(JsonCreator.SendProfesseur(professeur));
 
             inFight = true;
             player.setInFight(true);

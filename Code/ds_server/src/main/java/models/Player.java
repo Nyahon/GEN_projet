@@ -13,6 +13,7 @@ public class Player {
     public static final int INITIAL_PV = 100;
     public static final int INITIAL_XP = 0;
     public static final int INITIAL_LEVEL = 0;
+    public static final String INITIAL_IMAGE = "player.png";
 
     private int id;
     private int annee;
@@ -20,6 +21,7 @@ public class Player {
     private int nbXP;
     private String name;
     private int level;
+    private String image;
     private Socket clientSocket = null;
     private PlayerConnectionHandler playerConnectionHandler;
     private boolean inFight = false;
@@ -30,12 +32,13 @@ public class Player {
     private BlockingQueue<String> fightMessageIn = new ArrayBlockingQueue<>(500, true);
     private BlockingQueue<String> fightMessageOut = new ArrayBlockingQueue<>(500, true);
 
-    public Player(String name, int annee, int pv, int niveau, int xp, PlayerClass type) {
+    public Player(String name, int annee, int pv, int niveau, int xp, PlayerClass type, String image) {
         this.name = name;
         this.nbPV = pv;
         this.nbXP = xp;
         this.level = niveau;
         this.annee = annee;
+        this.image = image;
         questions = new LinkedList<>();
         this.type = type;
         this.items = new LinkedList<>();
@@ -84,6 +87,14 @@ public class Player {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setQuestions(LinkedList<Question> questions) {
@@ -260,6 +271,7 @@ public class Player {
                 ", nbXP=" + nbXP +
                 ", name='" + name + '\'' +
                 ", level=" + level +
+                ", image=" + image +
                 ", clientSocket=" + clientSocket +
                 ", playerConnectionHandler=" + playerConnectionHandler +
                 ", inFight=" + inFight +

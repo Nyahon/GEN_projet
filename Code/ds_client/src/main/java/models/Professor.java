@@ -8,6 +8,7 @@ public class Professor {
     private String name;
     private int level;
     private int id;
+    private String image;
     private LinkedList<Question> questions;
 
     public Professor() {}

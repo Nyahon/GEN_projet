@@ -35,6 +35,7 @@ public class JsonCreator {
             JsonNode pvNode = rootNode.path("pv");
             JsonNode xpNode = rootNode.path("xp");
             JsonNode anneeNode = rootNode.path("annee");
+            JsonNode imageNode  = rootNode.path("image");
 
             JsonNode questionsNode = rootNode.path("Questions");
             Iterator<JsonNode> elements = questionsNode.elements();
@@ -49,7 +50,7 @@ public class JsonCreator {
                 questions.add(q);
             }
 
-            player = new Player(idNode.asInt(),nameNode.asText(),anneeNode.asInt(),pvNode.asInt(),levelNode.asInt(),xpNode.asInt());
+            player = new Player(idNode.asInt(),nameNode.asText(),anneeNode.asInt(),pvNode.asInt(),levelNode.asInt(),xpNode.asInt(), imageNode.asText());
             player.setQuestions(questions);
         } catch (IOException e) {
             e.printStackTrace();

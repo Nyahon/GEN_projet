@@ -31,6 +31,8 @@ public class JsonCreator {
         playerNode.put("pv", player.getNbPV());
         playerNode.put("xp", player.getLevel());
         playerNode.put("annee", player.getAnnee());
+        playerNode.put("image", player.getImage());
+
 
 
         ArrayNode questionsNode = mapper.createArrayNode();
@@ -62,6 +64,7 @@ public class JsonCreator {
         professeurNode.put("name",professeur.getNom());
         professeurNode.put("level", professeur.getNiveau());
         professeurNode.put("pv", professeur.getPv());
+        professeurNode.put("image", professeur.getImage());
 
 
         ArrayNode questionsNode = mapper.createArrayNode();

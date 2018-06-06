@@ -8,15 +8,17 @@ public class db_Player {
     private int pv;
     private int xp;
     private int niveau;
+    private String image;
 
 
-    public db_Player(int id, String nom, int annee, int pv, int niveau, int xp ) {
+    public db_Player(int id, String nom, int annee, int pv, int niveau, int xp, String image) {
         this.nom = nom;
         this.id = id;
         this.annee = annee;
         this.pv = pv;
         this.xp = xp;
         this.niveau = niveau;
+        this.image = image;
     }
 
     public String getNom() {
@@ -66,6 +68,14 @@ public class db_Player {
 
     public void setNiveau(int niveau) {
         this.niveau = niveau;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @Override

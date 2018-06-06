@@ -166,11 +166,12 @@ public class ConnectionDB {
                 int Xp = rs.getInt("Xp");
                 int id = rs.getInt("Id");
                 String type = rs.getString("Type");
+                String image = rs.getString("Image");
 
                 PlayerClass classe = PlayerClass.StringToEnum(type);
                 LinkedList<Item> items = getItemsByJoueurId(id);
 
-                player = new Player(hisName, annee, Pv, Niveau, Xp, classe);
+                player = new Player(hisName, annee, Pv, Niveau, Xp, classe, image);
                 player.setId(id);
                 player.setItems(items);
                 System.out.println(player);
@@ -410,8 +411,9 @@ public class ConnectionDB {
                 int pv = rs.getInt("Pv");
                 int niveau = rs.getInt("Niveau");
                 int id = rs.getInt("Id");
+                String image = rs.getString("Image");
 
-                professeur = new db_Professeur(id,hisName,pv,niveau);
+                professeur = new db_Professeur(id,hisName,pv,niveau, image);
                 System.out.println(professeur);
                 System.out.println();
             }
@@ -441,8 +443,9 @@ public class ConnectionDB {
                 int pv = rs.getInt("Pv");
                 int niveau = rs.getInt("Niveau");
                 int id = rs.getInt("Id");
+                String image = rs.getString("Image");
 
-                assistant = new db_Assistant(id,hisName,pv,niveau);
+                assistant = new db_Assistant(id,hisName,pv,niveau, image);
                 System.out.println(assistant);
                 System.out.println();
             }

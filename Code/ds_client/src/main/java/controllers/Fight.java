@@ -168,8 +168,13 @@ public class Fight extends mainController {
             this.player = player;
 
             // get oppenents infos
-            opponnent.setName(in.readLine());
-            opponnent.setNbPV(Integer.parseInt(in.readLine()));
+           // opponnent.setName(in.readLine());
+            //opponnent.setNbPV(Integer.parseInt(in.readLine()));
+            Player temp = JsonCreator.readPlayer(in.readLine());
+            opponnent.setName(temp.getName());
+            opponnent.setNbPV(temp.getNbPV());
+            opponnent.setImage(temp.getImage());
+
 
             myInitialPV = player.getNbPV();
             hisInitialPV = opponnent.getNbPV();
@@ -188,10 +193,10 @@ public class Fight extends mainController {
 
             // TODO : METTRE UNE IMAGE DIFFERENTE SELON LE TYPE DE CLASSE
 
-            Image meImg = new Image("/images/hedoniste.png");
+            Image meImg = new Image("/images/"+player.getImage());
             imgMe.setImage(meImg);
 
-            Image HisImg = new Image("/images/rentsch.png");
+            Image HisImg = new Image("/images/"+opponnent.getImage());
             imgAdversary.setImage(HisImg);
 
             Image imgKey = new Image("/images/bitKey.jpg");

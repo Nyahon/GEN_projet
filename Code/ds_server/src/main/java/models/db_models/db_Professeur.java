@@ -10,15 +10,17 @@ public class db_Professeur {
     private String Nom;
     private int Pv;
     private int Niveau;
+    private String Image;
     private LinkedList<Question> questions = new LinkedList<>();
 
 
 
-    public db_Professeur(int id, String nom, int pv, int niveau) {
+    public db_Professeur(int id, String nom, int pv, int niveau, String image) {
         Id = id;
         Nom = nom;
         Pv = pv;
         Niveau = niveau;
+        Image = image;
         questions = ConnectionDB.getQuestionByProfesseur(id);
     }
 
@@ -54,6 +56,10 @@ public class db_Professeur {
         Niveau = niveau;
     }
 
+    public String getImage(){return Image; }
+
+    public void setImage(String image) { Image = image;}
+
     public void loosePv(int pv) { this.Pv -= pv; }
 
     public LinkedList<Question> getQuestions() {
@@ -69,6 +75,7 @@ public class db_Professeur {
                 ", Nom='" + Nom + '\'' +
                 ", Pv=" + Pv +
                 ", Niveau=" + Niveau +
+                ", Image=" + Image +
                 '}';
     }
 

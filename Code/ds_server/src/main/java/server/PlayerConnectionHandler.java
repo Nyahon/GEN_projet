@@ -145,7 +145,7 @@ public class PlayerConnectionHandler implements Runnable {
 
                         success = false;
                     } else {
-                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc);
+                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, Player.INITIAL_IMAGE);
                         ConnectionDB.insertJoueur(player, password);
                         player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
                         player.initItemsPlayer();
@@ -338,8 +338,8 @@ public class PlayerConnectionHandler implements Runnable {
 
         LOG.log(Level.INFO, player.getName() + " is in FIGHT Mode !");
 
-        // Recuperation Nom et PV adversaire
-        out.println(player.getFightMessageIn());
+        // Recuperation Nom et PV adversaire (payload json)
+        //out.println(player.getFightMessageIn());
         out.println(player.getFightMessageIn());
         out.flush();
 

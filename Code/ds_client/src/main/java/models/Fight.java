@@ -40,6 +40,7 @@ public class Fight {
         inFight = true;
         try {
             // get oppenents infos
+
             opponnent.setName(in.readLine());
             opponnent.setNbPV(Integer.parseInt(in.readLine()));
 

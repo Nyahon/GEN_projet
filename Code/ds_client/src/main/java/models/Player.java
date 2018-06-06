@@ -12,13 +12,14 @@ public class Player {
     private int level;
     private int id;
     private int annee;
+    private String image;
     private LinkedList<Question> questions;
     private Socket socket = null;
 
     public Player() {}
 
-    public Player(int id, String name, int annee, int pv, int niveau, int xp){
-        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; this.id = id;
+    public Player(int id, String name, int annee, int pv, int niveau, int xp, String image){
+        this.name = name; this.nbPV = pv; this.nbXP = xp; this.level = niveau; this.annee = annee; this.id = id; this.image = image;
         questions = new LinkedList<>();}
 
 
@@ -103,6 +104,14 @@ public class Player {
         this.questions.add(question);
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public int getId() {
         return id;
     }
@@ -127,6 +136,7 @@ public class Player {
                 ", level=" + level +
                 ", id=" + id +
                 ", annee=" + annee +
+                ", image=" + image +
                 '}';
     }
 

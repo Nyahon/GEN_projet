@@ -45,11 +45,14 @@ public class Fight implements Runnable {
 
     public void run()  {
         try {
-            player1.setFightMessageIn(player2.getName());
-            player1.setFightMessageIn(String.valueOf(player2.getNbPV()));
+            //player1.setFightMessageIn(player2.getName());
+            //player1.setFightMessageIn(String.valueOf(player2.getNbPV()));
+            player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
 
-            player2.setFightMessageIn(player1.getName());
-            player2.setFightMessageIn(String.valueOf(player1.getNbPV()));
+
+            //player2.setFightMessageIn(player1.getName());
+            //player2.setFightMessageIn(String.valueOf(player1.getNbPV()));
+            player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
 
 
             inFight = true;

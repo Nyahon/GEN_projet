@@ -13,7 +13,7 @@ public class Pcmd {
     public final static String EXIT = "EXIT";
 
     // commandes
-    public final static String LIST_PALYERS = "LIST_PLAYERS";
+    public final static String LIST_PLAYERS = "LIST_PLAYERS";
     public final static String VERSUS = "VERSUS";
     public final static String CHALLENGE = "CHALLENGE";
     public final static String STORY = "STORY";

@@ -178,7 +178,7 @@ public class PlayerConnectionHandler implements Runnable {
                 LOG.log(Level.INFO, "models.Player " + player.getName() + " disconnected");
                 break;
 
-            case Pcmd.LIST_PALYERS:
+            case Pcmd.LIST_PLAYERS:
                 String playerList = "{";
                 List<Player> players = gameEngine.getConnectedPlayers();
                 int numberOfPlayers = players.size();

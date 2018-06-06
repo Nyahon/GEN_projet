@@ -8,9 +8,9 @@
     // -----
 
     {"Prof" : "Liechti", "niveau" : 2, "questions" : [1,2,3]},
-    {"Prof" : "Miguel", "niveau" : 1, "questions" : [1,2,3]}
+    {"Prof" : "Miguel", "niveau" : 1, "questions" : [1,2,3]},
     {"Prof" : "Rentsch", "niveau" : 3, "questions" : [1,2,3]}
-  ]
+  ],
 
 
 

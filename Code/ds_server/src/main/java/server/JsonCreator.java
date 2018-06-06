@@ -16,6 +16,8 @@ import models.Question;
 import models.db_models.db_Professeur;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -197,5 +199,43 @@ public class JsonCreator {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public void readQuestionsAndProfFromFile(){
+        //read json file data to String
+        try {
+            LinkedList<Question> questions = new LinkedList<>();
+
+            byte[] jsonData = Files.readAllBytes(Paths.get("questions.json"));
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            JsonNode rootNode = null;
+
+            rootNode = objectMapper.readTree(jsonData);
+
+            JsonNode reponsesNode = rootNode.path("Questions");
+            Iterator<JsonNode> elements = reponsesNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode reponse = elements.next();
+                questions.add(new Question(reponse.path("id").asInt(),reponse.path("Question").asText(), reponse.path("RepOk").asText(),
+                        reponse.path("rep2").asText(), reponse.path("rep3").asText(), reponse.path("rep4").asText()));
+            }
+
+            reponsesNode = rootNode.path("Profs");
+            elements = reponsesNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode reponse = elements.next();
+                questions.add(new Question(reponse.path("id").asInt(),reponse.path("Question").asText(), reponse.path("RepOk").asText(),
+                        reponse.path("rep2").asText(), reponse.path("rep3").asText(), reponse.path("rep4").asText()));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -343,6 +343,9 @@ public class PlayerConnectionHandler implements Runnable {
         out.println(player.getFightMessageIn());
         out.flush();
 
+        // hack -> synchronized
+        player.setInFight(true);
+
         // Debut combat
         while (player.getInFight()) {
 

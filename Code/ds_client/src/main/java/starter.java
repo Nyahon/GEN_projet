@@ -19,7 +19,6 @@ public class starter extends Application {
 
     public static void main(String[] argv) {
         System.setProperty("java.util.logging.SimpleFormatter.format", "%4$s: %5$s%6$s%n");
-
         launch();
 
     }
@@ -37,7 +36,7 @@ public class starter extends Application {
 
             // get the property value and print it out
             ip = prop.getProperty("host");
-            port = Integer.parseInt(prop.getProperty("4500"));
+            port = Integer.parseInt(prop.getProperty("port"));
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -55,7 +54,7 @@ public class starter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-
+        getConfig();
         Client client = new Client(ip, port);
 
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));

@@ -160,7 +160,6 @@ public class Fight extends mainController {
         antiseche.setToggleGroup(chooseItem);
         biere.setToggleGroup(chooseItem);
 
-
         try {
             in = new BufferedReader(new InputStreamReader(player.getSocket().getInputStream()));
             out = new PrintWriter(player.getSocket().getOutputStream());

@@ -23,7 +23,7 @@ public class starter extends Application {
 
     }
 
-    private void getConfig(){
+    private void getConfig() {
         Properties prop = new Properties();
         InputStream input = null;
 

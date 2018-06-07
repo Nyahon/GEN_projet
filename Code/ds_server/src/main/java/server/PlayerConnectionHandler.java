@@ -145,7 +145,8 @@ public class PlayerConnectionHandler implements Runnable {
 
                         success = false;
                     } else {
-                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, Player.INITIAL_IMAGE);
+
+                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, pc.getImage());
                         ConnectionDB.insertJoueur(player, password);
                         player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
                         player.initItemsPlayer();
@@ -342,6 +343,13 @@ public class PlayerConnectionHandler implements Runnable {
         //out.println(player.getFightMessageIn());
         out.println(player.getFightMessageIn());
         out.flush();
+
+
+        //HACK. TODO BETTER. please.
+        //as fight() is called right after gameEngine.startFightStory (line 322),
+        //it seems that inFight of player is not set to true fast enough.
+        //So we do it again here. Dirty.
+        player.setInFight(true);
 
         // Debut combat
         while (player.getInFight()) {

@@ -93,7 +93,7 @@ public class ConnectionDB {
             c = DriverManager.getConnection(DB_URL);
             System.out.println("Base de donnee ouverte");
 
-            String sql = "INSERT INTO joueurs VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO joueurs VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             stmt = c.prepareStatement(sql);
             stmt.setString(1, player.getName());
             stmt.setInt(2, player.getAnnee());
@@ -102,6 +102,7 @@ public class ConnectionDB {
             stmt.setInt(6, player.getNbXP());
             stmt.setString(7, PlayerClass.EnumToString(player.getType()));
             stmt.setString(8, password);
+            stmt.setString(8, player.getImage());
             stmt.executeUpdate();
 
             System.out.println("Nouveau joueur insere");

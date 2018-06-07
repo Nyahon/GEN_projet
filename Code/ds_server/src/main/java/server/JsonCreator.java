@@ -18,8 +18,7 @@ import models.db_models.db_Professeur;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 public class JsonCreator {
 
@@ -95,20 +94,29 @@ public class JsonCreator {
         ObjectNode payload = mapper.createObjectNode();
         ArrayNode reponsesNodes = mapper.createArrayNode();
 
+        List<String> questions = new ArrayList<>();
+        questions.add(question.getReponseFalse1());
+        questions.add(question.getReponseFalse2());
+        questions.add(question.getReponseFalse3());
+        questions.add(question.getReponseOK());
+
+        // randomizer l'ordre des réponses.
+        Collections.shuffle(questions);
+
         ObjectNode A = mapper.createObjectNode();
-        A.put("rep", question.getReponseFalse1());
+        A.put("rep", questions.remove(0));
         A.put("idRep", "A");
 
         ObjectNode B = mapper.createObjectNode();
-        B.put("rep", question.getReponseFalse2());
+        B.put("rep", questions.remove(0));
         B.put("idRep", "B");
 
         ObjectNode C = mapper.createObjectNode();
-        C.put("rep", question.getReponseFalse3());
+        C.put("rep", questions.remove(0));
         C.put("idRep", "C");
 
         ObjectNode D = mapper.createObjectNode();
-        D.put("rep", question.getReponseOK());
+        D.put("rep", questions.remove(0));
         D.put("idRep", "D");
 
         reponsesNodes.add(A);

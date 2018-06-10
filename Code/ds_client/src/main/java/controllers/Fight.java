@@ -309,8 +309,10 @@ public class Fight extends mainController {
 
     private void respondPart() {
         try {
+            LOG.log(Level.INFO, "doit charger la nouvelle interface");
             //Activate Respond Pane
             Interface_Fight_Respond();
+            LOG.log(Level.INFO, "nouvelle interface chargée");
 
             antiseche.setDisable(true);
             antiseche.setText(String.valueOf("0 : Antisèches"));
@@ -360,7 +362,9 @@ public class Fight extends mainController {
     private void askTheQuestion() {
         for (Question q : player.getQuestions()) {
             if (q.getQuestion().equals(choiceQuestion.getValue())) {
-                out.println(q.getId());
+                //FIXME COMMENTE POUR TESTs
+                //out.println(q.getId());
+                out.println(1);
                 out.flush();
             }
         }

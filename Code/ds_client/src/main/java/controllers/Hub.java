@@ -36,10 +36,50 @@ public class Hub extends mainController{
     @FXML
     public void startVersus() {
 
+        try {
+            player.setSocket(socket);
+            System.out.println(player);
+
+            output.println(Pcmd.VERSUS);
+            output.flush();
+
+            String resp = input.readLine();
+            resp = input.readLine();
+
+            //Charge la page fight
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            Fight fight = fxmlLoader.<Fight>getController();
+            fight.initialize(player);
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
     public void startChallenge() {
+        try {
+            player.setSocket(socket);
+            System.out.println(player);
+
+            output.println(Pcmd.CHALLENGE);
+            output.flush();
+
+            //Charge la page fight
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/challenge.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            Challenge challenge = fxmlLoader.<Challenge>getController();
+            challenge.initialize();
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -102,7 +102,7 @@ public class ConnectionDB {
             stmt.setInt(6, player.getNbXP());
             stmt.setString(7, PlayerClass.EnumToString(player.getType()));
             stmt.setString(8, password);
-            stmt.setString(8, player.getImage());
+            stmt.setString(9, player.getImage());
             stmt.executeUpdate();
 
             System.out.println("Nouveau joueur insere");

@@ -9,6 +9,8 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -43,6 +45,20 @@ public class Versus extends mainController {
             output = getOutput();
             player = getPlayer();
 
+            player.setSocket(socket);
+            System.out.println(player);
+            String resp = input.readLine();
+            resp = input.readLine();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(fxmlLoader.load()));
+            Fight fight = fxmlLoader.<Fight>getController();
+            fight.initialize(player);
+            System.out.println("Start interface graphique from Versus");
+            stage.show();
+
+            /*
             //Reçois le nombre de secondes à attendre !!!!
             int nbrSecondeWait =Integer.parseInt(input.readLine());
 
@@ -68,7 +84,7 @@ public class Versus extends mainController {
             if(goOnFight.equals(Pinfo.SUCCESS)){
                 // TODO: ouvre fightS
                 }
-
+            */
         } catch (Exception e) {
             e.printStackTrace();
         }

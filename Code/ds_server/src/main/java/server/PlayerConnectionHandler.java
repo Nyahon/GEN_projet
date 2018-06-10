@@ -145,8 +145,7 @@ public class PlayerConnectionHandler implements Runnable {
 
                         success = false;
                     } else {
-
-                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, pc.getImage());
+                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, Player.INITIAL_IMAGE);
                         ConnectionDB.insertJoueur(player, password);
                         player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
                         player.initItemsPlayer();
@@ -241,8 +240,6 @@ public class PlayerConnectionHandler implements Runnable {
         boolean isInChallengeMode = true;
         try {
             while (isInChallengeMode) {
-                out.println("CHALLENGE: Enter your command :");
-                out.flush();
 
                 switch (in.readLine().toUpperCase()) {
                     case Pcmd.EXIT:
@@ -343,26 +340,24 @@ public class PlayerConnectionHandler implements Runnable {
         //out.println(player.getFightMessageIn());
         out.println(player.getFightMessageIn());
         out.flush();
+        LOG.log(Level.INFO, player.getName() + " Has receive the ennemi payload");
 
-
-        //HACK. TODO BETTER. please.
-        //as fight() is called right after gameEngine.startFightStory (line 322),
-        //it seems that inFight of player is not set to true fast enough.
-        //So we do it again here. Dirty.
         player.setInFight(true);
-
         // Debut combat
         while (player.getInFight()) {
 
+            LOG.log(Level.INFO, player.getName() + "IS IN FIGHT");
             // Mode question ou Réponse ?
             String variable = player.getFightMessageIn();
+            LOG.log(Level.INFO, player.getName() + " Has to " + variable);
             out.println(variable);
             out.flush();
 
             switch (variable) {
                 case Pfight.ASK:
+                    // TODO COMMENTE POUR TESTS
                     // Choix question du joueur(client)
-                    player.setFightMessageOut(in.readLine());
+                    //player.setFightMessageOut(in.readLine());
 
                     // Réponse juste ou fausse ?
                     out.println(player.getFightMessageIn());
@@ -432,7 +427,7 @@ public class PlayerConnectionHandler implements Runnable {
             }*/
             sleep(3000);
         }
-
+        LOG.log(Level.INFO, player.getName() + "EST PLUS EN FIGHT");
         // Envoi de END
         out.println(player.getFightMessageIn());
         // Envoi de WIN ou LOST

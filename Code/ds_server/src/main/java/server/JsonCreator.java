@@ -9,10 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.Item;
-import models.ItemType;
-import models.Player;
-import models.Question;
+import models.*;
 import models.db_models.db_Professeur;
 
 import java.io.IOException;
@@ -209,10 +206,10 @@ public class JsonCreator {
         return "";
     }
 
-    public void readQuestionsAndProfFromFile(){
-        //read json file data to String
+    public static LinkedList<Question> readQuestionsAndProfFromFile(){
+
+        LinkedList<Question> questions = new LinkedList<>();
         try {
-            LinkedList<Question> questions = new LinkedList<>();
 
             byte[] jsonData = Files.readAllBytes(Paths.get("questions.json"));
 
@@ -231,19 +228,43 @@ public class JsonCreator {
                         reponse.path("rep2").asText(), reponse.path("rep3").asText(), reponse.path("rep4").asText()));
             }
 
-            reponsesNode = rootNode.path("Profs");
-            elements = reponsesNode.elements();
-
-            while(elements.hasNext()){
-                JsonNode reponse = elements.next();
-                questions.add(new Question(reponse.path("id").asInt(),reponse.path("Question").asText(), reponse.path("RepOk").asText(),
-                        reponse.path("rep2").asText(), reponse.path("rep3").asText(), reponse.path("rep4").asText()));
-            }
-
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return questions;
+    }
 
+    public static void createProfessorsFromFile(){
+
+        try {
+
+            byte[] jsonData = Files.readAllBytes(Paths.get("questions.json"));
+
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            JsonNode rootNode = null;
+
+            rootNode = objectMapper.readTree(jsonData);
+
+            JsonNode reponsesNode = rootNode.path("Profs");
+            Iterator<JsonNode> elements = reponsesNode.elements();
+
+            while(elements.hasNext()){
+                JsonNode reponse = elements.next();
+                ConnectionDB.addProfessor(new db_Professeur(reponse.path("id").asInt(), reponse.path("Prof").asText(), reponse.path("pv").asInt(), reponse.path("niveau").asInt(), reponse.path("Prof").asText().toLowerCase()+".png" ));
+
+                JsonNode listQuestions = reponse.path("questions");
+                Iterator<JsonNode> questions = listQuestions.elements();
+
+                while (questions.hasNext()){
+                    JsonNode quest = elements.next();
+                    ConnectionDB.assignQuestionToProf(reponse.path("id").asInt(),quest.asInt());
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

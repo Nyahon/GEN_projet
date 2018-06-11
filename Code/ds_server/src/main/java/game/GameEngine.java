@@ -1,10 +1,15 @@
 package game;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import models.ConnectionDB;
 import models.Connexions;
 import models.Player;
+import models.Question;
 import models.db_models.db_Professeur;
+import server.JsonCreator;
 import server.ServerConnectionHandler;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameEngine implements Runnable{
@@ -24,6 +29,14 @@ public class GameEngine implements Runnable{
 
         connections = new Connexions();
         challengers = new Connexions();
+
+        LinkedList<Question> questions = JsonCreator.readQuestionsAndProfFromFile();
+        for (Question q : questions){
+            if(ConnectionDB.questionExist(q.getId()) == false)
+                ConnectionDB.addQuestion(q);
+        }
+
+        JsonCreator.createProfessorsFromFile();
     }
 
     public void run(){

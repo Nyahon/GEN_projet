@@ -495,4 +495,122 @@ public class ConnectionDB {
         }
     }
 
+    public static synchronized void addQuestion (Question question){
+        Connection c = null;
+        PreparedStatement stmt = null;
+
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            System.out.println("Base de donnee ouverte");
+
+            String sql = "INSERT INTO question VALUES( ?, ?, ?, ?, ?, ?, ?)";
+            stmt = c.prepareStatement(sql);
+            stmt.setInt(1, question.getId());
+            stmt.setString(2, question.getQuestion());
+            stmt.setString(3, question.getReponseOK());
+            stmt.setString(4, question.getReponseFalse1());
+            stmt.setString(5, question.getReponseFalse2());
+            stmt.setString(6, question.getReponseFalse3());
+            stmt.setInt(7, 0);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                stmt.close();
+                //c.commit();
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static boolean questionExist (int idQuestion) {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        boolean exist = false;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT * FROM Question WHERE Id = " + idQuestion + ";");
+
+            while (rs.next()) {
+                exist = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+            return exist;
+        }
+    }
+
+    public static synchronized void addProfessor (db_Professeur prof){
+        Connection c = null;
+        PreparedStatement stmt = null;
+
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            System.out.println("Base de donnee ouverte");
+
+            String sql = "INSERT INTO professeur VALUES( ?, ?, ?, ?, ?)";
+            stmt = c.prepareStatement(sql);
+            stmt.setString(2, prof.getNom());
+            stmt.setInt(3, prof.getPv());
+            stmt.setInt(4, prof.getNiveau());
+            stmt.setString(5, prof.getImage());
+
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                stmt.close();
+                //c.commit();
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void assignQuestionToProf(int idProfessor, int idQuestion){
+        Connection c = null;
+        PreparedStatement stmt = null;
+
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            System.out.println("Base de donnee ouverte");
+
+            String sql = "INSERT INTO possede VALUES( ?, ?, ?, ?)";
+            stmt = c.prepareStatement(sql);
+            stmt.setInt(3, idQuestion);
+            stmt.setInt(4, idProfessor);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        } finally {
+            try {
+                stmt.close();
+                //c.commit();
+                c.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }

@@ -167,7 +167,7 @@ public class Fight extends mainController {
             this.player = player;
 
             // get oppenents infos
-           // opponnent.setName(in.readLine());
+            // opponnent.setName(in.readLine());
             //opponnent.setNbPV(Integer.parseInt(in.readLine()));
             Player temp = JsonCreator.readPlayer(in.readLine());
             opponnent.setName(temp.getName());
@@ -188,14 +188,13 @@ public class Fight extends mainController {
             asking.setVisible(false);
             item.setVisible(false);
             winOrLost.setVisible(false);
-            rightOrFalse.setVisible(false);
 
             // TODO : METTRE UNE IMAGE DIFFERENTE SELON LE TYPE DE CLASSE
 
-            Image meImg = new Image("/images/"+player.getImage());
+            Image meImg = new Image("/images/" + player.getImage());
             imgMe.setImage(meImg);
 
-            Image HisImg = new Image("/images/"+opponnent.getImage());
+            Image HisImg = new Image("/images/" + opponnent.getImage());
             imgAdversary.setImage(HisImg);
 
             Image imgKey = new Image("/images/bitKey.jpg");
@@ -262,8 +261,7 @@ public class Fight extends mainController {
                         Thread.sleep(2);
                         if (in.readLine().equals("CONTINUE")) {
                             nextFight();
-                        }
-                        else {
+                        } else {
                             returnHome();
                         }
                         break;
@@ -283,8 +281,8 @@ public class Fight extends mainController {
         // Set labels life Value
         myLife.setText(Integer.toString(player.getNbPV()));
         hisLife.setText(Integer.toString(opponnent.getNbPV()));
-        myLifeBar.setProgress((double)player.getNbPV() / myInitialPV);
-        hisLifeBar.setProgress((double)opponnent.getNbPV() / hisInitialPV);
+        myLifeBar.setProgress((double) player.getNbPV() / myInitialPV);
+        hisLifeBar.setProgress((double) opponnent.getNbPV() / hisInitialPV);
     }
 
     private void askPart() {
@@ -323,7 +321,7 @@ public class Fight extends mainController {
 
             // Affiche la question
             String receiveQuestion = in.readLine();
-
+            LOG.log(Level.INFO, "affiche la question suivante : " + receiveQuestion);
             question.setText(receiveQuestion);
 
             //récupère les choix de réponses
@@ -338,15 +336,15 @@ public class Fight extends mainController {
             // TODO récupère les objets
             String itemsPayload = in.readLine();
             int[] items = JsonCreator.GetNumberOfEveryItem(itemsPayload);
-            if(items[0] > 0){
+            if (items[0] > 0) {
                 antiseche.setDisable(false);
                 antiseche.setText(String.valueOf(items[0]) + ": Antisèches");
             }
-            if(items[1] > 0){
+            if (items[1] > 0) {
                 livre.setDisable(false);
                 livre.setText(String.valueOf(items[1]) + ": Livre");
             }
-            if(items[2] > 0){
+            if (items[2] > 0) {
                 biere.setDisable(false);
                 biere.setText(String.valueOf(items[2]) + ": Bières");
             }
@@ -363,22 +361,19 @@ public class Fight extends mainController {
         for (Question q : player.getQuestions()) {
             if (q.getQuestion().equals(choiceQuestion.getValue())) {
                 //FIXME COMMENTE POUR TESTs
-                //out.println(q.getId());
-                out.println(1);
+                out.println(q.getId());
                 out.flush();
             }
         }
 
-        try {
-            System.out.println("Wait your opponent to answer your question.");
+        System.out.println("Wait your opponent to answer your question.");
 
-            // result of opponent
+        // result of opponent
 
-            getRightORFalse();
+        rightOrFalse.setTextFill(Color.GREEN);
+        rightOrFalse.setText("question ask");
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        getRightORFalse();
     }
 
     @FXML
@@ -467,14 +462,12 @@ public class Fight extends mainController {
 
             switch (tmp) {
                 case Pfight.RIGHT:
-                    rightOrFalse.setVisible(true);
                     rightOrFalse.setTextFill(Color.GREEN);
                     rightOrFalse.setText("Right");
 
                     break;
 
                 case Pfight.FALSE:
-                    rightOrFalse.setVisible(true);
                     rightOrFalse.setTextFill(Color.RED);
                     rightOrFalse.setText("False");
 
@@ -516,24 +509,27 @@ public class Fight extends mainController {
     }
 
     @FXML
-    private void Interface_Fight_Question(){
+    private void Interface_Fight_Question() {
         respond.setVisible(false);
         item.setVisible(false);
         asking.setVisible(true);
     }
 
     @FXML
-    private void Interface_Item(){
+    private void Interface_Item() {
         respond.setVisible(false);
         item.setVisible(true);
         asking.setVisible(false);
     }
 
     @FXML
-    private void Interface_Fight_Respond(){
+    private void Interface_Fight_Respond() {
         respond.setVisible(true);
+        LOG.log(Level.INFO, "respond visible TRUE");
         item.setVisible(false);
+        LOG.log(Level.INFO, "item visible FALSE");
         asking.setVisible(false);
+        LOG.log(Level.INFO, "asking visible FALSE");
     }
 
 }

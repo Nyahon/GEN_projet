@@ -356,12 +356,9 @@ public class PlayerConnectionHandler implements Runnable {
             switch (variable) {
                 case Pfight.ASK:
                     // TODO COMMENTE POUR TESTS
-                    // Choix question du joueur(client)
-                    //player.setFightMessageOut(in.readLine());
+                    //Choix question du joueur(client)
+                    player.setFightMessageOut(in.readLine());
 
-                    // Réponse juste ou fausse ?
-                    out.println(player.getFightMessageIn());
-                    out.flush();
                     break;
                 case Pfight.ANSWER:
                     // Reception de la question, envoie au client
@@ -405,16 +402,15 @@ public class PlayerConnectionHandler implements Runnable {
                                 // réception de la réponse du joueur.
                                 player.setFightMessageOut(in.readLine());
 
-                                // Réponse juste ou fausse ?
-                                out.println(player.getFightMessageIn());
-                                out.flush();
-
                                 hasAnswer = true;
 
                                 break;
                         }
                     }
             }
+            // Réponse juste ou fausse ?
+            out.println(player.getFightMessageIn());
+            out.flush();
 
             // Payload état de l'adversaire
             out.println(player.getFightMessageIn());

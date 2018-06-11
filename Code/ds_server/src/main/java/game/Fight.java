@@ -72,8 +72,8 @@ public class Fight implements Runnable {
                         player1.setFightMessageIn(Pfight.ASK);
                         System.out.println("player1 need to ASK");
 
-                        //Question question = ConnectionDB.getQuestionById(Integer.parseInt(player1.getFightMessageOut()));
-                        Question question = ConnectionDB.getQuestionById(1);
+                        Question question = ConnectionDB.getQuestionById(Integer.parseInt(player1.getFightMessageOut()));
+                        //Question question = ConnectionDB.getQuestionById(1);
                         System.out.println("player1 need to SEND HIS QUESTION");
                         player2.setFightMessageIn(question.getQuestion());
                         System.out.println("QUESTION send to player2");
@@ -165,6 +165,7 @@ public class Fight implements Runnable {
                         System.out.println("player1 need to ANSWER");
 
                         Question question = ConnectionDB.getQuestionById(Integer.parseInt(player2.getFightMessageOut()));
+                        //Question question = ConnectionDB.getQuestionById(1);
                         System.out.println("player2 need to SEND HIS QUESTION");
                         player1.setFightMessageIn(question.getQuestion());
                         System.out.println("QUESTION send to player1");
@@ -221,23 +222,12 @@ public class Fight implements Runnable {
                                         player1.setFightMessageIn(Pfight.RIGHT);
                                         player2.setFightMessageIn(Pfight.RIGHT);
                                         player2.loosePV(40);
-                                        // Envoi etat adversaire et joueur à player2 (RIGHT)
-                                        player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
-                                        player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
-                                        // Envoi etat adversaire et joueur à player1 (ASK)
-                                        player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
-                                        player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
+
                                     } else {
                                         player1.setFightMessageIn(Pfight.FALSE);
                                         player2.setFightMessageIn(Pfight.FALSE);
-
                                         player1.loosePV(40);
-                                        // Envoi etat adversaire et joueur à player2 (FALSE)
-                                        player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
-                                        player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
-                                        // Envoi etat adversaire et joueur à player1 (ASK)
-                                        player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
-                                        player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
+
                                     }
 
                                     hasAnswer = true;
@@ -245,6 +235,13 @@ public class Fight implements Runnable {
                                     break;
                             }
                         }
+
+                        // Envoi etat adversaire et joueur à player2 (FALSE)
+                        player1.setFightMessageIn(JsonCreator.SendPlayer(player2));
+                        player1.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                        // Envoi etat adversaire et joueur à player1 (ASK)
+                        player2.setFightMessageIn(JsonCreator.SendPlayer(player1));
+                        player2.setFightMessageIn(JsonCreator.SendPlayer(player2));
                     }
 
 

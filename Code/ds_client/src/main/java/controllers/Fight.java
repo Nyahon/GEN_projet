@@ -69,6 +69,9 @@ public class Fight extends mainController {
     @FXML
     private ImageView imgAdversary;
 
+    @FXML
+    private Button stopButton;
+
     // ITEM PANE
 
     @FXML
@@ -147,6 +150,7 @@ public class Fight extends mainController {
     @FXML
     protected void initialize(Player player) {
 
+        stopButton.setVisible(false);
         chooseResponse = new ToggleGroup();
 
         firstRespond.setToggleGroup(chooseResponse);
@@ -166,9 +170,6 @@ public class Fight extends mainController {
 
             this.player = player;
 
-            // get oppenents infos
-            // opponnent.setName(in.readLine());
-            //opponnent.setNbPV(Integer.parseInt(in.readLine()));
             Player temp = JsonCreator.readPlayer(in.readLine());
             opponnent.setName(temp.getName());
             opponnent.setNbPV(temp.getNbPV());
@@ -187,7 +188,6 @@ public class Fight extends mainController {
             respond.setVisible(false);
             asking.setVisible(false);
             item.setVisible(false);
-            winOrLost.setVisible(false);
 
             // TODO : METTRE UNE IMAGE DIFFERENTE SELON LE TYPE DE CLASSE
 
@@ -244,25 +244,12 @@ public class Fight extends mainController {
                         break;
 
                     case Pfight.END:
-                        switch (in.readLine().toUpperCase()) {
-                            case Pfight.WIN:
-                                System.out.println("You won the fight !");
-                                winOrLost.setVisible(true);
-                                winOrLost.setTextFill(Color.GREEN);
-                                winOrLost.setText("You won the fight !");
-                                break;
-                            case Pfight.LOST:
-                                System.out.println("You lost the fight !");
-                                winOrLost.setVisible(true);
-                                winOrLost.setTextFill(Color.RED);
-                                winOrLost.setText("You lost the fight !");
-                                break;
-                        }
+                        String result = in.readLine().toUpperCase();
+                        SetWinORLost(result);
+
                         Thread.sleep(2);
                         if (in.readLine().equals("CONTINUE")) {
                             nextFight();
-                        } else {
-                            returnHome();
                         }
                         break;
 
@@ -287,6 +274,7 @@ public class Fight extends mainController {
 
     private void askPart() {
         try {
+
             //Activate ASK Pane
             Interface_Fight_Question();
 
@@ -369,9 +357,6 @@ public class Fight extends mainController {
         System.out.println("Wait your opponent to answer your question.");
 
         // result of opponent
-
-        rightOrFalse.setTextFill(Color.GREEN);
-        rightOrFalse.setText("question ask");
 
         getRightORFalse();
     }
@@ -464,13 +449,11 @@ public class Fight extends mainController {
                 case Pfight.RIGHT:
                     rightOrFalse.setTextFill(Color.GREEN);
                     rightOrFalse.setText("Right");
-
                     break;
 
                 case Pfight.FALSE:
                     rightOrFalse.setTextFill(Color.RED);
                     rightOrFalse.setText("False");
-
                     break;
             }
 
@@ -530,6 +513,31 @@ public class Fight extends mainController {
         LOG.log(Level.INFO, "item visible FALSE");
         asking.setVisible(false);
         LOG.log(Level.INFO, "asking visible FALSE");
+    }
+
+    @FXML
+    private void SetWinORLost(String result){
+        respond.setVisible(false);
+        item.setVisible(false);
+        asking.setVisible(false);
+        myLifeBar.setVisible(false);
+        hisLifeBar.setVisible(false);
+        rightOrFalse.setVisible(false);
+        myLife.setVisible(false);
+        hisLife.setVisible(false);
+        stopButton.setVisible(true);
+        switch (result) {
+            case Pfight.WIN:
+                System.out.println("You won the fight !");
+                winOrLost.setTextFill(Color.GREEN);
+                winOrLost.setText("You won the fight !");
+                break;
+            case Pfight.LOST:
+                System.out.println("You lost the fight !");
+                winOrLost.setTextFill(Color.RED);
+                winOrLost.setText("You lost the fight !");
+                break;
+        }
     }
 
 }

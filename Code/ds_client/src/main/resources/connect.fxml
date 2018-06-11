@@ -19,19 +19,19 @@
                         <Font size="37.0" />
                     </font>
                 </Label>
-            <Label layoutX="209.0" layoutY="185.0" text="Nom d'utilisateur :">
+            <Label layoutX="209.0" layoutY="185.0" text="Username :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="209.0" layoutY="280.0" text="Mot de passe :">
+            <Label layoutX="209.0" layoutY="280.0" text="Password :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
             <TextField fx:id="username" layoutX="452.0" layoutY="177.0" prefHeight="25.0" prefWidth="199.0" promptText="username" />
             <PasswordField fx:id="password" layoutX="391.0" layoutY="272.0" prefHeight="25.0" prefWidth="199.0" promptText="password" />
-            <Button fx:id="valider" layoutX="645.0" layoutY="459.0" mnemonicParsing="false" onAction="#validateData" text="Valider">
+            <Button fx:id="valider" layoutX="645.0" layoutY="459.0" mnemonicParsing="false" onAction="#validateData" text="Validate">
                <font>
                   <Font size="18.0" />
                </font>

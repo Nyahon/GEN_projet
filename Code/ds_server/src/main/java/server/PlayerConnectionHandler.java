@@ -228,7 +228,8 @@ public class PlayerConnectionHandler implements Runnable {
 
 
             fight();
-
+            out.println("END");
+            out.flush();
             gameEngine.removeChallenger(player);
         }
 
@@ -284,7 +285,8 @@ public class PlayerConnectionHandler implements Runnable {
                             gameEngine.startFight(player, opponent);
 
                             fight();
-
+                            out.println("END");
+                            out.flush();
                             isInChallengeMode = false;
 
                         }
@@ -426,9 +428,9 @@ public class PlayerConnectionHandler implements Runnable {
         LOG.log(Level.INFO, player.getName() + "EST PLUS EN FIGHT");
         // Envoi de END
         out.println(player.getFightMessageIn());
+        out.flush();
         // Envoi de WIN ou LOST
         out.println(player.getFightMessageIn());
         out.flush();
-
     }
 }

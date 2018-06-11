@@ -12,7 +12,7 @@
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="1000.0">
             <children>
-                <Label layoutX="123.0" layoutY="108.0" prefHeight="68.0" prefWidth="779.0" styleClass="title" text="Choissez votre mode de jeu !">
+                <Label layoutX="123.0" layoutY="108.0" prefHeight="68.0" prefWidth="779.0" styleClass="title" text="Choice your play mod ! ">
                     <font>
                         <Font size="37.0" />
                     </font>

@@ -20,19 +20,19 @@
                         <Font size="37.0" />
                     </font>
                 </Label>
-                <Label layoutX="99.0" layoutY="109.0" text="Nom d'utilisateur :">
+                <Label layoutX="99.0" layoutY="109.0" text="Username :">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="100.0" layoutY="181.0" text="Mot de passe :">
+                <Label layoutX="100.0" layoutY="181.0" text="Password :">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
                 <TextField fx:id="username" layoutX="349.0" layoutY="94.0" prefHeight="25.0" prefWidth="199.0" promptText="username" />
                 <PasswordField fx:id="password" layoutX="285.0" layoutY="166.0" prefHeight="25.0" prefWidth="199.0" promptText="password" />
-                <Label layoutX="100.0" layoutY="260.0" text="Choisis un classe d'étudiant parmis les suivantes :">
+                <Label layoutX="100.0" layoutY="260.0" text="Choice your student class :">
                     <font>
                         <Font size="18.0" />
                     </font>

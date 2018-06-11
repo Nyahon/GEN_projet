@@ -260,7 +260,7 @@ public class Fight implements Runnable {
                         player1.setFightMessageIn(Pfight.LOST);
 
                         player2.setFightMessageIn(Pfight.END);
-                        player2.setFightMessageIn(Pfight.LOST);
+                        player2.setFightMessageIn(Pfight.WIN);
                     }
                     if (player2.getNbPV() <= 0) {
                         player1.setFightMessageIn(Pfight.END);
@@ -269,7 +269,6 @@ public class Fight implements Runnable {
                         player2.setFightMessageIn(Pfight.END);
                         player2.setFightMessageIn(Pfight.LOST);
                     }
-
 
         }
         catch (InterruptedException e) {

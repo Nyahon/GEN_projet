@@ -12,17 +12,17 @@
     <children>
         <AnchorPane prefHeight="800.0" prefWidth="1000.0">
          <children>
-            <Label layoutX="123.0" layoutY="108.0" prefHeight="68.0" prefWidth="755.0" styleClass="title" text="Bienvenu sur Drunk and Smart">
+            <Label layoutX="123.0" layoutY="108.0" prefHeight="68.0" prefWidth="755.0" styleClass="title" text="Welcome to Drunk and Smart">
                 <font>
                   <Font size="34.0" />
                </font>
             </Label>
-            <Button fx:id="createAccount" layoutX="591.0" layoutY="296.0" mnemonicParsing="false" onAction="#createMyAccount" prefHeight="55.0" prefWidth="275.0" text="Créer un compte">
+            <Button fx:id="createAccount" layoutX="591.0" layoutY="296.0" mnemonicParsing="false" onAction="#createMyAccount" prefHeight="55.0" prefWidth="275.0" text="Create an account !">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="connect" layoutX="136.0" layoutY="296.0" mnemonicParsing="false" onAction="#connectAccount" prefHeight="55.0" prefWidth="275.0" text="Se connecter">
+            <Button fx:id="connect" layoutX="136.0" layoutY="296.0" mnemonicParsing="false" onAction="#connectAccount" prefHeight="55.0" prefWidth="275.0" text="Connect !">
                <font>
                   <Font size="18.0" />
                </font>

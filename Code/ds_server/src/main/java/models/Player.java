@@ -103,7 +103,7 @@ public class Player {
 
     public void addQuestions(Question question) {
         if(questions.isEmpty()) {
-            ConnectionDB.assignQuestion(question.getId(), id);
+            ConnectionDB.assignQuestion(id, question.getId());
         }
         else {
             boolean addQuestion = true;
@@ -114,7 +114,7 @@ public class Player {
                 }
             }
             if(addQuestion)
-                ConnectionDB.assignQuestion(question.getId(), id);
+                ConnectionDB.assignQuestion(id,question.getId());
         }
         questions = ConnectionDB.getQuestionByPlayer(id);
     }

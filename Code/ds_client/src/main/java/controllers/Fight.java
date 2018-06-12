@@ -72,6 +72,9 @@ public class Fight extends mainController {
     @FXML
     private Button stopButton;
 
+    @FXML
+    private Button continueButton;
+
     // ITEM PANE
 
     @FXML
@@ -151,6 +154,7 @@ public class Fight extends mainController {
     protected void initialize(Player player) {
 
         stopButton.setVisible(false);
+        continueButton.setVisible(false);
         chooseResponse = new ToggleGroup();
 
         firstRespond.setToggleGroup(chooseResponse);
@@ -247,10 +251,6 @@ public class Fight extends mainController {
                         String result = in.readLine().toUpperCase();
                         SetWinORLost(result);
 
-                        Thread.sleep(2);
-                        if (in.readLine().equals("CONTINUE")) {
-                            nextFight();
-                        }
                         break;
 
                     default:
@@ -526,6 +526,7 @@ public class Fight extends mainController {
         myLife.setVisible(false);
         hisLife.setVisible(false);
         stopButton.setVisible(true);
+        continueButton.setVisible(true);
         switch (result) {
             case Pfight.WIN:
                 System.out.println("You won the fight !");
@@ -537,6 +538,16 @@ public class Fight extends mainController {
                 winOrLost.setTextFill(Color.RED);
                 winOrLost.setText("You lost the fight !");
                 break;
+        }
+    }
+
+    @FXML
+    private void goToNextFight() throws IOException {
+        if (in.readLine().equals("CONTINUE")) {
+            nextFight();
+        }
+        else{
+            returnHome();
         }
     }
 

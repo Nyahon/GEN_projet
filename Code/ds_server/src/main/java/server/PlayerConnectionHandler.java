@@ -421,7 +421,7 @@ public class PlayerConnectionHandler implements Runnable {
             /*synchronized (this) {
                 wait();
             }*/
-            sleep(3000);
+            //sleep(3000);
         }
         LOG.log(Level.INFO, player.getName() + "EST PLUS EN FIGHT");
         // Envoi de END
@@ -430,5 +430,7 @@ public class PlayerConnectionHandler implements Runnable {
         // Envoi de WIN ou LOST
         out.println(player.getFightMessageIn());
         out.flush();
+        //Reçoit continue ou Quit
+
     }
 }

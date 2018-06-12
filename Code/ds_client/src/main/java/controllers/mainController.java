@@ -22,32 +22,32 @@ import java.util.logging.Logger;
 
 public class mainController {
 
-    protected class SceneString{
+    protected class SceneString {
 
 
         private int scene = 0;
 
 
-
         private List<String> listScene = new ArrayList<>(
-                Arrays.asList("./main.fxml", "./connect.fxml", "./createAccount.fxml","./hub.xml","./fight.fxml"));
-        Map<Integer, Integer>  mapAncestorScenes = new HashMap<Integer, Integer>();
+                Arrays.asList("./main.fxml", "./connect.fxml", "./createAccount.fxml", "./hub.xml", "./fight.fxml", "./challenge.fxml"));
+        Map<Integer, Integer> mapAncestorScenes = new HashMap<Integer, Integer>();
 
-        public SceneString(){
+        public SceneString() {
             //define ancestors structures for each scenes
-            mapAncestorScenes.put(0,0);
-            mapAncestorScenes.put(1,0);
-            mapAncestorScenes.put(2,0);
-            mapAncestorScenes.put(3,0);
-            mapAncestorScenes.put(4,3);
-
-
+            mapAncestorScenes.put(0, 0);
+            mapAncestorScenes.put(1, 0);
+            mapAncestorScenes.put(2, 0);
+            mapAncestorScenes.put(3, 0);
+            mapAncestorScenes.put(4, 3);
+            mapAncestorScenes.put(5, 3);
         }
-        public void runAncestor(){
-            switch(scene){
+
+        public void runAncestor() {
+            switch (scene) {
                 case 0:
             }
         }
+
         public String getScene(int id) {
             return listScene.get(id);
         }
@@ -60,9 +60,9 @@ public class mainController {
             this.scene = listScene.indexOf(fileFXML);
         }
 
-        private String getAncestor(){
+        private String getAncestor() {
             //TODO Sanitarization
-            return listScene.get( mapAncestorScenes.get( scene ) );
+            return listScene.get(mapAncestorScenes.get(scene));
         }
 
 
@@ -102,7 +102,6 @@ public class mainController {
             output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -110,14 +109,14 @@ public class mainController {
 
 
     @FXML
-    public FXMLLoader goToScene(Event ev, String fileFXML){
+    public FXMLLoader goToScene(Event ev, String fileFXML) {
         FXMLLoader fxmlLoader = null;
         try {
-            Node node=(Node) ev.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
+            Node node = (Node) ev.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
 
-            fxmlLoader = new FXMLLoader(getClass().getResource( fileFXML ));
-            SS.setCurrentScene( fileFXML );
+            fxmlLoader = new FXMLLoader(getClass().getResource(fileFXML));
+            SS.setCurrentScene(fileFXML);
             //   Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             Connect connection = fxmlLoader.getController();
@@ -133,12 +132,12 @@ public class mainController {
     }
 
     @FXML
-    public void goBackOneScene(Event ev){
+    public void goBackOneScene(Event ev) {
         try {
-            Node node=(Node) ev.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
+            Node node = (Node) ev.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource( SS.getScene(1) ));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(SS.getScene(1)));
             //   Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             Connect connection = fxmlLoader.getController();
@@ -154,12 +153,12 @@ public class mainController {
     @FXML
     public void connectAccount(Event ev) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource( "/connect.fxml" ));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/connect.fxml"));
 
-            Node node=(Node) ev.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
+            Node node = (Node) ev.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
             //   Stage stage = new Stage();
-      //      SS.setCurrentScene("./connect.fxml");
+            //      SS.setCurrentScene("./connect.fxml");
 
             stage.setScene(new Scene(fxmlLoader.load()));
 
@@ -175,9 +174,9 @@ public class mainController {
     public void createMyAccount(Event ev) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/createAccount.fxml"));
-            Node node=(Node) ev.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
-        //    Stage stage = new Stage();
+            Node node = (Node) ev.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            //    Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             createAccount create = fxmlLoader.<createAccount>getController();
             create.initialize();
@@ -188,19 +187,17 @@ public class mainController {
     }
 
     @FXML
-    protected void returnHome(Event ev) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
-            Node node=(Node) ev.getSource();
-            Stage stage=(Stage) node.getScene().getWindow();
-            //    Stage stage = new Stage();
-            stage.setScene(new Scene(fxmlLoader.load()));
-            createAccount create = fxmlLoader.getController();
-            create.initialize();
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    protected void returnHome(Event ev) throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
+        Node node = (Node) ev.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        //    Stage stage = new Stage();
+        stage.setScene(new Scene(fxmlLoader.load()));
+        createAccount create = fxmlLoader.getController();
+        create.initialize();
+        stage.show();
+
     }
 
 
@@ -262,7 +259,6 @@ public class mainController {
     }
 
 
-
     public static Socket getSocket() {
         return socket;
     }
@@ -288,7 +284,7 @@ public class mainController {
     }
 
     public static void setPlayer(Player player) {
-       mainController.player = player;
+        mainController.player = player;
     }
 
     public static Player getPlayer() {

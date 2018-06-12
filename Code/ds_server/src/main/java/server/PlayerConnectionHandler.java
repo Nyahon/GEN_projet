@@ -314,19 +314,21 @@ public class PlayerConnectionHandler implements Runnable {
         LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in STORY Mode");
 
         int nbrProfs = ConnectionDB.getProfesseurNumber();
-        int idProf = 1;
-        while (nbrProfs > 0) {
+        for (int idProf = 1; idProf <= nbrProfs; idProf++) {
             db_Professeur prof = ConnectionDB.getProfesseurById(idProf);
             gameEngine.startFightStory(player, prof);
             fight();
-            nbrProfs--;
-            idProf++;
 
-            out.println("CONTINUE");
-            out.flush();
+            if (idProf == nbrProfs) {
+                out.println("END");
+                out.flush();
+            } else {
+                out.println("CONTINUE");
+                out.flush();
+                //attend un signal si Continue
+                in.readLine();
+            }
         }
-        out.println("END");
-        out.flush();
 
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
 
@@ -430,7 +432,6 @@ public class PlayerConnectionHandler implements Runnable {
         // Envoi de WIN ou LOST
         out.println(player.getFightMessageIn());
         out.flush();
-        //Reçoit continue ou Quit
 
     }
 }

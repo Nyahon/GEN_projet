@@ -1,12 +1,11 @@
 {
 
-
   "Profs" : [
-    {"id" : 1, "Prof" : "Miguel","pv" : 100, "niveau" : 1, "questions" : [13,14,15]},
-    {"id" : 2, "Prof" : "Rubinstein","pv" : 120, "niveau" : 2, "questions" : [10,11,12]},
-    {"id" : 3, "Prof" : "Liechti","pv" : 140, "niveau" : 3, "questions" : [4,6,7]},
-    {"id" : 4, "Prof" : "Duc","pv" : 160, "niveau" : 3, "questions" : [3,8,9]},
-    {"id" : 5, "Prof" : "Rentsch","pv" : 180, "niveau" : 4, "questions" : [1,2,5]}
+    {"id" : 1, "Prof" : "Miguel","pv" : 100, "niveau" : 1, "questions" : [13,14,15,22,23,24,42,43,44,45]},
+    {"id" : 2, "Prof" : "Rubinstein","pv" : 120, "niveau" : 2, "questions" : [10,11,12,25,26,27,28,29,30,31]},
+    {"id" : 3, "Prof" : "Liechti","pv" : 140, "niveau" : 3, "questions" : [4,6,7,32,33,34,35,36,37,38]},
+    {"id" : 4, "Prof" : "Duc","pv" : 160, "niveau" : 3, "questions" : [3,8,9,18,19,20,21,39,40,41]},
+    {"id" : 5, "Prof" : "Rentsch","pv" : 180, "niveau" : 4, "questions" : [1,2,5,16,17,46,47,48,49,50]}
   ],
 
   "Questions" : [
@@ -15,7 +14,7 @@
     {"id" : 2, "Question" : "Donnez l'intégrale de e puissance x", "RepOk" : "e puissance x", "rep2"  : "ln(x)", "rep3" : "1/x", "rep4" : "e"},
     {"id" : 3, "Question" : "En cryptographie on ?", "RepOk" : "chiffre", "rep2"  : "crypte", "rep3" : "encode", "rep4" : "decode"},
     {"id" : 4, "Question" : "En java, avec Maven à quoi sert le pom.xml", "RepOk" : "Gestionnaire de package", "rep2"  : "fichier javaFx", "rep3" : "Documenter", "rep4" : "faire la connexion client - serveur"},
-    {"id" : 5, "Question" : "Quel est la différence entre Java et C++", "RepOk" : "Java est encapsulé dans un VM", "rep2"  : "Java est encapsulé dans un VM", "rep3" : "C++ est plus userFriendly", "rep4" : "C++ interdit l'héritage multiple"},
+    {"id" : 5, "Question" : "Quel est la différence entre Java et C++", "RepOk" : "Java est encapsulé dans une JVM", "rep2"  : "Java interdit l'héritage multiple", "rep3" : "C++ est plus userFriendly", "rep4" : "C++ interdit l'héritage multiple"},
     {"id" : 6, "Question" : "A quoi sert le module Node JS : Express", "RepOk" : "Programmer un serveur HTTP", "rep2"  : "Accélérer la communication réseau", "rep3" : "faire de la sérialisation", "rep4" : "A programmer en <bas niveau>"},
     {"id" : 7, "Question" : "Le gestionnaire de package NPM est utilisé en ", "RepOk" : "JavaScript (nodeJS)", "rep2"  : "Java", "rep3" : "Python", "rep4" : "Ruby"},
     {"id" : 8, "Question" : "Le gestionnaire de package PIP est utilisé en ", "RepOk" : "Python", "rep2"  : "Java", "rep3" : "JavaScript (nodeJS)", "rep4" : "Ruby"},
@@ -25,7 +24,44 @@
     {"id" : 12, "Question" : "A quoi sert un IPS", "RepOk" : "empecher des intrusion", "rep2"  : "detecter des intrusion", "rep3" : "sécuriser les ports", "rep4" : "chiffrer des données"},
     {"id" : 13, "Question" : "Qu'est-ce que Docker", "RepOk" : "système de virtualisation par conteneur", "rep2"  : "Un Ide efficace", "rep3" : "Une baleine bleu", "rep4" : "Un outil d'administration de machine"},
     {"id" : 14, "Question" : "Qu'est-ce que permet le load balancing", "RepOk" : "rediriger des requete entre des serveurs", "rep2"  : "équilibre un serveur", "rep3" : "Augmanter la capacité d'un serveur", "rep4" : "diminuer le traffic d'un site"},
-    {"id" : 15, "Question" : "Quel framework permet de faire des site web node js", "RepOk" : "Angular JS", "rep2"  : "Regular JS", "rep3" : "Nogular Js", "rep4" : "gular Js"}
+    {"id" : 15, "Question" : "Quel framework permet de faire des site web node js", "RepOk" : "Angular JS", "rep2"  : "Regular JS", "rep3" : "Nogular Js", "rep4" : "gular Js"},
+    {"id": 16, "Question": "La taill du jeu de caractère unicode Java :", "RepOk": "2^16", "rep2": "128", "rep3": "2^8", "rep4": "8 bits"},
+    {"id": 17, "Question": "0xA ^ 014", "RepOk": "6", "rep2": "10", "rep3": "8", "rep4": "4"},
+    {"id": 18, "Question": "Un adversaire white-box est puissant car :", "RepOk": "il peut lire la mémoire d'un pc", "rep2": "il peut casser AES", "rep3": "il peut calculer un log discret ", "rep4": "il porte de lunette magiques"},
+    {"id": 19, "Question": "Pour sécuriser les mots de passe on utilise", "RepOk": "un sel", "rep2": "du poivre", "rep3": "un sécuritas", "rep4": "une "},
+    {"id": 20, "Question": "Les mots de passe doivent etre stocké sous forme :", "RepOk": "hachée", "rep2": "machée", "rep3": "chiffrée", "rep4": "découpée"},
+    {"id": 21, "Question": "La crypto c'est ", "RepOk": "rigolo", "rep2": "marrant", "rep3": "facile", "rep4": "improbable"},
+    {"id": 22, "Question": "HTML permet de faire des ", "RepOk": "pages web statiques", "rep2": "serveurs web", "rep3": "applications dynamiques", "rep4": "bases de données"},
+    {"id": 23, "Question": "Apache2 sait faire des ", "RepOk": "cookies", "rep2": "bownies", "rep3": "gateau", "rep4": "biscuits"},
+    {"id": 24, "Question": "On dit d'un assistant que c'est", "RepOk": "un larbin", "rep2": "le boss", "rep3": "un expert", "rep4": "un vaut rien"},
+    {"id": 25, "Question": "Sur un réseaux 802.11a il faut un écart minimum de ", "RepOk": "1 canal", "rep2": "3 canaux", "rep3": "5 canaux", "rep4": "10 canaux"},
+    {"id": 26, "Question": "Dans WPA, RC4 sert à générer", "RepOk": "un keystream", "rep2": "une signature", "rep3": "une clé privée", "rep4": "une clé publique"},
+    {"id": 27, "Question": "La synchronisation du temps est cruciale dans les systèmes", "RepOk": "Kerberos", "rep2": "WEP", "rep3": "IPSec", "rep4": "RADIUS"},
+    {"id": 28, "Question": "Lors d'un TCP scan, un port fermé retourne", "RepOk": "RST", "rep2": "ACK", "rep3": "SYN", "rep4": "SYN-ACK"},
+    {"id": 29, "Question": "Une défense périphérique prend la forme d'un ", "RepOk": "firewall", "rep2": "IDS", "rep3": "IPS", "rep4": "Proxy"},
+    {"id": 30, "Question": "Qu'est ce qui est utilisé comme leurre dans un réseau :", "RepOk": "un pot de miel", "rep2": "un pot de fleur", "rep3": "un poteau bleu", "rep4": "un poteau rose"},
+    {"id": 31, "Question": "Quelle attaque envoie un grand nombre de réponses ICMP :", "RepOk": "un smurf", "rep2": "du spoofing", "rep3": "du sniffing", "rep4": "une chouffe"},
+    {"id": 32, "Question": "Vagrant et Virtualbox sont des technologies", "RepOk": "complémentaires", "rep2": "alternatives", "rep3": "obsolettes", "rep4": "novatrices"},
+    {"id": 33, "Question": "UDP est un protocol:", "RepOk": "sans état", "rep2": "avec état", "rep3": "trop vieux", "rep4": "inutile"},
+    {"id": 34, "Question": "Git permet de faire : ", "RepOk": "des branches", "rep2": "des planches", "rep3": "des poules", "rep4": "des toures"},
+    {"id": 35, "Question": "Pour envoyer un mail on va utiliser le protocol", "RepOk": "SMTP", "rep2": "POP3", "rep3": "MAIL", "rep4": "HTTP"},
+    {"id": 36, "Question": "Pour indiquer à un serveur qu'on veut faire un envoi on lui dit:", "RepOk": "EHLO", "rep2": "HELO", "rep3": "HI", "rep4": "CIAO"},
+    {"id": 37, "Question": "Si une erreur se produit sur un serveur web, on recoit un code", "RepOk": "500", "rep2": "404", "rep3": "200", "rep4": "300"},
+    {"id": 38, "Question": "Avec HTTP les cookies vu du :", "RepOk": "les deux", "rep2": "serveur au client", "rep3": "client au serveur", "rep4": "dans ma bouche"},
+    {"id": 39, "Question": "Pour protégéer la stck on utilise : ", "RepOk": "un canary", "rep2": "un pigeon", "rep3": "un mot de passe", "rep4": "un sha"},
+    {"id": 40, "Question": "Combien de temps est nécessaire pour valider une transaction Bitcoin", "RepOk": "1 heure", "rep2": "10 minutes", "rep3": "1 minute", "rep4": " 1 seconde"},
+    {"id": 41, "Question": "Comparé au Bitcoin, Ethereum permet en plus ", "RepOk": "de gérer des smart contract", "rep2": "de dépenser plus", "rep3": "de traiter des plus gros montants", "rep4": "de payer des bières au chill"},
+    {"id": 42, "Question": "Quel est le meilleur language de programmation?", "RepOk": "Brainf**k", "rep2": "Java", "rep3": "C++", "rep4": "PHP"},
+    {"id": 43, "Question": "En Java, que donne System.out.println(2 % 3);?", "RepOk": "2", "rep2": "-1", "rep3": "NaN", "rep4": "3"},
+    {"id": 44, "Question": "En Java, qu'affiche System.out.println(3 + \"x\");?", "RepOk": "3x", "rep2": "java.lang.ClassCastException", "rep3": "java.lang.RuntimeException", "rep4": "3 + \"x\""},
+    {"id": 45, "Question": "En nodejs on crée un serveur web ainsi :", "RepOk": "http.createServer(requestListener);", "rep2": "http.listen(8080);", "rep3": "c'est très compliqué", "rep4": "Ce n'est pas possible"},
+    {"id": 46, "Question": "En Java, comment écrit-on A hérite de B?", "RepOk": "A extends B", "rep2": "A : B", "rep3": "A is B", "rep4": "A inherits B"},
+    {"id": 47, "Question": "Que vaut x (Java): Object x = (3<2?4:-12)<7?7:6;", "RepOk": "7", "rep2": "6", "rep3": "4", "rep4": "-12"},
+    {"id": 48, "Question": "En ada le terme pour pointeur est : ", "RepOk": "access", "rep2": "pointer", "rep3": "*", "rep4": "#"},
+    {"id": 49, "Question": "En ada une variable se déclare :", "RepOk": "nom : type := valeur;", "rep2": "type nom = valeur;", "rep3": "type : nom :=valeur;", "rep4": "type # nom $ valeur;"},
+    {"id": 50, "Question": "En ada la structure d'une boucle est :", "RepOk": "LOOP  Put('#'); END LOOP;", "rep2": "WHILE DO  Put('#'); DONE;", "rep3": "DO  Put('#'); WHILE;", "rep4": "START  Put('#'); END;"}
+
+
   ]
 
 }

@@ -168,52 +168,56 @@ public class PlayerConnectionHandler implements Runnable {
     }
 
     public void receiveCMD(String cmd) throws IOException, InterruptedException {
-        switch (cmd) {
-            case Pcmd.HELP:
+        System.out.println(cmd);
+        do {
+            switch (cmd) {
+                case Pcmd.HELP:
 
-                break;
+                    break;
 
-            case Pcmd.EXIT:
-                in.close();
-                out.close();
-                gameEngine.remove(player);
-                clientSocket.close();
-                LOG.log(Level.INFO, "models.Player " + player.getName() + " disconnected");
-                break;
+                case Pcmd.EXIT:
+                    in.close();
+                    out.close();
+                    gameEngine.remove(player);
+                    clientSocket.close();
+                    LOG.log(Level.INFO, "models.Player " + player.getName() + " disconnected");
+                    break;
 
-            case Pcmd.LIST_PLAYERS:
-                String playerList = "{";
-                List<Player> players = gameEngine.getConnectedPlayers();
-                int numberOfPlayers = players.size();
-                for (int i = 0; i < numberOfPlayers; ++i) {
-                    playerList += players.remove(0).getName();
-                    if (i != numberOfPlayers - 1) {
-                        playerList += ", ";
+                case Pcmd.LIST_PLAYERS:
+                    String playerList = "{";
+                    List<Player> players = gameEngine.getConnectedPlayers();
+                    int numberOfPlayers = players.size();
+                    for (int i = 0; i < numberOfPlayers; ++i) {
+                        playerList += players.remove(0).getName();
+                        if (i != numberOfPlayers - 1) {
+                            playerList += ", ";
+                        }
                     }
-                }
-                playerList += "}";
+                    playerList += "}";
 
-                out.println(playerList);
-                out.flush();
-                break;
+                    out.println(playerList);
+                    out.flush();
+                    break;
 
-            case Pcmd.VERSUS:
-                versusCMD();
-                break;
+                case Pcmd.VERSUS:
+                    versusCMD();
+                    break;
 
 
-            case Pcmd.CHALLENGE:
-                challengeCMD();
-                break;
+                case Pcmd.CHALLENGE:
+                    challengeCMD();
+                    break;
 
-            case Pcmd.STORY:
-                storyCMD();
-                break;
+                case Pcmd.STORY:
+                    storyCMD();
+                    break;
 
-            default:
-                LOG.log(Level.INFO, Pinfo.UCOM);
-                return;
-        }
+                default:
+                    LOG.log(Level.INFO, Pinfo.UCOM);
+                    return;
+            }
+            cmd = in.readLine();
+        }while (true);
     }
 
     public void versusCMD() throws InterruptedException, IOException {
@@ -229,11 +233,10 @@ public class PlayerConnectionHandler implements Runnable {
                 player.wait();
             }
 
-
+            gameEngine.removeChallenger(player);
             fight();
             out.println("END");
             out.flush();
-            gameEngine.removeChallenger(player);
         }
 
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit VERSUS Mode");
@@ -290,6 +293,8 @@ public class PlayerConnectionHandler implements Runnable {
                             fight();
                             out.println("END");
                             out.flush();
+                            //attend un signal si Continue
+                            in.readLine();
                             isInChallengeMode = false;
 
                         }
@@ -322,11 +327,11 @@ public class PlayerConnectionHandler implements Runnable {
             if (idProf == nbrProfs) {
                 out.println("END");
                 out.flush();
+                //attend un signal si Continue
+                in.readLine();
             } else {
                 out.println("CONTINUE");
                 out.flush();
-                //attend un signal si Continue
-                in.readLine();
             }
         }
 

@@ -252,7 +252,6 @@ public class Fight extends mainController {
                     case Pfight.END:
                         String result = in.readLine().toUpperCase();
                         SetWinORLost(result);
-
                         break;
 
                     default:
@@ -477,13 +476,9 @@ public class Fight extends mainController {
 
     @FXML
     protected void returnHome(Event ev) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hub.fxml"));
-        Node node = (Node) ev.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.setScene(new Scene(fxmlLoader.load()));
-        Hub hub = fxmlLoader.<Hub>getController();
-        hub.initialize();
-        stage.show();
+        Stage stage = (Stage) stopButton.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
 

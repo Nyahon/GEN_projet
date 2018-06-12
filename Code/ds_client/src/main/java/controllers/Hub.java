@@ -1,20 +1,15 @@
 package controllers;
 
 import Protocol.Pcmd;
-import Protocol.Pfight;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import models.JsonCreator;
 import models.Player;
-
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.logging.Level;
 
 public class Hub extends mainController {
 
@@ -24,7 +19,11 @@ public class Hub extends mainController {
     private Player player;
 
     @FXML
+    private Label waitchallenger;
+
+    @FXML
     protected void initialize() {
+        waitchallenger.setVisible(false);
         this.socket = getSocket();
         try {
             input = getInput();
@@ -36,9 +35,16 @@ public class Hub extends mainController {
     }
 
     @FXML
-    public void startVersus(Event ev) {
+    public void startVersus() {
+        waitchallenger.setVisible(true);
+        beginFight();
+        waitchallenger.setVisible(false);
 
+    }
+
+    private void beginFight(){
         try {
+
             player.setSocket(socket);
             System.out.println(player);
 
@@ -50,8 +56,7 @@ public class Hub extends mainController {
 
             //Charge la page fight
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
-            Node node = (Node) ev.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             Fight fight = fxmlLoader.<Fight>getController();
             fight.initialize(player);
@@ -60,11 +65,10 @@ public class Hub extends mainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @FXML
-    public void startChallenge(Event ev) {
+    public void startChallenge() {
         try {
             player.setSocket(socket);
             System.out.println(player);
@@ -74,8 +78,7 @@ public class Hub extends mainController {
 
             //Charge la page fight
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/challenge.fxml"));
-            Node node = (Node) ev.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             Challenge challenge = fxmlLoader.<Challenge>getController();
             challenge.initialize();
@@ -88,18 +91,19 @@ public class Hub extends mainController {
     }
 
     @FXML
-    public void startStory(Event ev) {
+    public void startStory() {
         try {
             player.setSocket(socket);
             System.out.println(player);
 
+
             output.println(Pcmd.STORY);
             output.flush();
+            System.out.println("ENVOI STORY");
 
             //Charge la page fight
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
-            Node node = (Node) ev.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
+            Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             Fight fight = fxmlLoader.<Fight>getController();
             fight.initialize(player);

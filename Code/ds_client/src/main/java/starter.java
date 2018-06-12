@@ -60,7 +60,7 @@ public class starter extends Application {
         Client client = new Client(ip, port);
 
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
-        primaryStage.setTitle("Drunk and Smart");
+        primaryStage.setTitle("BuzzOn");
         Scene rootScene = new Scene(root);
         rootScene.getStylesheets().add(starter.class.getResource("/bootstrap3.css").toExternalForm());
         primaryStage.setScene(rootScene);

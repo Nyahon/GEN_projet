@@ -2,8 +2,10 @@ package controllers;
 
 import Protocol.Pcmd;
 import Protocol.Pinfo;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
@@ -45,7 +47,7 @@ public class Challenge extends mainController {
     }
 
     @FXML
-    public void startFight() {
+    public void startFight(Event ev) {
         try {
 
             if (list_Player.getValue() == null)
@@ -63,7 +65,8 @@ public class Challenge extends mainController {
                 System.out.println(player);
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
-                Stage stage = new Stage();
+                Node node = (Node) ev.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
                 stage.setScene(new Scene(fxmlLoader.load()));
                 Fight fight = fxmlLoader.<Fight>getController();
                 fight.initialize(player);

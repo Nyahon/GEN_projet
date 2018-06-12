@@ -123,17 +123,21 @@ public class PlayerConnectionHandler implements Runnable {
                     username = in.readLine();
                     password = in.readLine();
                     String classChoice = in.readLine();
+                    String image = "";
 
                     PlayerClass pc = PlayerClass.Hedoniste;
                     switch (Integer.parseInt(classChoice)) {
                         case 1:
                             pc = PlayerClass.Hedoniste;
+                            image = "hedoniste.png";
                             break;
                         case 2:
                             pc = PlayerClass.Cynique;
+                            image = "cynique.png";
                             break;
                         case 3:
                             pc = PlayerClass.Cartesien;
+                            image = "cartesien.png";
                             break;
                     }
 
@@ -144,7 +148,7 @@ public class PlayerConnectionHandler implements Runnable {
 
                         success = false;
                     } else {
-                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, Player.INITIAL_IMAGE);
+                        player = new Player(username, 1, Player.INITIAL_PV, Player.INITIAL_LEVEL, Player.INITIAL_XP, pc, image);
                         ConnectionDB.insertJoueur(player, password);
                         player.setId(ConnectionDB.getJoueurByName(player.getName()).getId());
                         player.initItemsPlayer();
@@ -317,39 +321,13 @@ public class PlayerConnectionHandler implements Runnable {
             fight();
             nbrProfs--;
             idProf++;
-            if (nbrProfs == 1) {
-                out.println("END");
-                out.flush();
-            } else {
-                out.println("CONTINUE");
-                out.flush();
-            }
 
+            out.println("CONTINUE");
+            out.flush();
         }
+        out.println("END");
+        out.flush();
 
-        /*
-        switch (player.getLevel()) {
-            case 0:
-                db_Professeur Miguel = ConnectionDB.getProfesseurById(3);
-                gameEngine.startFightStory(player, Miguel);
-                fight();
-                out.println("CONTINUE");
-                out.flush();
-            case 1:
-                db_Professeur Liechti = ConnectionDB.getProfesseurById(2);
-                gameEngine.startFightStory(player,Liechti);
-                fight();
-                out.println("CONTINUE");
-                out.flush();
-
-            case 2:
-                db_Professeur Rentsch = ConnectionDB.getProfesseurById(1);
-                gameEngine.startFightStory(player, Rentsch);
-                fight();
-                out.println("END");
-                out.flush();
-        }
-        */
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
 
     }

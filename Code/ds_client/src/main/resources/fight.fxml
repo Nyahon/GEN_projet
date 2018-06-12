@@ -68,7 +68,7 @@
                         <Button layoutX="803.0" layoutY="184.0" mnemonicParsing="false" onAction="#returnHome" text="Quit" />
                         <Button layoutX="802.0" layoutY="116.0" mnemonicParsing="false" onAction="#Interface_Item" text="Item" />
                         <Button layoutX="796.0" layoutY="40.0" mnemonicParsing="false" onAction="#Interface_Fight_Respond" text="Fight" />
-                        <Label fx:id="question" layoutX="34.0" layoutY="33.0" prefHeight="20.0" prefWidth="649.0" text="Label" wrapText="true" />
+                        <Label fx:id="question" alignment="TOP_LEFT" layoutX="34.0" layoutY="33.0" prefHeight="60.0" prefWidth="649.0" text="Label" wrapText="true" />
                     </children>
                 </Pane>
                 <Label fx:id="rightOrFalse" layoutX="468.0" layoutY="517.0">

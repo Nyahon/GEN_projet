@@ -6,10 +6,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.event.Event;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -71,6 +73,9 @@ public class Fight extends mainController {
 
     @FXML
     private Button stopButton;
+
+    @FXML
+    private Button continueButton;
 
     // ITEM PANE
 
@@ -151,6 +156,7 @@ public class Fight extends mainController {
     protected void initialize(Player player) {
 
         stopButton.setVisible(false);
+        continueButton.setVisible(false);
         chooseResponse = new ToggleGroup();
 
         firstRespond.setToggleGroup(chooseResponse);
@@ -247,10 +253,6 @@ public class Fight extends mainController {
                         String result = in.readLine().toUpperCase();
                         SetWinORLost(result);
 
-                        Thread.sleep(2);
-                        if (in.readLine().equals("CONTINUE")) {
-                            nextFight();
-                        }
                         break;
 
                     default:
@@ -474,15 +476,22 @@ public class Fight extends mainController {
     }
 
     @FXML
-    private void returnHome() {
-        Stage stage = (Stage) respond.getScene().getWindow();
-        stage.close();
+    protected void returnHome(Event ev) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hub.fxml"));
+        Node node = (Node) ev.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(new Scene(fxmlLoader.load()));
+        Hub hub = fxmlLoader.<Hub>getController();
+        hub.initialize();
+        stage.show();
     }
 
 
-    private void nextFight() throws IOException {
+    private void nextFight(Event ev) throws IOException {
+        System.out.println("Aller prochain combat");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fight.fxml"));
-        Stage stage = new Stage();
+        Node node = (Node) ev.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
         stage.setScene(new Scene(fxmlLoader.load()));
         Fight fight = fxmlLoader.<Fight>getController();
         fight.initialize(player);
@@ -526,6 +535,7 @@ public class Fight extends mainController {
         myLife.setVisible(false);
         hisLife.setVisible(false);
         stopButton.setVisible(true);
+        continueButton.setVisible(true);
         switch (result) {
             case Pfight.WIN:
                 System.out.println("You won the fight !");
@@ -537,6 +547,19 @@ public class Fight extends mainController {
                 winOrLost.setTextFill(Color.RED);
                 winOrLost.setText("You lost the fight !");
                 break;
+        }
+    }
+
+    @FXML
+    private void goToNextFight(Event ev) throws IOException {
+        System.out.println("Continue button activate");
+        if (in.readLine().equals("CONTINUE")) {
+            out.println("continue");
+            out.flush();
+            nextFight(ev);
+        }
+        else{
+            returnHome(ev);
         }
     }
 

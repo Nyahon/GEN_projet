@@ -54,7 +54,7 @@ public class ConnectionDB {
     /**
      * Simple connection method
      */
-    private static Connection connect() {
+    private synchronized static Connection connect() {
         Connection connection = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -74,7 +74,7 @@ public class ConnectionDB {
     }
 
 
-    public static void closeRessources(Connection c, Statement stmt, ResultSet rs){
+    public synchronized static void closeRessources(Connection c, Statement stmt, ResultSet rs){
         try {
             rs.close();
             stmt.close();
@@ -85,7 +85,7 @@ public class ConnectionDB {
         }
     }
 
-    public static void insertJoueur(Player player, String password){
+    public synchronized static void insertJoueur(Player player, String password){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -122,7 +122,7 @@ public class ConnectionDB {
 
     }
 
-    public static String getPasswordByJoueurId(int idPlayer){
+    public synchronized static String getPasswordByJoueurId(int idPlayer){
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -147,7 +147,7 @@ public class ConnectionDB {
         }
     }
 
-    public static Player getJoueurByName(String nom) {
+    public synchronized static Player getJoueurByName(String nom) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -187,7 +187,7 @@ public class ConnectionDB {
         }
     }
 
-    public static LinkedList<Item> getItemsByJoueurId(int idJoueur){
+    public synchronized static LinkedList<Item> getItemsByJoueurId(int idJoueur){
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -219,7 +219,7 @@ public class ConnectionDB {
         }
     }
 
-    public static void assignItems(LinkedList<Item> items, int idPlayer){
+    public synchronized static void assignItems(LinkedList<Item> items, int idPlayer){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -326,7 +326,7 @@ public class ConnectionDB {
 
     }
 
-    public static LinkedList<Question> getQuestionByPlayer(int idPlayer) {
+    public synchronized static LinkedList<Question> getQuestionByPlayer(int idPlayer) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -362,7 +362,7 @@ public class ConnectionDB {
         }
     }
 
-    public static Question getQuestionById(int idQuestion) {
+    public synchronized static Question getQuestionById(int idQuestion) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -395,7 +395,7 @@ public class ConnectionDB {
         }
     }
 
-    public static db_Professeur getProfesseurById(int IdProf) {
+    public synchronized static db_Professeur getProfesseurById(int IdProf) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -427,7 +427,7 @@ public class ConnectionDB {
         }
     }
 
-    public static db_Assistant getAssistantById(int IdAssistant) {
+    public synchronized static db_Assistant getAssistantById(int IdAssistant) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -459,7 +459,7 @@ public class ConnectionDB {
         }
     }
 
-    public static LinkedList<Question> getQuestionByProfesseur(int idProf) {
+    public synchronized static LinkedList<Question> getQuestionByProfesseur(int idProf) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -495,7 +495,7 @@ public class ConnectionDB {
         }
     }
 
-    public static synchronized void addQuestion (Question question){
+    public synchronized static void addQuestion (Question question){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -529,7 +529,7 @@ public class ConnectionDB {
         }
     }
 
-    public static boolean questionExist (int idQuestion) {
+    public synchronized static boolean questionExist (int idQuestion) {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -553,7 +553,7 @@ public class ConnectionDB {
         }
     }
 
-    public static synchronized void addProfessor (db_Professeur prof){
+    public synchronized static void addProfessor (db_Professeur prof){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -585,7 +585,7 @@ public class ConnectionDB {
         }
     }
 
-    public static void assignQuestionToProf(int idProfessor, int idQuestion){
+    public synchronized static void assignQuestionToProf(int idProfessor, int idQuestion){
         Connection c = null;
         PreparedStatement stmt = null;
 
@@ -614,7 +614,7 @@ public class ConnectionDB {
 
     }
 
-    public static int getProfesseurNumber() {
+    public synchronized static int getProfesseurNumber() {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -638,7 +638,7 @@ public class ConnectionDB {
         return nbrProfs;
     }
 
-    public static void deleteProfessorQuestion() {
+    public synchronized static void deleteProfessorQuestion() {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -654,7 +654,7 @@ public class ConnectionDB {
         }
     }
 
-    public static void deleteProfessors() {
+    public synchronized static void deleteProfessors() {
         Connection c = null;
         Statement stmt = null;
         ResultSet rs = null;

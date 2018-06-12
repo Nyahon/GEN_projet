@@ -49,19 +49,10 @@
                 </Pane>
                 <Pane fx:id="respond" layoutX="3.0" layoutY="556.0" prefHeight="244.0" prefWidth="1000.0">
                     <children>
-                        <Label layoutX="34.0" layoutY="14.0" text="repond to the question : " />
-                        <RadioButton fx:id="firstRespond" layoutX="34.0" layoutY="85.0" mnemonicParsing="false"
-                                     prefHeight="68.0" prefWidth="325.0" text="response1" wrapText="true"
-                                     styleClass="answer"/>
-                        <RadioButton fx:id="SecondRespond" layoutX="374.0" layoutY="81.0" mnemonicParsing="false"
-                                     prefHeight="78.0" prefWidth="314.0" text="response2" wrapText="true"
-                                     styleClass="answer"/>
-                        <RadioButton fx:id="thirstRespond" layoutX="34.0" layoutY="144.0" mnemonicParsing="false"
-                                     prefHeight="68.0" prefWidth="337.0" text="reponse3" wrapText="true"
-                                     styleClass="answer"/>
-                        <RadioButton fx:id="fourthRespond" layoutX="374.0" layoutY="144.0"
-                                     mnemonicParsing="false" prefHeight="78.0" prefWidth="314.0" text="response4"
-                                     wrapText="true" styleClass="answer"/>
+                        <RadioButton fx:id="firstRespond" layoutX="34.0" layoutY="85.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="325.0" styleClass="answer" text="response1" wrapText="true" />
+                        <RadioButton fx:id="SecondRespond" layoutX="374.0" layoutY="81.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="314.0" styleClass="answer" text="response2" wrapText="true" />
+                        <RadioButton fx:id="thirstRespond" layoutX="34.0" layoutY="144.0" mnemonicParsing="false" prefHeight="68.0" prefWidth="337.0" styleClass="answer" text="reponse3" wrapText="true" />
+                        <RadioButton fx:id="fourthRespond" layoutX="374.0" layoutY="144.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="314.0" styleClass="answer" text="response4" wrapText="true" />
                         <Separator layoutY="-5.0" prefHeight="8.0" prefWidth="1000.0" />
                         <Separator layoutX="700.0" layoutY="1.0" orientation="VERTICAL" prefHeight="244.0" prefWidth="6.0" />
                         <Button fx:id="respondQuestion" layoutX="549.0" layoutY="201.0" mnemonicParsing="false" onAction="#respondToTheQuestion" text="Respond" />
@@ -103,7 +94,8 @@
                 <Label fx:id="hisLife" layoutX="644.0" layoutY="479.0" text="Label" />
                 <Label fx:id="myLife" layoutX="27.0" layoutY="193.0" text="Label" />
                 <Label fx:id="myName" layoutX="27.0" layoutY="133.0" text="My Name" />
-                <Button fx:id="stopButton" layoutX="800.0" layoutY="790.0" mnemonicParsing="false" onAction="#returnHome" text="Quit" />
+                <Button fx:id="stopButton" layoutX="479.0" layoutY="373.0" mnemonicParsing="false" onAction="#returnHome" text="Quit" />
+            <Button fx:id="continueButton" layoutX="451.0" layoutY="300.0" mnemonicParsing="false" onAction="#goToNextFight" text="Continue" />
             </children>
         </AnchorPane>
     </children>

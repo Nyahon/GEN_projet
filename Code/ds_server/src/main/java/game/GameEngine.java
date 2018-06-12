@@ -30,6 +30,9 @@ public class GameEngine implements Runnable{
         connections = new Connexions();
         challengers = new Connexions();
 
+        ConnectionDB.deleteProfessors();
+        ConnectionDB.deleteProfessorQuestion();
+
         LinkedList<Question> questions = JsonCreator.readQuestionsAndProfFromFile();
         for (Question q : questions){
             if(ConnectionDB.questionExist(q.getId()) == false)
@@ -37,6 +40,7 @@ public class GameEngine implements Runnable{
         }
 
         JsonCreator.createProfessorsFromFile();
+
     }
 
     public void run(){

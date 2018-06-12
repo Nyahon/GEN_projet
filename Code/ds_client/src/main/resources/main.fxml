@@ -17,7 +17,7 @@
                   <Font size="34.0" />
                </font>
             </Label>
-            <Button fx:id="createAccount" layoutX="591.0" layoutY="296.0" mnemonicParsing="false" onAction="#createMyAccount" prefHeight="55.0" prefWidth="275.0" text="Create an account !">
+            <Button fx:id="createAccount" layoutX="591.0" layoutY="296.0" mnemonicParsing="false" onAction="#createMyAccount" prefHeight="55.0" prefWidth="275.0" text="Account !">
                <font>
                   <Font size="18.0" />
                </font>

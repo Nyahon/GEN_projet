@@ -85,12 +85,11 @@ public class PlayerConnectionHandler implements Runnable {
 
     public void connectionMenu() throws IOException {
         boolean success = false;
-        String command;
         String username;
         String password;
         while (!success) {
 
-            switch (command = in.readLine()) {
+            switch (in.readLine()) {
                 case Pcmd.CONNECT:
                     username = in.readLine();
                     password = in.readLine();
@@ -310,6 +309,25 @@ public class PlayerConnectionHandler implements Runnable {
     public void storyCMD() throws InterruptedException, IOException {
         LOG.log(Level.INFO, "models.Player " + player.getName() + " enter in STORY Mode");
 
+        int nbrProfs = ConnectionDB.getProfesseurNumber();
+        int idProf = 1;
+        while (nbrProfs > 0) {
+            db_Professeur prof = ConnectionDB.getProfesseurById(idProf);
+            gameEngine.startFightStory(player, prof);
+            fight();
+            nbrProfs--;
+            idProf++;
+            if (nbrProfs == 1) {
+                out.println("END");
+                out.flush();
+            } else {
+                out.println("CONTINUE");
+                out.flush();
+            }
+
+        }
+
+        /*
         switch (player.getLevel()) {
             case 0:
                 db_Professeur Miguel = ConnectionDB.getProfesseurById(3);
@@ -331,7 +349,9 @@ public class PlayerConnectionHandler implements Runnable {
                 out.println("END");
                 out.flush();
         }
+        */
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit STORY Mode");
+
     }
 
     private void fight() throws InterruptedException, IOException {

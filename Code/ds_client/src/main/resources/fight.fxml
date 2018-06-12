@@ -50,13 +50,21 @@
                 <Pane fx:id="respond" layoutX="3.0" layoutY="556.0" prefHeight="244.0" prefWidth="1000.0">
                     <children>
                         <Label layoutX="34.0" layoutY="14.0" text="repond to the question : " />
-                        <RadioButton fx:id="firstRespond" layoutX="34.0" layoutY="110.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="253.0" text="response1" wrapText="true" />
-                        <RadioButton fx:id="SecondRespond" layoutX="374.0" layoutY="110.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="253.0" text="response2" wrapText="true" />
-                        <RadioButton fx:id="thirstRespond" layoutX="34.0" layoutY="148.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="253.0" text="reponse3" wrapText="true" />
-                        <RadioButton fx:id="fourthRespond" layoutX="374.0" layoutY="145.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="253.0" text="response4" wrapText="true" />
+                        <RadioButton fx:id="firstRespond" layoutX="34.0" layoutY="85.0" mnemonicParsing="false"
+                                     prefHeight="68.0" prefWidth="325.0" text="response1" wrapText="true"
+                                     styleClass="answer"/>
+                        <RadioButton fx:id="SecondRespond" layoutX="374.0" layoutY="81.0" mnemonicParsing="false"
+                                     prefHeight="78.0" prefWidth="314.0" text="response2" wrapText="true"
+                                     styleClass="answer"/>
+                        <RadioButton fx:id="thirstRespond" layoutX="34.0" layoutY="144.0" mnemonicParsing="false"
+                                     prefHeight="68.0" prefWidth="337.0" text="reponse3" wrapText="true"
+                                     styleClass="answer"/>
+                        <RadioButton fx:id="fourthRespond" layoutX="374.0" layoutY="144.0"
+                                     mnemonicParsing="false" prefHeight="78.0" prefWidth="314.0" text="response4"
+                                     wrapText="true" styleClass="answer"/>
                         <Separator layoutY="-5.0" prefHeight="8.0" prefWidth="1000.0" />
                         <Separator layoutX="700.0" layoutY="1.0" orientation="VERTICAL" prefHeight="244.0" prefWidth="6.0" />
-                        <Button fx:id="respondQuestion" layoutX="549.0" layoutY="181.0" mnemonicParsing="false" onAction="#respondToTheQuestion" text="Respond" />
+                        <Button fx:id="respondQuestion" layoutX="549.0" layoutY="201.0" mnemonicParsing="false" onAction="#respondToTheQuestion" text="Respond" />
                         <Button layoutX="803.0" layoutY="184.0" mnemonicParsing="false" onAction="#returnHome" text="Quit" />
                         <Button layoutX="802.0" layoutY="116.0" mnemonicParsing="false" onAction="#Interface_Item" text="Item" />
                         <Button layoutX="796.0" layoutY="40.0" mnemonicParsing="false" onAction="#Interface_Fight_Respond" text="Fight" />

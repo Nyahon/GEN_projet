@@ -16,6 +16,11 @@
     -fx-font-size: 30px;
 }
 
+.answer .text{
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 10px;
+}
+
 .button {
     -fx-background-color:
             linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),

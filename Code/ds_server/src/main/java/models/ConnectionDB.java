@@ -563,6 +563,7 @@ public class ConnectionDB {
 
             String sql = "INSERT INTO professeur VALUES( ?, ?, ?, ?, ?)";
             stmt = c.prepareStatement(sql);
+            stmt.setInt(1,prof.getId());
             stmt.setString(2, prof.getNom());
             stmt.setInt(3, prof.getPv());
             stmt.setInt(4, prof.getNiveau());
@@ -612,5 +613,63 @@ public class ConnectionDB {
         }
 
     }
+
+    public static int getProfesseurNumber() {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        int nbrProfs = 0;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            rs = stmt.executeQuery("SELECT * FROM professeur ;");
+
+            while (rs.next()) {
+                nbrProfs++;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeRessources(c, stmt, rs);
+        }
+        return nbrProfs;
+    }
+
+    public static void deleteProfessorQuestion() {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            int deletedRows = stmt.executeUpdate("DELETE FROM possede WHERE IdJoueur IS NULL ;");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void deleteProfessors() {
+        Connection c = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            c = DriverManager.getConnection(DB_URL);
+            stmt = c.createStatement();
+            System.out.println("Base de données ouverte");
+
+            int deletedRows = stmt.executeUpdate("DELETE FROM professeur;");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }

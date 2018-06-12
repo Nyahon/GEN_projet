@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.*;
@@ -255,10 +256,11 @@ public class JsonCreator {
                 ConnectionDB.addProfessor(new db_Professeur(reponse.path("id").asInt(), reponse.path("Prof").asText(), reponse.path("pv").asInt(), reponse.path("niveau").asInt(), reponse.path("Prof").asText().toLowerCase()+".png" ));
 
                 JsonNode listQuestions = reponse.path("questions");
+
                 Iterator<JsonNode> questions = listQuestions.elements();
 
                 while (questions.hasNext()){
-                    JsonNode quest = elements.next();
+                    JsonNode quest = questions.next();
                     ConnectionDB.assignQuestionToProf(reponse.path("id").asInt(),quest.asInt());
                 }
             }

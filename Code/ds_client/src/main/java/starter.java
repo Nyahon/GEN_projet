@@ -54,9 +54,14 @@ public class starter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        //getConfig();
         port = 4500;
         ip = "localhost";
+        try {
+            getConfig();
+        }
+        catch (Exception e){
+
+        }
         Client client = new Client(ip, port);
 
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));

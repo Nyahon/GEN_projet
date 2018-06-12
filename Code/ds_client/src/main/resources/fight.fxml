@@ -55,7 +55,7 @@
                         <RadioButton fx:id="fourthRespond" layoutX="374.0" layoutY="144.0" mnemonicParsing="false" prefHeight="78.0" prefWidth="314.0" styleClass="answer" text="response4" wrapText="true" />
                         <Separator layoutY="-5.0" prefHeight="8.0" prefWidth="1000.0" />
                         <Separator layoutX="700.0" layoutY="1.0" orientation="VERTICAL" prefHeight="244.0" prefWidth="6.0" />
-                        <Button fx:id="respondQuestion" layoutX="549.0" layoutY="191.0" mnemonicParsing="false" onAction="#respondToTheQuestion" text="Respond" />
+                        <Button fx:id="respondQuestion" layoutX="549.0" layoutY="191.0" mnemonicParsing="false" onAction="#respondToTheQuestion" text="Answer" />
                         <Button layoutX="803.0" layoutY="184.0" mnemonicParsing="false" onAction="#returnHome" text="Quit" />
                         <Button layoutX="802.0" layoutY="116.0" mnemonicParsing="false" onAction="#Interface_Item" text="Item" />
                         <Button layoutX="796.0" layoutY="40.0" mnemonicParsing="false" onAction="#Interface_Fight_Respond" text="Fight" />

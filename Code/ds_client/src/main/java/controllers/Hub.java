@@ -81,7 +81,6 @@ public class Hub extends mainController {
             Stage stage = new Stage();
             stage.setScene(new Scene(fxmlLoader.load()));
             Challenge challenge = fxmlLoader.<Challenge>getController();
-            challenge.initialize();
             stage.show();
 
         } catch (Exception e) {

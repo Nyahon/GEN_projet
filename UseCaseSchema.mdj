@@ -8625,28 +8625,6 @@
 						},
 						{
 							"_type": "UMLNoteView",
-							"_id": "AAAAAAFj9SKCYRhg3z4=",
-							"_parent": {
-								"$ref": "AAAAAAFiSPp8ckBcUEQ="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 0,
-							"top": 0,
-							"width": 70,
-							"height": 40,
-							"autoResize": false,
-							"wordWrap": true
-						},
-						{
-							"_type": "UMLNoteView",
 							"_id": "AAAAAAFj9SYNwbIT558=",
 							"_parent": {
 								"$ref": "AAAAAAFiSPp8ckBcUEQ="

@@ -1,5 +1,6 @@
 package game;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -25,6 +26,7 @@ public class FightStory implements Runnable {
 
         this.player = player;
         this.professeur = professeur;
+        this.player.setNbPV(100);
 
         thread = new Thread(this);
         thread.start();
@@ -41,6 +43,8 @@ public class FightStory implements Runnable {
             inFight = true;
             player.setInFight(true);
             round = 0;
+            int currentQuestion = 0;
+            int nbrQuestions = professeur.getQuestions().size();
 
             while (inFight) {
 
@@ -48,11 +52,9 @@ public class FightStory implements Runnable {
                 // Mode question ou Réponse ?
                 player.setFightMessageIn(Pfight.ANSWER);
 
-                Random generator = new Random();
-                //Question question = ConnectionDB.getQuestionById(generator.nextInt(3) + 1);
                 List<Question> questions = professeur.getQuestions();
-                Question question = questions.get(generator.nextInt(questions.size()));
-
+                Collections.shuffle(questions);
+                Question question = questions.get(currentQuestion % nbrQuestions);
                 // envoie la question du prof au player.
                 player.setFightMessageIn(question.getQuestion());
 

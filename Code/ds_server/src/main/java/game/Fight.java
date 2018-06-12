@@ -22,7 +22,8 @@ public class Fight implements Runnable {
 
     public Fight(Player player1, Player player2) {
 
-
+        player1.setNbPV(100);
+        player2.setNbPV(100);
         // put randomely player in first position to define random beginner
         Random rand = new Random();
         switch (rand.nextInt(2) + 1) {

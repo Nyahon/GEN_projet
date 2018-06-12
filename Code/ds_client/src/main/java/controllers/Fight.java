@@ -175,6 +175,7 @@ public class Fight extends mainController {
             out = new PrintWriter(player.getSocket().getOutputStream());
 
             this.player = player;
+            this.player.setNbPV(100);
 
             Player temp = JsonCreator.readPlayer(in.readLine());
             opponnent.setName(temp.getName());
@@ -536,11 +537,15 @@ public class Fight extends mainController {
                 System.out.println("You won the fight !");
                 winOrLost.setTextFill(Color.GREEN);
                 winOrLost.setText("You won the fight !");
+                out.println(Pfight.WIN);
+                out.flush();
                 break;
             case Pfight.LOST:
                 System.out.println("You lost the fight !");
                 winOrLost.setTextFill(Color.RED);
                 winOrLost.setText("You lost the fight !");
+                out.println(Pfight.LOST);
+                out.flush();
                 break;
         }
     }
@@ -554,6 +559,8 @@ public class Fight extends mainController {
             nextFight(ev);
         }
         else{
+            out.println("continue");
+            out.flush();
             returnHome(ev);
         }
     }

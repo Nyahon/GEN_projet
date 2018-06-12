@@ -1,13 +1,11 @@
 package game;
 
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.prefs.PreferencesFactory;
 
 import Protocol.Pfight;
-import models.ConnectionDB;
-import models.ItemType;
-import models.Player;
-import models.Question;
+import models.*;
 import server.JsonCreator;
 
 
@@ -261,6 +259,7 @@ public class Fight implements Runnable {
 
                         player2.setFightMessageIn(Pfight.END);
                         player2.setFightMessageIn(Pfight.WIN);
+                        winItem(player1,player2);
                     }
                     if (player2.getNbPV() <= 0) {
                         player1.setFightMessageIn(Pfight.END);
@@ -268,6 +267,7 @@ public class Fight implements Runnable {
 
                         player2.setFightMessageIn(Pfight.END);
                         player2.setFightMessageIn(Pfight.LOST);
+                        winItem(player2,player1);
                     }
 
         }
@@ -278,4 +278,26 @@ public class Fight implements Runnable {
         player1.setInFight(false);
         player2.setInFight(false);
     }
+
+    private void winItem(Player loser, Player winner){
+        Item item = null;
+        switch (loser.getType()){
+
+            case Cartesien:
+                item = new Item(ItemType.Livre);
+                break;
+            case Hedoniste:
+                item = new Item(ItemType.Biere);
+                break;
+            case Cynique:
+                item = new Item(ItemType.AntiSeche);
+                break;
+        }
+        winner.addItem(item);
+        LinkedList<Item> items= new LinkedList<>();
+        items.add(item);
+        ConnectionDB.assignItems(items,winner.getId());
+    }
 }
+
+

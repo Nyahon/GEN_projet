@@ -1,14 +1,12 @@
 package game;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
 import Protocol.Pcmd;
 import Protocol.Pfight;
-import models.ConnectionDB;
-import models.ItemType;
-import models.Player;
-import models.Question;
+import models.*;
 import models.db_models.db_Professeur;
 import server.JsonCreator;
 
@@ -142,6 +140,7 @@ public class FightStory implements Runnable {
             if (professeur.getPv() <= 0) {
                 player.setFightMessageIn(Pfight.END);
                 player.setFightMessageIn(Pfight.WIN);
+                winItem(player);
 
             }
 
@@ -152,5 +151,27 @@ public class FightStory implements Runnable {
         }
 
         player.setInFight(false);
+    }
+
+    private void winItem(Player winner){
+        Random random = new Random();
+        int number = random.nextInt(3 - 1 + 1) + 1;
+        Item item = null;
+        switch (number){
+
+            case 1:
+                item = new Item(ItemType.Livre);
+                break;
+            case 2:
+                item = new Item(ItemType.Biere);
+                break;
+            case 3:
+                item = new Item(ItemType.AntiSeche);
+                break;
+        }
+        winner.addItem(item);
+        LinkedList<Item> items= new LinkedList<>();
+        items.add(item);
+        ConnectionDB.assignItems(items,winner.getId());
     }
 }

@@ -156,6 +156,7 @@ public class Fight {
                         break;
 
                     case Pfight.END:
+
                         switch (in.readLine().toUpperCase()) {
                             case Pfight.WIN:
                                 System.out.println("You won the fight !");

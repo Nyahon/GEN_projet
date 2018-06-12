@@ -237,6 +237,8 @@ public class PlayerConnectionHandler implements Runnable {
             fight();
             out.println("END");
             out.flush();
+            //attend un signal si Continue
+            in.readLine();
         }
 
         LOG.log(Level.INFO, "models.Player " + player.getName() + " exit VERSUS Mode");
@@ -324,7 +326,14 @@ public class PlayerConnectionHandler implements Runnable {
             gameEngine.startFightStory(player, prof);
             fight();
 
-            if (idProf == nbrProfs) {
+            String winOrLost = in.readLine();
+            if (idProf == nbrProfs ) {
+                out.println("END");
+                out.flush();
+                //attend un signal si Continue
+                in.readLine();
+            } else if (winOrLost.equals(Pfight.LOST)){
+                idProf--;
                 out.println("END");
                 out.flush();
                 //attend un signal si Continue
@@ -332,6 +341,8 @@ public class PlayerConnectionHandler implements Runnable {
             } else {
                 out.println("CONTINUE");
                 out.flush();
+                //attend un signal si Continue
+                in.readLine();
             }
         }
 
@@ -362,7 +373,6 @@ public class PlayerConnectionHandler implements Runnable {
 
             switch (variable) {
                 case Pfight.ASK:
-                    // TODO COMMENTE POUR TESTS
                     //Choix question du joueur(client)
                     player.setFightMessageOut(in.readLine());
 
@@ -425,10 +435,6 @@ public class PlayerConnectionHandler implements Runnable {
             // Payload état du joueur
             out.println(player.getFightMessageIn());
             out.flush();
-            /*synchronized (this) {
-                wait();
-            }*/
-            //sleep(3000);
         }
         LOG.log(Level.INFO, player.getName() + "EST PLUS EN FIGHT");
         // Envoi de END

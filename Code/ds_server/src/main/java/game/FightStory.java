@@ -25,6 +25,7 @@ public class FightStory implements Runnable {
 
         this.player = player;
         this.professeur = professeur;
+        this.player.setNbPV(100);
 
         thread = new Thread(this);
         thread.start();

@@ -97,6 +97,15 @@ public class mainController {
     @FXML
     protected void initialize() {
         try {
+
+            serverListenPort = 4500;
+            serverAddress = "localhost";
+            try {
+                getConfig();
+            }
+            catch (Exception e){
+
+            }
             socket = new Socket(serverAddress, serverListenPort);
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -302,14 +311,6 @@ public class mainController {
             // load a properties file
             prop.load(input);
 
-            serverListenPort = 4500;
-            serverAddress = "localhost";
-            try {
-                getConfig();
-            }
-            catch (Exception e){
-
-            }
             // get the property value and print it out
             serverAddress = prop.getProperty("host");
             serverListenPort = Integer.parseInt(prop.getProperty("port"));

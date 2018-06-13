@@ -54,8 +54,8 @@ public class starter extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        port = 4500;
-        ip = "localhost";
+        //port = 4500;
+        //ip = "localhost";
         try {
             getConfig();
         }

@@ -97,7 +97,7 @@ public class mainController {
     @FXML
     protected void initialize() {
         try {
-            socket = new Socket("localhost", 4500);
+            socket = new Socket(serverAddress, serverListenPort);
             input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             output = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
 
@@ -290,4 +290,41 @@ public class mainController {
     public static Player getPlayer() {
         return player;
     }
+
+    private void getConfig() {
+        Properties prop = new Properties();
+        InputStream input = null;
+
+        try {
+
+            input = new FileInputStream("config.properties");
+
+            // load a properties file
+            prop.load(input);
+
+            serverListenPort = 4500;
+            serverAddress = "localhost";
+            try {
+                getConfig();
+            }
+            catch (Exception e){
+
+            }
+            // get the property value and print it out
+            serverAddress = prop.getProperty("host");
+            serverListenPort = Integer.parseInt(prop.getProperty("port"));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }
